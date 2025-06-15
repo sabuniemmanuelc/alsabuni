@@ -1,277 +1,384 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-   
+  <!-- --------- UNICONS ---------- -->
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
 
-    <!-- --------- UNICONS ---------- -->
-    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+  <!-- --------- CSS ---------- -->
+  <link rel="stylesheet" href="assets/css/style.css">
 
-    <!-- --------- CSS ---------- -->
-    <link rel="stylesheet" href="assets/css/style.css">
+  <!-- --------- FAVICON ---------- -->
+  <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
 
-    <!-- --------- FAVICON ---------- -->
-    <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
-
-    <title>Sabuni Emmanuel C | Portfolio</title>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script type="text/javascript">
+  <title>Sabuni Emmanuel C | Portfolio</title>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script type="text/javascript">
     (function () {
       emailjs.init("Gosgh5HzCJXw5DECb");
     })();
-    </script>
+  </script>
 </head>
+
 <body>
-   <div class="container">
+  <div class="container">
     <!-- --------------- HEADER --------------- -->
-      <nav id="header">
-        <div class="nav-logo">
-            <p class="nav-name">Al Sabuni</p>
-            <span>.</span>
-        </div>
-        <div class="nav-menu" id="myNavMenu">
-            <ul class="nav_menu_list">
-                <li class="nav_list">
-                    <a href="#home" class="nav-link active-link">Home</a>
-                    <div class="circle"></div>
-                </li>
-                <li class="nav_list">
-                    <a href="#about" class="nav-link">About</a>
-                    <div class="circle"></div>
-                </li>
-                <li class="nav_list">
-                    <a href="#projects" class="nav-link">Projects</a>
-                    <div class="circle"></div>
-                </li>
-                <li class="nav_list">
-                    <a href="#contact" class="nav-link">Contact</a>
-                    <div class="circle"></div>
-                </li>
-            </ul>
-        </div>
-        <div class="nav-button">
-            <button class="btn" onclick="openPDF()">Download CV <i class="uil uil-file-alt"></i></button>
-        </div>
-        <div class="nav-menu-btn">
-            <i class="uil uil-bars" onclick="myMenuFunction()"></i>
-        </div>
-      </nav>
+    <nav id="header">
+      <div class="nav-logo">
+        <p class="nav-name">Al Sabuni</p>
+        <span>.</span>
+      </div>
+      <div class="nav-menu" id="myNavMenu">
+        <ul class="nav_menu_list">
+          <li class="nav_list">
+            <a href="#home" class="nav-link active-link">Home</a>
+            <div class="circle"></div>
+          </li>
+          <li class="nav_list">
+            <a href="#about" class="nav-link">About</a>
+            <div class="circle"></div>
+          </li>
+          <li class="nav_list">
+            <a href="#experience" class="nav-link">Experience</a>
+            <div class="circle"></div>
+          </li>
+          <li class="nav_list">
+            <a href="#projects" class="nav-link">Projects</a>
+            <div class="circle"></div>
+          </li>
+          <li class="nav_list">
+            <a href="#contact" class="nav-link">Contact</a>
+            <div class="circle"></div>
+          </li>
+        </ul>
+      </div>
+      <div class="nav-button">
+        <button class="btn" onclick="openPDF()">Download CV <i class="uil uil-file-alt"></i></button>
+      </div>
+      <div class="nav-menu-btn">
+        <i class="uil uil-bars" onclick="myMenuFunction()"></i>
+      </div>
+    </nav>
 
 
     <!-- -------------- MAIN ---------------- -->
     <main class="wrapper">
-       <!-- -------------- FEATURED BOX ---------------- -->
-       <section class="featured-box" id="home">
-          <div class="featured-text">
-            <div class="featured-text-card">
-                <span>Sabuni Emmanuel C</span>
-            </div>
-            <div class="featured-name">
-                <p>I'm <span class="typedText"></span></p>
-            </div>
-            <div class="featured-text-info">
-                <p>Software Engineer || Data Analyst
-                    AI & M L Researcher || Tutor</p>
-            </div>
-            <div class="featured-text-btn">
-                <button class="btn blue-btn" onclick="openNewTab()">My works</button>
-                <button class="btn"  onclick="openPDF()">Download CV <i class="uil uil-file-alt"></i></button>
-            </div>
-            <div class="social_icons">
-                <a href="https://www.instagram.com/sabuniemmamuelc/?hl=en" target="_blank" class="icon"><i class="uil uil-instagram"></i></a>
-                <a href="https://www.linkedin.com/in/sabuniemmanuelc" target="_blank" class="icon"><i class="uil uil-linkedin-alt"></i></a>
-                <a href="https://dribbble.com/sabuniemmanuelc" target="_blank" class="icon"><i class="uil uil-dribbble"></i></a>
-                <a href="https://github.com/sabuniemmanuelc" target="_blank" class="icon"><i class="uil uil-github-alt"></i></a>
-            </div>
+      <!-- -------------- FEATURED BOX ---------------- -->
+      <section class="featured-box" id="home">
+        <div class="featured-text">
+          <div class="featured-text-card">
+            <span>Sabuni Emmanuel C</span>
           </div>
-          <div class="featured-image">
-            <div class="image">
-                <img src="assets/images/pic.png" alt="avatar">
-            </div>
+          <div class="featured-name">
+            <p>I'm <span class="typedText"></span></p>
           </div>
-          <div class="scroll-icon-box">
-            <a href="#about" class="scroll-btn">
-                <i class="uil uil-mouse-alt"></i>
-                <p>Scroll Down</p>
-            </a>
+          <div class="featured-text-info">
+            <p>Software Engineer || Data Analyst
+              AI & M L Researcher || Tutor</p>
           </div>
-
-       </section>
-       <!-- -------------- ABOUT BOX ---------------- -->
-       <section class="section" id="about">
-          <div class="top-header">
-            <h1>About Me</h1>
+          <div class="featured-text-btn">
+            <button class="btn blue-btn" onclick="openNewTab()">My works</button>
+            <button class="btn" onclick="openPDF()">Download CV <i class="uil uil-file-alt"></i></button>
           </div>
-          <div class="row">
-            <div class="col">
-                <div class="about-info">
-                    <h3>My introduction</h3>
-                    <p>Experienced Software Engineer | Data Analyst. Skilled in SQL, Strategic Planning, Data mining & Analysis, ML Research, and Management. Strong engineering professional with a Bachelor of Science (BSc) focused in Computer Science & a Masters in financial engineering
-                    </p>
-                    <div class="about-btn">
-                        <button class="btn"  onclick="openPDF()">Download CV <i class="uil uil-import"></i></button>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="skills-box">
-                    <div class="skills-header">
-                        <h3>Programming Skills</h3>
-                    </div>
-                    <div class="skills-list">
-                        <span>Java</span>
-                        <span>C++</span>
-                        <span>C#</span>
-                        <span>HTML & CSS</span>
-                        <span>JavaScript</span>
-                        <span>Python</span>
-                        <span>React</span>
-                        <span>PHP</span>
-                        <span>MySQL</span>
-                        <span>PostgreSQL</span>
-                        <span>MongoDB</span>
-                    </div>
-                </div>
-                <div class="skills-box">
-                    <div class="skills-header">
-                        <h3>Finance</h3>
-                    </div>
-                    <div class="skills-list">
-                        <span>Econometrics</span>
-                        <span>Financial Markets</span>
-                        <span>Stochastic Modeling</span>
-                        <span>Derivative Pricing</span>
-                        <span>Portfolio Management</span>
-                        <span>Risk Management</span>
-                        <span>Machine Learning in Finance</span>
-                    </div>
-                </div>
-                <div class="skills-box">
-                    <div class="skills-header">
-                        <h3>Data Science</h3>
-                    </div>
-                    <div class="skills-list">
-                        <span>Data Cleaning & Preprocessing</span>
-                        <span>Data Visualization</span>
-                        <span>Classification Modeling</span>
-                        <span>Regression Analysis</span>
-                        <span>Data Management</span>
-                        <span>Business Insight & Intelligence</span>
-                    </div>
-                </div>
-            </div>
+          <div class="social_icons">
+            <a href="https://www.instagram.com/sabuniemmamuelc/?hl=en" target="_blank" class="icon"><i
+                class="uil uil-instagram"></i></a>
+            <a href="https://www.linkedin.com/in/sabuniemmanuelc" target="_blank" class="icon"><i
+                class="uil uil-linkedin-alt"></i></a>
+            <a href="https://dribbble.com/sabuniemmanuelc" target="_blank" class="icon"><i
+                class="uil uil-dribbble"></i></a>
+            <a href="https://github.com/sabuniemmanuelc" target="_blank" class="icon"><i
+                class="uil uil-github-alt"></i></a>
           </div>
-       </section>
-
-       <!-- -------------- PROJECT BOX ---------------- -->
-
-       <section class="section" id="projects">
-          <div class="top-header">
-              <h1>Projects</h1>
-          </div>
-          <div class="project-container">
-            <div class="project-box">
-                <i class="uil uil-briefcase-alt"></i>
-                <h3>Completed</h3>
-                <label>105+ Finished Projects</label>
-            </div>
-            <div class="project-box">
-                <i class="uil uil-users-alt"></i>
-                <h3>Clients</h3>
-                <label>45+ Happy Clients</label>
-            </div>
-            <div class="project-box">
-                <i class="uil uil-award"></i>
-                <h3>Experience</h3>
-                <label>8+ Years in the field</label>
-            </div>
-          </div>
-          <div class="bottom-header">
-            <button class="btn blue-btn" onclick="openNewTab()">View My Portfolio</button>
         </div>
-       </section>
+        <div class="featured-image">
+          <div class="image">
+            <img src="assets/images/pic.png" alt="avatar">
+          </div>
+        </div>
+        <div class="scroll-icon-box">
+          <a href="#about" class="scroll-btn">
+            <i class="uil uil-mouse-alt"></i>
+            <p>Scroll Down</p>
+          </a>
+        </div>
 
-       <!-- -------------- CONTACT BOX ---------------- -->
-
-       <section class="section" id="contact">
+      </section>
+      <!-- -------------- ABOUT BOX ---------------- -->
+      <section class="section" id="about">
+        <div class="top-header">
+          <h1>About Me</h1>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="about-info">
+              <h3>Emmanuel Sabuni</h3>
+              <h4>Software & Data Engineer | Financial Engineer </h4>
+              <p>Tech professional with a unique blend of expertise in software engineering, data science, and financial
+                engineering. I specialize in designing intelligent systems<br> from AI-enhanced portfolio optimization
+                and national courier platforms to inventory and sales tools for SMEs. I lead innovative projects that
+                span deep reinforcement learning, ESG-driven sustainable finance, and simulation-based economic
+                modeling. My work combines data, code, and strategy to build systems that solve real problems and scale
+                with impact. <br>Whether I’m coding PHP systems for local businesses, researching AI-powered
+                hydroponics, or setting up my Afro-modern café brand La Signature, I’m always focused on one thing:
+                building solutions that move Zambia forward.
+                <br><strong> 📍 Based in Zambia | Open to global collaborations</strong>
+              </p>
+              <div class="about-btn">
+                <button class="btn" onclick="openPDF()">Download CV <i class="uil uil-import"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="skills-box">
+              <div class="skills-header">
+                <h3>Programming Skills</h3>
+              </div>
+              <div class="skills-list">
+                <span>Java</span>
+                <span>C++</span>
+                <span>C#</span>
+                <span>HTML & CSS</span>
+                <span>JavaScript</span>
+                <span>Python</span>
+                <span>React</span>
+                <span>PHP</span>
+                <span>SQL</span>
+                <span>Spring boot</span>
+                <span>Kotlin</span>
+              </div>
+            </div>
+            <div class="skills-box">
+              <div class="skills-header">
+                <h3>Finance</h3>
+              </div>
+              <div class="skills-list">
+                <span>Econometrics</span>
+                <span>Financial Markets</span>
+                <span>Stochastic Modeling</span>
+                <span>Derivative Pricing</span>
+                <span>Portfolio Management</span>
+                <span>Risk Management</span>
+                <span>Machine Learning in Finance</span>
+              </div>
+            </div>
+            <div class="skills-box">
+              <div class="skills-header">
+                <h3>Data Science</h3>
+              </div>
+              <div class="skills-list">
+                <span>Data Cleaning & Preprocessing</span>
+                <span>Data Visualization</span>
+                <span>Classification Modeling</span>
+                <span>Regression Analysis</span>
+                <span>Data Management</span>
+                <span>Business Insight & Intelligence</span>
+                <span>Machine & Deep Learning Model Building</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!--------------------EXPERIENCE + QUALIFICATIONS BOX --------------------->
+      <section class="section" id="experience">
+        <div class="wrapper">
           <div class="top-header">
-            <h1>Get in touch</h1>
-            <span>Do you have a project in your mind, contact me here</span>
+            <h1>Experience & Qualifications</h1>
+            <span>A summary of my career, education, and certifications</span>
           </div>
-          <div class="row">
-             <div class="col">
-                <div class="contact-info">
-                    <h2>Find Me <i class="uil uil-corner-right-down"></i></h2>
-                    <p><i class="uil uil-envelope"></i> Email: sabuni.emmanuelc@gmail.com</p>
-                    <p><i class="uil uil-phone"></i> Tel: +260 978 549730</p>
-                </div>
-             </div>
-             <div class="col">
-                <div class="form-control" id="contact-form">
-                    <div class="form-inputs">
-                        <input type="text" class="input-field" id="name" placeholder="Name">
-                        <input type="text" class="input-field" id="email" placeholder="Email">
-                    </div>
-                    <div class="text-area">
-                        <textarea placeholder="Message" id="message"></textarea>
-                    </div>
-                    <div class="form-button">
-                        <button  class="btn" onclick="sendMail()">Send <i class="uil uil-message"></i></button>
-                    </div>
-                </div>
-             </div>
+
+          <div class="experience-container">
+            <div class="experience-box">
+              <h3>Work Experience</h3>
+              <ul>
+                <li><strong>Senior Data Analyst</strong> - Boxify Tech (2022–Present)</li>
+                <li><strong>Software Developer</strong> - Secbluewave Inc (2017–2019)</li>
+                <li><strong>Tutor (AI & Data)</strong> - ZCAS University (2019–2022)</li>
+              </ul>
+              <a href="https://www.linkedin.com/in/sabuniemmanuelc" target="_blank" class="icon"><i
+                  class="uil uil-linkedin-alt"></i></a>
+            </div>
+
+            <div class="experience-box">
+              <h3>Education</h3>
+              <ul>
+                <li><strong><i class="uil uil-graduation-cap"></i> MSc Financial Engineering</strong> - WorldQuant
+                  University, 2024</li>
+                <li><strong><i class="uil uil-graduation-cap"></i> BSc Computer Science</strong> - Copperbelt
+                  University, 2017</li>
+              </ul>
+            </div>
+
+            <div class="experience-box">
+              <h3>Certifications</h3>
+              <ul>
+                <li><i class="uil uil-amazon"></i> Solutions Architect Associate</li>
+                <li><i class="uil uil-analytics"></i> Applied Data Science II: Machine Learning & Statistical Analysis
+                  (with honors)</li>
+                <li><i class="uil uil-analytics"></i> Applied Data Science I: Scientific Computing & Python (with
+                  honors)</li>
+                <li><i class="uil uil-servers"></i> IBM Python for Data Science</li>
+                <li><i class="uil uil-laptop-cloud"></i> Huawei HCIA-Security</li>
+                <li><i class="uil uil-code-branch"></i> Applied Data Science Lab</li>
+              </ul>
+            </div>
           </div>
-       </section>
+          <div class="experience-container">
+            <div class="experience-box">
+              <h3>Research & School Projects</h3>
+              <h4>Masters Research</h4>
+              <ol>
+                <li><strong>1. Enhancing Dynamic Portfolio Allocation in Finance:</strong> Leveraging Deep Reinforcement
+                  Learning with Risk-Aware Optimization <a href="#"><i class="uil uil-file-graph"></i>View Paper</a>
+                </li>
+                <li><strong>2. AI-Enhanced Sustainable Finance and Risk Management:</strong> Leveraging Advanced
+                  Algorithms for Climate-Aware Investment Strategies <a href="#"><i class="uil uil-file-graph"></i>View
+                    Paper</a> </li>
+                <li><strong>3. The Economic Viability of AI-Powered Hydroponic Farming in Zambia:</strong> A
+                  Simulation-Based Study <a href="#"><i class="uil uil-file-graph"></i>View Paper</a> </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- -------------- PROJECT BOX ---------------- -->
+
+      <section class="section" id="projects">
+        <div class="top-header">
+          <h1>Projects</h1>
+          <span>A showcase of some completed works</span>
+        </div>
+
+        <div class="project-container">
+          <div class="project-box" onclick="openProject()">
+            <i class="uil uil-shopping-cart"></i>
+            <h3>Inventory System – RJT Renewables Ltd</h3>
+            <label>Quotation, invoicing, and sales platform with stock alerts, ZMW currency support, and dashboard
+              analytics.</label>
+          </div>
+          <div class="project-box" onclick="openProject()">
+            <i class="uil uil-shopping-bag"></i>
+            <h3>Shoe Boutique POS & Order System</h3>
+            <label>PHP + MySQL system with inventory, SMS notifications, Excel/PDF exports, QR codes, and
+              tracking.</label>
+          </div>
+          <div class="project-box" onclick="openProject()">
+            <i class="uil uil-truck"></i>
+            <h3>Courier System (Nationwide)</h3>
+            <label>React, Spring Boot & Flutter app for parcel tracking, routing, real-time updates, and database
+              reporting.</label>
+          </div>
+          <div class="project-box" onclick="openProject()">
+            <i class="uil uil-chart-line"></i>
+            <h3>DRL Portfolio Optimization (MSc)</h3>
+            <label>Custom PPO agent for Sharpe-ratio maximized allocation; backtesting with HMM and benchmark
+              evaluation.</label>
+          </div>
+          <div class="project-box" onclick="openProject()">
+            <i class="uil uil-pagelines"></i>
+            <h3>AI-Powered Hydroponics Model</h3>
+            <label>Simulation-based feasibility study of hydroponics in Zambia with NPV, ROI, and AI climate
+              integration.</label>
+          </div>
+          <div class="project-box" onclick="openProject()">
+            <i class="uil uil-gold"></i>
+            <h3>Sustainable Finance Risk Model</h3>
+            <label>AI-driven ESG scoring and risk profiling using sentiment analysis and regulatory risk
+              forecasting.</label>
+          </div>
+        </div>
+      </section>
+
+
+
+      <!-- -------------- CONTACT BOX ---------------- -->
+
+      <section class="section" id="contact">
+        <div class="top-header">
+          <h1>Get in touch</h1>
+          <span>Do you have a project in your mind, contact me here</span>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="contact-info">
+              <h2>Find Me <i class="uil uil-corner-right-down"></i></h2>
+              <p><i class="uil uil-envelope"></i> Email: sabuni.emmanuelc@gmail.com</p>
+              <p><i class="uil uil-phone"></i> Tel: +260 978 549730</p>
+            </div>
+          </div>
+          <div class="col">
+            <form class="form-control" id="contact-form" onsubmit="sendMail(event)">
+  <div class="form-inputs">
+    <input type="text" class="input-field" id="name" placeholder="Name" required>
+    <input type="email" class="input-field" id="email" placeholder="Email" required>
+  </div>
+  <div class="text-area">
+    <textarea placeholder="Message" id="message" required></textarea>
+  </div>
+  <div class="form-button">
+    <button class="btn" type="submit">Send <i class="uil uil-message"></i></button>
+  </div>
+</form>
+
+          </div>
+        </div>
+      </section>
 
     </main>
 
 
     <!-- --------------- FOOTER --------------- -->
     <footer>
-        <div class="top-footer">
-            <p>Sabuni Emmanuel C .</p>
-        </div>
-        <div class="middle-footer">
-            <ul class="footer-menu">
-                <li class="footer_menu_list">
-                    <a href="#home">Home</a>
-                </li>
-                <li class="footer_menu_list">
-                    <a href="#about">About</a>
-                </li>
-                <li class="footer_menu_list">
-                    <a href="#projects">Projects</a>
-                </li>
-                <li class="footer_menu_list">
-                    <a href="#contact">Contact</a>
-                </li>
-            </ul>
-        </div>
-        <div class="footer-social-icons">
-            <a href="https://www.instagram.com/sabuniemmamuelc/?hl=en" target="_blank" class="icon"><i class="uil uil-instagram"></i></a>
-            <a href="https://www.linkedin.com/in/sabuniemmanuelc" target="_blank" class="icon"><i class="uil uil-linkedin-alt"></i></a>
-            <a href="https://dribbble.com/sabuniemmanuelc" target="_blank" class="icon"><i class="uil uil-dribbble"></i></a>
-            <a href="https://github.com/sabuniemmanuelc" target="_blank" class="icon"><i class="uil uil-github-alt"></i></a>
-        </div>
-        <div class="bottom-footer">
-            <p>Copyright &copy; <a href="#home" style="text-decoration: none; color: var(--text-color-third);">Sabuni Emmanuel C</a> - All rights reserved</p>
-        </div>
+      <div class="top-footer">
+        <p>Sabuni Emmanuel C .</p>
+      </div>
+      <div class="middle-footer">
+        <ul class="footer-menu">
+          <li class="footer_menu_list">
+            <a href="#home">Home</a>
+          </li>
+          <li class="footer_menu_list">
+            <a href="#about">About</a>
+          </li>
+          <li class="footer_menu_list">
+            <a href="#projects">Projects</a>
+          </li>
+          <li class="footer_menu_list">
+            <a href="#contact">Contact</a>
+          </li>
+        </ul>
+      </div>
+      <div class="footer-social-icons">
+        <a href="https://www.instagram.com/sabuniemmamuelc/?hl=en" target="_blank" class="icon"><i
+            class="uil uil-instagram"></i></a>
+        <a href="https://www.linkedin.com/in/sabuniemmanuelc" target="_blank" class="icon"><i
+            class="uil uil-linkedin-alt"></i></a>
+        <a href="https://dribbble.com/sabuniemmanuelc" target="_blank" class="icon"><i class="uil uil-dribbble"></i></a>
+        <a href="https://github.com/sabuniemmanuelc" target="_blank" class="icon"><i class="uil uil-github-alt"></i></a>
+      </div>
+      <div class="bottom-footer">
+        <p>Copyright &copy; <a href="#home" style="text-decoration: none; color: var(--text-color-third);">Sabuni
+            Emmanuel C</a> - All rights reserved</p>
+      </div>
     </footer>
 
-    </div>
+  </div>
 
 
 
 
-    <!-- ----- TYPING JS Link ----- -->
-    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+  <!-- ----- TYPING JS Link ----- -->
+  <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
 
-       <!-- ----- SCROLL REVEAL JS Link----- -->
-    <script src="https://unpkg.com/scrollreveal"></script>
+  <!-- ----- SCROLL REVEAL JS Link----- -->
+  <script src="https://unpkg.com/scrollreveal"></script>
 
-    <!-- ----- MAIN JS ----- -->
-    <script src="assets/js/main.js"></script>
+  <!-- ----- MAIN JS ----- -->
+  <script src="assets/js/main.js"></script>
 </body>
+
 </html>
