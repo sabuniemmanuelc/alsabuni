@@ -44,6 +44,13 @@ function sendMail() {
     window.open(pdfPath, '_blank');
 }
 
+  function openProject() {
+  
+    var url = 'https://github.com/sabuniemmanuelc?tab=repositories';
+
+    window.open(url, '_blank');
+}
+
 function openNewTab() {
 
   var url = 'https://github.com/sabuniemmanuelc?tab=repositories';
