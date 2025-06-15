@@ -177,11 +177,11 @@ nav{
     background: #efefef;;
     color: var(--color-black);
     padding: 3px 8px;
-    font-size: 18px;
+    font-size: 28px;
     border-radius: 5px;
 }
 .featured-name{
-    font-size: 50px;
+    font-size: 30px;
     font-weight: 600;
     color: var(--text-color-second);
     margin-block: 20px;
@@ -369,6 +369,57 @@ h3{
     padding: 2px 10px;
     border-radius: 5px;
 }
+/* -------- EXPERIENCE + QUALIFICATIONS BOX ---- */
+.experience-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-top: 3em;
+}
+
+.experience-box {
+    flex: 1;
+    min-width: 280px;
+    background: var(--color-white);
+    box-shadow: 1px 8px 10px 2px var(--first-shadow-color);
+    border-radius: 20px;
+    padding: 30px 25px;
+}
+
+.experience-box h3 {
+    margin-bottom: 15px;
+    color: var(--text-color-second);
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.experience-box ul {
+    list-style: none;
+    padding-left: 0px;
+}
+
+.experience-box ul li {
+    margin-bottom: 10px;
+    font-size: 15px;
+    color: #555;
+}
+
+.experience-box ol {
+    list-style: none;
+    padding-left: 10px;
+}
+
+.experience-box ol li {
+    margin-bottom: 10px;
+    font-size: 15px;
+    color: #555;
+}
+
+.experience-box ol li a{
+    color: rgb(30, 159, 171);
+    text-decoration: none;
+}
 
 /* ----- PROJECTS BOX ----- */
 .project-container{
@@ -390,6 +441,7 @@ h3{
     border-radius: 20px;
     box-shadow: 1px 8px 10px 2px var(--first-shadow-color);
     overflow: hidden;
+    cursor: pointer;
 }
 .project-box>i{
     font-size: 50px;
@@ -419,6 +471,32 @@ h3{
 .project-box:hover.project-box>label{
     color: var(--color-white);
     z-index: 2;
+}
+/* ----- CUSTOM PROJECTS STYLING EXTENSION ----- */
+.project-box h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-color-second);
+    text-align: center;
+    margin-bottom: 10px;
+    padding-inline: 10px;
+}
+
+.project-box label {
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    padding-inline: 15px;
+}
+
+.project-box:hover h3,
+.project-box:hover label {
+    color: var(--color-white);
+}
+
+.project-box i {
+    color: var(--third-color); /* e.g., golden leaf for sustainability */
+    transition: 0.4s;
 }
 
 /* ----- CONTACT BOX ----- */
