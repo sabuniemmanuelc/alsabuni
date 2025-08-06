@@ -51,6 +51,13 @@ function sendMail() {
     window.open(url, '_blank');
 }
 
+  function openProject_MScFE() {
+  
+    var url = 'https://github.com/sabuniemmanuelc/Masters-of-Science-in-Financial-Engineering/blob/main/README.md';
+
+    window.open(url, '_blank');
+}
+
 function openNewTab() {
 
   var url = 'https://github.com/sabuniemmanuelc?tab=repositories';
