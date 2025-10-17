@@ -1,384 +1,462 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- --------- UNICONS ---------- -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sabuni Emmanuel C — Software & Data Engineer | Portfolio</title>
+  <meta name="description" content="Sabuni Emmanuel C — Software & Data Engineer, Financial Engineer, and AI researcher. Portfolio showcasing projects in DRL finance, web systems, national courier platforms, and sustainable tech." />
+  <meta property="og:title" content="Sabuni Emmanuel C — Portfolio" />
+  <meta property="og:description" content="Software & Data Engineer, Financial Engineer, and AI researcher. Explore projects, publications, and contact details." />
+  <meta property="og:type" content="website" />
+  <meta name="author" content="Emmanuel Sabuni" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
-
-  <!-- --------- CSS ---------- -->
-  <link rel="stylesheet" href="assets/css/style.css">
-
-  <!-- --------- FAVICON ---------- -->
-  <link rel="shortcut icon" href="assets/images/alsabuni.ico" type="image/x-icon">
-
-  <title>Sabuni Emmanuel C | Portfolio</title>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   <script type="text/javascript">
     (function () {
       emailjs.init("Gosgh5HzCJXw5DECb");
     })();
   </script>
+  
 </head>
-
 <body>
-  <div class="container">
-    <!-- --------------- HEADER --------------- -->
-    <nav id="header">
-      <div class="nav-logo">
-        <p class="nav-name">Al Sabuni</p>
-        <span>.</span>
+  <header class="container">
+    <div class="nav-wrap">
+      <div class="brand">
+        <div class="cta" aria-hidden>SEC</div>
+        <!--<div>
+          <div style="font-weight:800">Sabuni Emmanuel C</div>
+          <div style="font-size:12px;color:var(--muted)">Software Engineer | Financial Data Engineer</div>
+        </div>-->
       </div>
-      <div class="nav-menu" id="myNavMenu">
-        <ul class="nav_menu_list">
-          <li class="nav_list">
-            <a href="#home" class="nav-link active-link">Home</a>
-            <div class="circle"></div>
-          </li>
-          <li class="nav_list">
-            <a href="#about" class="nav-link">About</a>
-            <div class="circle"></div>
-          </li>
-          <li class="nav_list">
-            <a href="#experience" class="nav-link">Experience</a>
-            <div class="circle"></div>
-          </li>
-          <li class="nav_list">
-            <a href="#projects" class="nav-link">Projects</a>
-            <div class="circle"></div>
-          </li>
-          <li class="nav_list">
-            <a href="#contact" class="nav-link">Contact</a>
-            <div class="circle"></div>
-          </li>
+      <button class="mobile-menu-toggle" aria-label="Toggle menu">☰</button>
+      <nav>
+        <ul id="nav-menu">
+          <li><a href="#home" class="active">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a class="cta" href="#projects" download>Works</a></li>
         </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container" id="home">
+    <section class="hero">
+      <div class="intro">
+        <h1>Hi — I’m Emmanuel Sabuni</h1>
+        <h2>I <span class="typedText"></span></h2>
+        
+      
+        <p class="lead">Software & Data Engineer • Financial Engineer • AI Researcher. I design production-ready systems and research-grade models that solve real problems across finance, agriculture, and local businesses in Zambia and beyond.</p>
+
+        <div class="roles" aria-hidden>
+          <div class="role-pill">Software Engineer</div>
+          <div class="role-pill">Data Scientist</div>
+          <div class="role-pill">Financial Engineer</div>
+          <div class="role-pill">AI Researcher</div>
+          <div class="role-pill">Tutor</div>
+        </div>
+
+        <div class="btn-row">
+          <a class="cta" href="#projects">Explore my work</a>
+          <a class="cta" href="mailto:sabuni.emmanuelc@gmail.com">Email me</a>
+          <a class="cta" href="files/SabuniEmmanuelResume.pdf" download>Download CV</a>
+        </div>
       </div>
-      <div class="nav-button">
-        <button class="btn" onclick="openPDF()">Download CV <i class="uil uil-file-alt"></i></button>
+
+      <aside class="hero-right">
+        <div class="avatar">
+          <img src="files/Emma.jpeg" alt="Emmanuel Sabuni — profile photo" />
+        </div>
+        <div style="text-align:center;color:var(--muted);font-size:13px">Based in Zambia • Open to collaborations</div>
+      </aside>
+    </section>
+
+    <section id="about">
+      <h3 class="section-title">About Me</h3>
+      <div class="card">
+        <p style="margin:0">I’m a software & data engineer with a Master’s in Financial Engineering and a background building production systems and research projects. I’ve built inventory & invoicing platforms for SMEs, Courier systems, and deep reinforcement learning agents for portfolio optimization. I focus on reproducible research, clear engineering, and delivering measurable impact.</p>
+        <div style="height:14px"></div>
+        <div style="display:flex;gap:14px;flex-wrap:wrap">
+          <div style="min-width:220px">
+            <h4 style="margin:0 0 6px">Core Expertise</h4>
+            <div class="skills">
+              <div class="skill">Python</div>
+              <div class="skill">JavaScript</div>
+              <div class="skill">React</div>
+              <div class="skill">PHP / MySQL</div>
+              <div class="skill">Spring Boot</div>
+              <div class="skill">Machine Learning</div>
+              <div class="skill">Deep Reinforcement Learning</div>
+              <div class="skill">Financial Markets</div>
+              <div class="skill">Stochastic Modeling</div>
+              <div class="skill">Derivative Pricing</div>
+              <div class="skill">Portfolio Management</div>
+              <div class="skill">Risk Management</div>
+              <div class="skill">Data Cleaning & Preprocessing</div>
+              <div class="skill">Data Visualization</div>
+              <div class="skill">Business Insight & Intelligence</div>
+              <div class="skill">Classification Modeling</div>
+              <div class="skill">Regression Analysis</div>
+            </div>
+          </div>
+
+          <div style="flex:1">
+            <h4 style="margin:0 0 6px">Approach</h4>
+            <p style="margin:0;color:var(--muted)">I combine rigorous research methods with engineering pragmatism — from reproducible notebooks and backtests to secure API design and production deployment. I document decisions, share code, and prefer clear metrics (Sharpe, ROI, latency) to evaluate outcomes.</p>
+          </div>
+        </div>
       </div>
-      <div class="nav-menu-btn">
-        <i class="uil uil-bars" onclick="myMenuFunction()"></i>
+    </section>
+
+    <section id="experience">
+      <h3 class="section-title">Experience & Education</h3>
+      <div class="grid">
+        <div class="card">
+          <h4 style="margin-top:0">Work Experience</h4>
+          <ul>
+            <li><strong>Senior Data Analyst</strong> — Boxify Tech (2022–Present)</li>
+            <li><strong>Software Developer</strong> — Secbluewave Inc (2017–2019)</li>
+            <li><strong>Tutor (Introduction to computing)</strong> — ZCAS University (2019–2022)</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h4 style="margin-top:0">Education & Certs</h4>
+          <ul>
+            <li><strong>PhD (Candidate) AI & Machine Learning</strong> — ESSUTM, Currently</li>
+            <li><strong>MSc Financial Engineering</strong> — WorldQuant University, 2024</li>
+            <li><strong>BSc Computer Science </strong> — Copperbelt University, 2017</li>
+            <li>Certifications: <strong>AWS SAA, IBM Python for Data Science, Applied Data Science (I & II), Applied Data Science Lab</strong></li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h4 style="margin-top:0">Research Highlights</h4>
+          <ol>
+            <li>Enhancing Dynamic Portfolio Allocation — Deep RL (PPO) + HMM backtests. <a href="https://github.com/sabuniemmanuelc/drl-portfolio-optimization" target="_blank">GitHub</a></li>
+            <li>AI-Enhanced Sustainable Finance — ESG & climate integration. <a href="https://github.com/sabuniemmanuelc/sustainable-finance" target="_blank">GitHub</a></li>
+            <li>AI-Powered Hydroponic Farming feasibility — Simulation & economic modeling. <a href="https://github.com/sabuniemmanuelc/hydroponics-sim" target="_blank">GitHub</a></li>
+          </ol>
+        </div>
       </div>
-    </nav>
+    </section>
 
+    <section id="projects">
+      <h3 class="section-title">Featured Projects</h3>
+      <p style="margin:8px 0 18px;color:var(--muted)">Click any project to view details, challenge & results — or open its GitHub repo.</p>
 
-    <!-- -------------- MAIN ---------------- -->
-    <main class="wrapper">
-      <!-- -------------- FEATURED BOX ---------------- -->
-      <section class="featured-box" id="home">
-        <div class="featured-text">
-          <div class="featured-text-card">
-            <span>Sabuni Emmanuel C</span>
-          </div>
-          <div class="featured-name">
-            <p>I'm <span class="typedText"></span></p>
-          </div>
-          <div class="featured-text-info">
-            <p>Software Engineer || Data Analyst
-              AI & M L Researcher || Tutor</p>
-          </div>
-          <div class="featured-text-btn">
-            <button class="btn blue-btn" onclick="openNewTab()">My works</button>
-            <button class="btn" onclick="openPDF()">Download CV <i class="uil uil-file-alt"></i></button>
-          </div>
-          <div class="social_icons">
-            <a href="https://www.instagram.com/sabuniemmamuelc/?hl=en" target="_blank" class="icon"><i
-                class="uil uil-instagram"></i></a>
-            <a href="https://www.linkedin.com/in/sabuniemmanuelc" target="_blank" class="icon"><i
-                class="uil uil-linkedin-alt"></i></a>
-            <a href="https://dribbble.com/sabuniemmanuelc" target="_blank" class="icon"><i
-                class="uil uil-dribbble"></i></a>
-            <a href="https://github.com/sabuniemmanuelc" target="_blank" class="icon"><i
-                class="uil uil-github-alt"></i></a>
-          </div>
-        </div>
-        <div class="featured-image">
-          <div class="image">
-            <img src="assets/images/pic.png" alt="avatar">
-          </div>
-        </div>
-        <div class="scroll-icon-box">
-          <a href="#about" class="scroll-btn">
-            <i class="uil uil-mouse-alt"></i>
-            <p>Scroll Down</p>
-          </a>
-        </div>
-
-      </section>
-      <!-- -------------- ABOUT BOX ---------------- -->
-      <section class="section" id="about">
-        <div class="top-header">
-          <h1>About Me</h1>
-        </div>
-        <div class="row">
-          <div class="col">
-            <div class="about-info">
-              <h3>Emmanuel Sabuni</h3>
-              <h4>Software & Data Engineer | Financial Engineer </h4>
-              <p>Tech professional with a unique blend of expertise in software engineering, data science, and financial
-                engineering. I specialize in designing intelligent systems<br> from AI-enhanced portfolio optimization
-                and national courier platforms to inventory and sales tools for SMEs. I lead innovative projects that
-                span deep reinforcement learning, ESG-driven sustainable finance, and simulation-based economic
-                modeling. My work combines data, code, and strategy to build systems that solve real problems and scale
-                with impact. <br>Whether I’m coding PHP systems for local businesses, researching AI-powered
-                hydroponics, or setting up my Afro-modern café brand La Signature, I’m always focused on one thing:
-                building solutions that move Zambia forward.
-                <br><strong> 📍 Based in Zambia | Open to global collaborations</strong>
-              </p>
-              <div class="about-btn">
-                <button class="btn" onclick="openPDF()">Download CV <i class="uil uil-import"></i></button>
-              </div>
+      <div class="projects-grid">
+        <!-- Project 1 -->
+        <article class="project-card">
+          <div>
+            <h4 style="margin:0">Personal Portfolio site</h4>
+            <p style="margin:6px 0;color:var(--muted)">Personal website that outlines my skills, experience, projects and education</p>
+            <div class="techs">
+              <span class="tech-badge">HTML</span>
+              <span class="tech-badge">CSS</span>
+              <span class="tech-badge">JS</span>
             </div>
           </div>
-          <div class="col">
-            <div class="skills-box">
-              <div class="skills-header">
-                <h3>Programming Skills</h3>
-              </div>
-              <div class="skills-list">
-                <span>Java</span>
-                <span>C++</span>
-                <span>C#</span>
-                <span>HTML & CSS</span>
-                <span>JavaScript</span>
-                <span>Python</span>
-                <span>React</span>
-                <span>PHP</span>
-                <span>SQL</span>
-                <span>Spring boot</span>
-                <span>Kotlin</span>
-              </div>
-            </div>
-            <div class="skills-box">
-              <div class="skills-header">
-                <h3>Finance</h3>
-              </div>
-              <div class="skills-list">
-                <span>Econometrics</span>
-                <span>Financial Markets</span>
-                <span>Stochastic Modeling</span>
-                <span>Derivative Pricing</span>
-                <span>Portfolio Management</span>
-                <span>Risk Management</span>
-                <span>Machine Learning in Finance</span>
-              </div>
-            </div>
-            <div class="skills-box">
-              <div class="skills-header">
-                <h3>Data Science</h3>
-              </div>
-              <div class="skills-list">
-                <span>Data Cleaning & Preprocessing</span>
-                <span>Data Visualization</span>
-                <span>Classification Modeling</span>
-                <span>Regression Analysis</span>
-                <span>Data Management</span>
-                <span>Business Insight & Intelligence</span>
-                <span>Machine & Deep Learning Model Building</span>
-              </div>
+          <div class="project-meta">
+            <div style="color:var(--muted);font-size:13px">Role: Designer & Developer</div>
+            <div class="project-actions">
+              <button class="btn btn-primary" data-project="rjt">Details</button>
+              <a class="btn" href="https://github.com/sabuniemmanuelc/portfolio_v1" target="_blank">GitHub</a>
             </div>
           </div>
-        </div>
-      </section>
-      <!--------------------EXPERIENCE + QUALIFICATIONS BOX --------------------->
-      <section class="section" id="experience">
-        <div class="wrapper">
-          <div class="top-header">
-            <h1>Experience & Qualifications</h1>
-            <span>A summary of my career, education, and certifications</span>
+        </article>
+
+        <!-- Project 2 -->
+        <article class="project-card">
+          <h4 style="margin:0">Shoe Boutique POS & Order System</h4>
+          <p style="margin:6px 0;color:var(--muted)">Inventory, SMS updates, Excel/PDF exports, order tracking and QR codes.</p>
+          <div class="techs">
+            <span class="tech-badge">PHP</span>
+            <span class="tech-badge">MySQL</span>
+            <span class="tech-badge">Twilio</span>
           </div>
-
-          <div class="experience-container">
-            <div class="experience-box">
-              <h3>Work Experience</h3>
-              <ul>
-                <li><strong>Senior Data Analyst</strong> - Boxify Tech (2022–Present)</li>
-                <li><strong>Software Developer</strong> - Secbluewave Inc (2017–2019)</li>
-                <li><strong>Tutor (AI & Data)</strong> - ZCAS University (2019–2022)</li>
-              </ul>
-              <a href="https://www.linkedin.com/in/sabuniemmanuelc" target="_blank" class="icon"><i
-                  class="uil uil-linkedin-alt"></i></a>
-            </div>
-
-            <div class="experience-box">
-              <h3>Education</h3>
-              <ul>
-                <li><strong><i class="uil uil-graduation-cap"></i> MSc Financial Engineering</strong> - WorldQuant
-                  University, 2024</li>
-                <li><strong><i class="uil uil-graduation-cap"></i> BSc Computer Science</strong> - Copperbelt
-                  University, 2017</li>
-              </ul>
-            </div>
-
-            <div class="experience-box">
-              <h3>Certifications</h3>
-              <ul>
-                <li><i class="uil uil-amazon"></i> Solutions Architect Associate</li>
-                <li><i class="uil uil-analytics"></i> Applied Data Science II: Machine Learning & Statistical Analysis
-                  (with honors)</li>
-                <li><i class="uil uil-analytics"></i> Applied Data Science I: Scientific Computing & Python (with
-                  honors)</li>
-                <li><i class="uil uil-servers"></i> IBM Python for Data Science</li>
-                <li><i class="uil uil-laptop-cloud"></i> Huawei HCIA-Security</li>
-                <li><i class="uil uil-code-branch"></i> Applied Data Science Lab</li>
-              </ul>
+          <div class="project-meta">
+            <div style="color:var(--muted);font-size:13px">Role: Full-stack</div>
+            <div class="project-actions">
+              <button class="btn btn-primary" data-project="shoe">Details</button>
+              <a class="btn" href="https://github.com/sabuniemmanuelc/shoeboutique-pos" target="_blank">GitHub</a>
             </div>
           </div>
-          <div class="experience-container">
-            <div class="experience-box">
-              <h3>Research & School Projects</h3>
-              <h4>Masters Research</h4>
-              <ol>
-                <li><strong>1. Enhancing Dynamic Portfolio Allocation in Finance:</strong> Leveraging Deep Reinforcement
-                  Learning with Risk-Aware Optimization <a href="https://github.com/sabuniemmanuelc/Masters-of-Science-in-Financial-Engineering/blob/main/README.md"><i class="uil uil-file-graph"></i>View Paper</a>
-                </li>
-                <li><strong>2. AI-Enhanced Sustainable Finance and Risk Management:</strong> Leveraging Advanced
-                  Algorithms for Climate-Aware Investment Strategies <a href="#"><i class="uil uil-file-graph"></i>View
-                    Paper</a> </li>
-                <li><strong>3. The Economic Viability of AI-Powered Hydroponic Farming in Zambia:</strong> A
-                  Simulation-Based Study <a href="#"><i class="uil uil-file-graph"></i>View Paper</a> </li>
-              </ol>
+        </article>
+
+        <!-- Project 3 -->
+        <article class="project-card">
+          <h4 style="margin:0">National Courier System</h4>
+          <p style="margin:6px 0;color:var(--muted)">React frontend, Spring Boot backend, Flutter mobile apps for parcel routing & tracking.</p>
+          <div class="techs">
+            <span class="tech-badge">React</span>
+            <span class="tech-badge">Spring Boot</span>
+            <span class="tech-badge">Flutter</span>
+          </div>
+          <div class="project-meta">
+            <div style="color:var(--muted);font-size:13px">Role: System Architect</div>
+            <div class="project-actions">
+              <button class="btn btn-primary" data-project="courier">Details</button>
+              <a class="btn" href="https://github.com/sabuniemmanuelc/national-courier" target="_blank">GitHub</a>
             </div>
           </div>
-        </div>
-      </section>
+        </article>
 
-      <!-- -------------- PROJECT BOX ---------------- -->
-
-      <section class="section" id="projects">
-        <div class="top-header">
-          <h1>Projects</h1>
-          <span>A showcase of some completed works</span>
-        </div>
-
-        <div class="project-container">
-          <div class="project-box" onclick="openProject()">
-            <i class="uil uil-shopping-cart"></i>
-            <h3>Inventory System – RJT Renewables Ltd</h3>
-            <label>Quotation, invoicing, and sales platform with stock alerts, ZMW currency support, and dashboard
-              analytics.</label>
+        <!-- Project 4 -->
+        <article class="project-card">
+          <h4 style="margin:0">DRL Portfolio Optimization (MSc)</h4>
+          <p style="margin:6px 0;color:var(--muted)">PPO agent optimizing Sharpe ratio, HMM for regime detection, robust backtests vs. benchmarks.</p>
+          <div class="techs">
+            <span class="tech-badge">Python</span>
+            <span class="tech-badge">PyTorch</span>
+            <span class="tech-badge">HMM</span>
           </div>
-          <div class="project-box" onclick="openProject()">
-            <i class="uil uil-shopping-bag"></i>
-            <h3>Shoe Boutique POS & Order System</h3>
-            <label>PHP + MySQL system with inventory, SMS notifications, Excel/PDF exports, QR codes, and
-              tracking.</label>
-          </div>
-          <div class="project-box" onclick="openProject()">
-            <i class="uil uil-truck"></i>
-            <h3>Courier System (Nationwide)</h3>
-            <label>React, Spring Boot & Flutter app for parcel tracking, routing, real-time updates, and database
-              reporting.</label>
-          </div>
-          <div class="project-box" onclick="openProject_MScFE()">
-            <i class="uil uil-chart-line"></i>
-            <h3>DRL Portfolio Optimization (MSc)</h3>
-            <label>Custom PPO agent for Sharpe-ratio maximized allocation; backtesting with HMM and benchmark
-              evaluation.</label>
-          </div>
-          <div class="project-box" onclick="openProject()">
-            <i class="uil uil-pagelines"></i>
-            <h3>AI-Powered Hydroponics Model</h3>
-            <label>Simulation-based feasibility study of hydroponics in Zambia with NPV, ROI, and AI climate
-              integration.</label>
-          </div>
-          <div class="project-box" onclick="openProject()">
-            <i class="uil uil-gold"></i>
-            <h3>Sustainable Finance Risk Model</h3>
-            <label>AI-driven ESG scoring and risk profiling using sentiment analysis and regulatory risk
-              forecasting.</label>
-          </div>
-        </div>
-      </section>
-
-
-
-      <!-- -------------- CONTACT BOX ---------------- -->
-
-      <section class="section" id="contact">
-        <div class="top-header">
-          <h1>Get in touch</h1>
-          <span>Do you have a project in your mind, contact me here</span>
-        </div>
-        <div class="row">
-          <div class="col">
-            <div class="contact-info">
-              <h2>Find Me <i class="uil uil-corner-right-down"></i></h2>
-              <p><i class="uil uil-envelope"></i> Email: sabuni.emmanuelc@gmail.com</p>
-              <p><i class="uil uil-phone"></i> Tel: +260 978 549730</p>
+          <div class="project-meta">
+            <div style="color:var(--muted);font-size:13px">Role: Researcher / Author</div>
+            <div class="project-actions">
+              <button class="btn btn-primary" data-project="drl">Details</button>
+              <a class="btn" href="https://github.com/sabuniemmanuelc/drl-portfolio-optimization" target="_blank">GitHub</a>
             </div>
           </div>
-          <div class="col">
-            <form class="form-control" id="contact-form" onsubmit="sendMail(event)">
-  <div class="form-inputs">
-    <input type="text" class="input-field" id="name" placeholder="Name" required>
-    <input type="email" class="input-field" id="email" placeholder="Email" required>
-  </div>
-  <div class="text-area">
-    <textarea placeholder="Message" id="message" required></textarea>
-  </div>
-  <div class="form-button">
-    <button class="btn" type="submit">Send <i class="uil uil-message"></i></button>
-  </div>
-</form>
+        </article>
 
+        <!-- Project 5 -->
+        <article class="project-card">
+          <h4 style="margin:0">AI-Powered Hydroponics Model</h4>
+          <p style="margin:6px 0;color:var(--muted)">Simulation-based feasibility with NPV/ROI analysis and climate-aware AI modules.</p>
+          <div class="techs">
+            <span class="tech-badge">SimPy</span>
+            <span class="tech-badge">NumPy</span>
+            <span class="tech-badge">Agent-based</span>
           </div>
-        </div>
-      </section>
+          <div class="project-meta">
+            <div style="color:var(--muted);font-size:13px">Role: Lead Researcher</div>
+            <div class="project-actions">
+              <button class="btn btn-primary" data-project="hydro">Details</button>
+              <a class="btn" href="https://github.com/sabuniemmanuelc/hydroponics-sim" target="_blank">GitHub</a>
+            </div>
+          </div>
+        </article>
 
-    </main>
+        <!-- Project 6 -->
+        <article class="project-card">
+          <h4 style="margin:0">Sustainable Finance Risk Model</h4>
+          <p style="margin:6px 0;color:var(--muted)">ESG scoring, sentiment analysis and regulatory risk forecasting for climate-aware portfolios.</p>
+          <div class="techs">
+            <span class="tech-badge">NLP</span>
+            <span class="tech-badge">Scikit-learn</span>
+            <span class="tech-badge">Pandas</span>
+          </div>
+          <div class="project-meta">
+            <div style="color:var(--muted);font-size:13px">Role: Data Scientist</div>
+            <div class="project-actions">
+              <button class="btn btn-primary" data-project="sust">Details</button>
+              <a class="btn" href="https://github.com/sabuniemmanuelc/sustainable-finance" target="_blank">GitHub</a>
+            </div>
+          </div>
+        </article>
 
-
-    <!-- --------------- FOOTER --------------- -->
-    <footer>
-      <div class="top-footer">
-        <p>Sabuni Emmanuel C .</p>
       </div>
-      <div class="middle-footer">
-        <ul class="footer-menu">
-          <li class="footer_menu_list">
-            <a href="#home">Home</a>
-          </li>
-          <li class="footer_menu_list">
-            <a href="#about">About</a>
-          </li>
-          <li class="footer_menu_list">
-            <a href="#projects">Projects</a>
-          </li>
-          <li class="footer_menu_list">
-            <a href="#contact">Contact</a>
-          </li>
-        </ul>
-      </div>
-      <div class="footer-social-icons">
+    </section>
+
+    <section id="contact">
+      <h3 class="section-title">Get in touch</h3>
+      <div class="card contact-grid">
+        <div>
+          <p style="margin:0 0 12px;color:var(--muted)">Have a project, research idea or collaboration? Send a quick message and I'll get back to you.</p>
+          <form id="contact-form" onsubmit="sendMail(event)">
+            <input class="input" id="name" placeholder="Your name" required />
+            <div style="height:8px"></div>
+            <input class="input" id="email" type="email" placeholder="Your email" required />
+            <div style="height:8px"></div>
+            <textarea id="message" placeholder="Tell me about your project" required></textarea>
+            <div style="height:12px"></div>
+            <button type="submit" class="btn btn-primary">Send message</button>
+          </form>
+        </div>
+
+        <aside>
+          <div style="margin-bottom:12px"><strong>Find me</strong></div>
+          <div style="color:var(--muted);margin-bottom:8px">Email: <a href="mailto:sabuni.emmanuelc@gmail.com">sabuni.emmanuelc@gmail.com</a></div>
+          <div style="color:var(--muted);margin-bottom:8px">Phone: +260 978 549730</div>
+          <div style="color:var(--muted);margin-bottom:8px">Location: Lusaka, Zambia</div>
+          <div style="display:flex;gap:8px;margin-top:12px" class="footer-social-icons"> 
+            
         <a href="https://www.instagram.com/sabuniemmamuelc/?hl=en" target="_blank" class="icon"><i
             class="uil uil-instagram"></i></a>
         <a href="https://www.linkedin.com/in/sabuniemmanuelc" target="_blank" class="icon"><i
             class="uil uil-linkedin-alt"></i></a>
         <a href="https://dribbble.com/sabuniemmanuelc" target="_blank" class="icon"><i class="uil uil-dribbble"></i></a>
         <a href="https://github.com/sabuniemmanuelc" target="_blank" class="icon"><i class="uil uil-github-alt"></i></a>
+      
+          </div>
+        </aside>
       </div>
-      <div class="bottom-footer">
-        <p>Copyright &copy; <a href="#home" style="text-decoration: none; color: var(--text-color-third);">Sabuni
-            Emmanuel C</a> - All rights reserved</p>
-      </div>
-    </footer>
+    </section>
 
+  </main>
+
+  <!-- Modal (project details) -->
+  <div id="modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-card" role="document">
+      <div class="modal-header">
+        <div>
+          <h3 id="modalTitle">Project title</h3>
+          <div id="modalSubtitle" style="color:var(--muted)">Short subtitle</div>
+        </div>
+        <button aria-label="close" onclick="closeModal()" style="background:none;border:none;font-weight:800;font-size:18px">✕</button>
+      </div>
+      <div id="modalBody" style="margin-top:12px;color:var(--muted)">Project details...</div>
+      <div style="margin-top:18px;display:flex;gap:8px;justify-content:flex-end">
+        <a id="modalGit" class="btn" href="#" target="_blank">View GitHub</a>
+        <button class="btn btn-primary" onclick="closeModal()">Close</button>
+      </div>
+    </div>
   </div>
 
+  <footer>
+    <div class="container">
+      <div style="margin-bottom:8px">© Sabuni Emmanuel C — Built with clarity & impact</div>
+      <div style="font-size:12px;color:var(--muted)">Last updated: Oct 16, 2025</div>
+    </div>
+  </footer>
 
+  <script>
+    // Mobile menu toggle
+    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    
+    if (mobileMenuToggle && navMenu) {
+      mobileMenuToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+      });
+      
+      // Close mobile menu when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('.nav-wrap') && navMenu.classList.contains('active')) {
+          navMenu.classList.remove('active');
+        }
+      });
+    }
 
+    // Smooth scroll & active nav
+    document.querySelectorAll('nav a').forEach(a=>{
+      a.addEventListener('click', e=>{
+        if(a.getAttribute('href').startsWith('#')){
+          e.preventDefault();
+          document.querySelectorAll('nav a').forEach(x=>x.classList.remove('active'));
+          a.classList.add('active');
+          document.querySelector(a.getAttribute('href')).scrollIntoView({behavior:'smooth',block:'start'});
+          
+          // Close mobile menu after clicking a link
+          if (navMenu && navMenu.classList.contains('active')) {
+            navMenu.classList.remove('active');
+          }
+        }
+      })
+    })
 
-  <!-- ----- TYPING JS Link ----- -->
+    // Project details data (expanded descriptions)
+    const PROJECTS = {
+      rjt: {
+        title:'Personal Portfolio Website',
+        subtitle:'Personal website that outlines my skills, experience, projects and education',
+        body:`<p><strong>Problem:</strong> I needed a lightweight portfolio website to showcase my skills, projects and research.</p>
+        <p><strong>Solution:</strong> Built an HTML/CSS/JS single page system, hosted on github with a personalised domain name. for my clients to read more about my projects and research works</p>
+        <p><strong>Outcome:</strong> Improved way of marketing my skills. The system supports sending email about project and hosts my resume that people can easy download.</p>` ,
+        git:'https://github.com/sabuniemmanuelc/portfolio_v1'
+      },
+      shoe: {
+        title:'Shoe Boutique POS & Order System',
+        subtitle:'POS system with SMS notifications & QR tracking',
+        body:`<p><strong>Problem:</strong> A small boutique required a simple POS and order-tracking workflow with SMS notifications for customers.</p>
+        <p><strong>Solution:</strong> Built with PHP & MySQL; integrated SMS (Twilio) for order updates, QR codes for pick-ups, PDF/Excel export for reports and low-stock notifications.</p>
+        <p><strong>Outcome:</strong> Improved customer communications and faster collection times; added analytics for best-selling items.</p>`,
+        git:'https://github.com/sabuniemmanuelc/shoeboutique-pos'
+      },
+      courier: {
+        title:'National Courier System',
+        subtitle:'Full-stack solution for nationwide parcel tracking and routing',
+        body:`<p><strong>Problem:</strong> Need for a reliable parcel tracking & routing platform covering web and mobile.</p>
+        <p><strong>Solution:</strong> Designed a React frontend, Spring Boot APIs, and Flutter mobile apps. Implemented real-time status updates, route optimization, and admin dashboards for reporting.</p>
+        <p><strong>Outcome:</strong> Scalable microservice architecture with comprehensive tracking and reporting features.</p>`,
+        git:'https://github.com/sabuniemmanuelc/national-courier'
+      },
+      drl: {
+        title:'DRL Portfolio Optimization (MSc)',
+        subtitle:'PPO agent for risk-aware dynamic allocation',
+        body:`<p><strong>Problem:</strong> Static allocation strategies fail under regime shifts and non-stationarity.</p>
+        <p><strong>Solution:</strong> Developed a Proximal Policy Optimization (PPO) agent with risk-aware reward shaping to maximize Sharpe ratio. Used Hidden Markov Models (HMM) for regime detection and robust backtesting.</p>
+        <p><strong>Outcome:</strong> Demonstrated improved risk-adjusted returns vs. classical benchmarks in backtests. Code and notebooks are reproducible.</p>`,
+        git:'https://github.com/sabuniemmanuelc/drl-portfolio-optimization'
+      },
+      hydro: {
+        title:'AI-Powered Hydroponics Model',
+        subtitle:'Simulation & economic feasibility for hydroponics in Zambia',
+        body:`<p><strong>Problem:</strong> Assessing economic viability of hydroponics under local climate and supply constraints.</p>
+        <p><strong>Solution:</strong> Built agent-based simulations with NPV & ROI calculations, and incorporated climate AI models to predict yield sensitivity.</p>
+        <p><strong>Outcome:</strong> Scenario analysis showing viable setups under certain capital and supply chain assumptions; generated policy and investment recommendations.</p>`,
+        git:'https://github.com/sabuniemmanuelc/hydroponics-sim'
+      },
+      sust: {
+        title:'Sustainable Finance Risk Model',
+        subtitle:'ESG scoring, sentiment & regulatory risk for climate-aware portfolios',
+        body:`<p><strong>Problem:</strong> Integrating unstructured ESG & regulatory signals into portfolio risk frameworks.</p>
+        <p><strong>Solution:</strong> Built NLP pipelines for ESG & news sentiment, integrated with scoring models and forecasting layers to quantify regulatory risk.</p>
+        <p><strong>Outcome:</strong> Improved risk monitoring dashboards and decision support for climate-aware investing.</p>`,
+        git:'https://github.com/sabuniemmanuelc/sustainable-finance'
+      }
+    };
+
+    // Hook project detail buttons
+    document.querySelectorAll('.project-card .btn').forEach(btn=>{
+      const key = btn.dataset.project;
+      if(!key) return;
+      btn.addEventListener('click', ()=>openModal(key));
+    });
+
+    // Modal functions
+    function openModal(key){
+      const p = PROJECTS[key];
+      if(!p) return;
+      document.getElementById('modalTitle').textContent = p.title;
+      document.getElementById('modalSubtitle').textContent = p.subtitle;
+      document.getElementById('modalBody').innerHTML = p.body;
+      document.getElementById('modalGit').href = p.git;
+      const modal = document.getElementById('modal');
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal(){
+      const modal = document.getElementById('modal');
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    // Contact form handler
+    function handleContact(e){
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const message = document.getElementById('message').value;
+      alert(`Thanks ${name}! I'll get back to you soon at ${email}.`);
+      e.target.reset();
+      return false;
+    }
+  </script>
+
+    <!-- ----- TYPING JS Link ----- -->
   <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
-
-  <!-- ----- SCROLL REVEAL JS Link----- -->
-  <script src="https://unpkg.com/scrollreveal"></script>
-
-  <!-- ----- MAIN JS ----- -->
-  <script src="assets/js/main.js"></script>
+  <script src="js/main.js"></script>
 </body>
-
 </html>
