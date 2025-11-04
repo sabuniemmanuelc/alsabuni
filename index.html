@@ -272,7 +272,7 @@
       <div class="card contact-grid">
         <div>
           <p style="margin:0 0 12px;color:var(--muted)">Have a project, research idea or collaboration? Send a quick message and I'll get back to you.</p>
-          <form id="contact-form">
+          <form id="contact-form" onsubmit="sendMail(event)">
             <input class="input" id="name" placeholder="Your name" required />
             <div style="height:8px"></div>
             <input class="input" id="email" type="email" placeholder="Your email" required />
