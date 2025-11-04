@@ -15,7 +15,7 @@
     project: document.getElementById("message").value,
   };
 
-  const serviceID = "service_kx4tmdn";
+  const serviceID = "service_8xt0rlq";
   const templateID = "template_ym9ghe3";
 
     emailjs.send(serviceID, templateID, params)
