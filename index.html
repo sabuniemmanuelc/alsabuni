@@ -9,65 +9,137 @@
   <meta property="og:description" content="Software & Data Engineer, Financial Engineer, and AI researcher. Explore projects, publications, and contact details." />
   <meta property="og:type" content="website" />
   <meta name="author" content="Emmanuel Sabuni" />
+  
+  <!-- Multilingual meta tags -->
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ar_SA">
+  <meta property="og:locale:alternate" content="ru_RU">
+  <meta property="og:locale:alternate" content="pt_BR">
+  <meta property="og:locale:alternate" content="fr_FR">
+  <meta property="og:locale:alternate" content="zh_CN">
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Cairo:wght@400;600;700&family=Noto+Sans+Arabic:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
-   <link rel="shortcut icon" href="assets/images/alsabuni.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="assets/images/alsabuni.ico" type="image/x-icon">
   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   <script type="text/javascript">
     (function () {
       emailjs.init("A-3o-VBuAgGLmXoU5");
     })();
   </script>
   
+  <!-- Language Switcher CSS -->
+  <style>
+    /* Language Switcher Styles */
+    .language-switcher {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 10px 15px;
+      border-radius: 25px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    
+    .lang-btn {
+      background: #2c3e50;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      margin: 0 2px;
+      cursor: pointer;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    
+    .lang-btn:hover {
+      background: #3498db;
+      transform: translateY(-2px);
+    }
+    
+    .lang-btn.active {
+      background: #e74c3c;
+      box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
+    }
+    
+    /* RTL Support */
+    html[dir="rtl"] .language-switcher {
+      right: auto;
+      left: 20px;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .language-switcher {
+        top: 10px;
+        right: 10px;
+        padding: 8px 12px;
+      }
+      
+      html[dir="rtl"] .language-switcher {
+        right: auto;
+        left: 10px;
+      }
+      
+      .lang-btn {
+        padding: 4px 8px;
+        font-size: 12px;
+        margin: 1px;
+      }
+    }
+  </style>
+  
 </head>
 <body>
   <header class="container">
     <div class="nav-wrap">
       <div class="brand">
-        <div class="cta" aria-hidden>SEC</div>
-        <!--<div>
-          <div style="font-weight:800">Sabuni Emmanuel C</div>
-          <div style="font-size:12px;color:var(--muted)">Software Engineer | Financial Data Engineer</div>
-        </div>-->
+        <div class="cta" aria-hidden>SABUNI EMMANUEL C</div>
       </div>
       <button class="mobile-menu-toggle" aria-label="Toggle menu">☰</button>
       <nav>
         <ul id="nav-menu">
-          <li><a href="#home" class="active">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#experience">Experience</a></li>
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#contact">Contact</a></li>
-          <li><a class="cta" href="#projects" download>Works</a></li>
+          <li><a href="#home" class="active" data-translate="nav_home">Home</a></li>
+          <li><a href="#about" data-translate="nav_about">About</a></li>
+          <li><a href="#experience" data-translate="nav_experience">Experience</a></li>
+          <li><a href="#projects" data-translate="nav_projects">Projects</a></li>
+          <li><a href="#contact" data-translate="nav_contact">Contact</a></li>
+          <li><a class="cta" href="#projects" download data-translate="nav_works">Works</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
+  <!-- Language Switcher will be inserted here by JavaScript -->
+
   <main class="container" id="home">
     <section class="hero">
       <div class="intro">
-        <h1>Hi — I’m Emmanuel Sabuni</h1>
-        <h2>I <span class="typedText"></span></h2>
+        <h1 data-translate="hero_hi">Hi — I'm Emmanuel Sabuni</h1>
+        <h2><span data-translate="hero_i_am">I am a</span> <span class="typedText"></span></h2>
         
-      
-        <p class="lead">Software & Data Engineer • Financial Engineer • AI Researcher. I design production-ready systems and research-grade models that solve real problems across finance, agriculture, and local businesses in Zambia and beyond.</p>
+        <p class="lead" data-translate="hero_lead">Software & Data Engineer • Financial Engineer • AI Researcher. I design production-ready systems and research-grade models that solve real problems across finance, agriculture, and local businesses in Zambia and beyond.</p>
 
         <div class="roles" aria-hidden>
-          <div class="role-pill">Software Engineer</div>
-          <div class="role-pill">Data Scientist</div>
-          <div class="role-pill">Financial Engineer</div>
-          <div class="role-pill">AI Researcher</div>
-          <div class="role-pill">Tutor</div>
+          <div class="role-pill" data-translate="role_pill_1">Software Engineer</div>
+          <div class="role-pill" data-translate="role_pill_2">Data Scientist</div>
+          <div class="role-pill" data-translate="role_pill_3">Financial Engineer</div>
+          <div class="role-pill" data-translate="role_pill_4">AI Researcher</div>
+          <div class="role-pill" data-translate="role_pill_5">Tutor</div>
         </div>
 
         <div class="btn-row">
-          <a class="cta" href="#projects">Explore my work</a>
-          <a class="cta" href="mailto:sabuni.emmanuelc@gmail.com">Email me</a>
-          <a class="cta" href="assets/files/SabuniEmmanuelResume.pdf" download>Download CV</a>
+          <a class="cta" href="#projects" data-translate="btn_explore">Explore my work</a>
+          <a class="cta" href="mailto:sabuni.emmanuelc@gmail.com" data-translate="btn_email">Email me</a>
+          <a class="cta" href="assets/files/SabuniEmmanuelResume.pdf" download data-translate="btn_cv">Download CV</a>
         </div>
       </div>
 
@@ -75,90 +147,90 @@
         <div class="avatar">
           <img src="assets/images/Emma.jpeg" alt="Emmanuel Sabuni — profile photo" />
         </div>
-        <div style="text-align:center;color:var(--muted);font-size:13px">Based in Zambia • Open to collaborations</div>
+        <div style="text-align:center;color:var(--muted);font-size:13px" data-translate="based_in">Based in Zambia • Open to collaborations</div>
       </aside>
     </section>
 
     <section id="about">
-      <h3 class="section-title">About Me</h3>
+      <h3 class="section-title" data-translate="about_title">About Me</h3>
       <div class="card">
-        <p style="margin:0">I’m a software & data engineer with a Master’s in Financial Engineering and a background building production systems and research projects. I’ve built inventory & invoicing platforms for SMEs, Courier systems, and deep reinforcement learning agents for portfolio optimization. I focus on reproducible research, clear engineering, and delivering measurable impact.</p>
+        <p style="margin:0" data-translate="about_para">I'm a software & data engineer with a Master's in Financial Engineering and a background building production systems and research projects. I've built inventory & invoicing platforms for SMEs, Courier systems, and deep reinforcement learning agents for portfolio optimization. I focus on reproducible research, clear engineering, and delivering measurable impact.</p>
         <div style="height:14px"></div>
         <div style="display:flex;gap:14px;flex-wrap:wrap">
           <div style="min-width:220px">
-            <h4 style="margin:0 0 6px">Core Expertise</h4>
+            <h4 style="margin:0 0 6px" data-translate="core_expertise">Core Expertise</h4>
             <div class="skills">
-              <div class="skill">Python</div>
-              <div class="skill">JavaScript</div>
-              <div class="skill">React</div>
-              <div class="skill">PHP / MySQL</div>
-              <div class="skill">Spring Boot</div>
-              <div class="skill">Machine Learning</div>
-              <div class="skill">Deep Reinforcement Learning</div>
-              <div class="skill">Financial Markets</div>
-              <div class="skill">Stochastic Modeling</div>
-              <div class="skill">Derivative Pricing</div>
-              <div class="skill">Portfolio Management</div>
-              <div class="skill">Risk Management</div>
-              <div class="skill">Data Cleaning & Preprocessing</div>
-              <div class="skill">Data Visualization</div>
-              <div class="skill">Business Insight & Intelligence</div>
-              <div class="skill">Classification Modeling</div>
-              <div class="skill">Regression Analysis</div>
+              <div class="skill" data-translate="skill_1">Python</div>
+              <div class="skill" data-translate="skill_2">JavaScript</div>
+              <div class="skill" data-translate="skill_3">React</div>
+              <div class="skill" data-translate="skill_4">PHP / MySQL</div>
+              <div class="skill" data-translate="skill_5">Spring Boot</div>
+              <div class="skill" data-translate="skill_6">Machine Learning</div>
+              <div class="skill" data-translate="skill_7">Deep Reinforcement Learning</div>
+              <div class="skill" data-translate="skill_8">Financial Markets</div>
+              <div class="skill" data-translate="skill_9">Stochastic Modeling</div>
+              <div class="skill" data-translate="skill_10">Derivative Pricing</div>
+              <div class="skill" data-translate="skill_11">Portfolio Management</div>
+              <div class="skill" data-translate="skill_12">Risk Management</div>
+              <div class="skill" data-translate="skill_13">Data Cleaning & Preprocessing</div>
+              <div class="skill" data-translate="skill_14">Data Visualization</div>
+              <div class="skill" data-translate="skill_15">Business Insight & Intelligence</div>
+              <div class="skill" data-translate="skill_16">Classification Modeling</div>
+              <div class="skill" data-translate="skill_17">Regression Analysis</div>
             </div>
           </div>
 
           <div style="flex:1">
-            <h4 style="margin:0 0 6px">Approach</h4>
-            <p style="margin:0;color:var(--muted)">I combine rigorous research methods with engineering pragmatism — from reproducible notebooks and backtests to secure API design and production deployment. I document decisions, share code, and prefer clear metrics (Sharpe, ROI, latency) to evaluate outcomes.</p>
+            <h4 style="margin:0 0 6px" data-translate="approach_title">Approach</h4>
+            <p style="margin:0;color:var(--muted)" data-translate="approach_para">I combine rigorous research methods with engineering pragmatism — from reproducible notebooks and backtests to secure API design and production deployment. I document decisions, share code, and prefer clear metrics (Sharpe, ROI, latency) to evaluate outcomes.</p>
           </div>
         </div>
       </div>
     </section>
 
     <section id="experience">
-      <h3 class="section-title">Experience & Education</h3>
+      <h3 class="section-title" data-translate="exp_title">Experience & Education</h3>
       <div class="grid">
         <div class="card">
-          <h4 style="margin-top:0">Work Experience</h4>
+          <h4 style="margin-top:0" data-translate="work_exp">Work Experience</h4>
           <ul>
-            <li><strong>Senior Data Analyst</strong> — Boxify Tech (2022–Present)</li>
-            <li><strong>Software Developer</strong> — Secbluewave Inc (2017–2019)</li>
-            <li><strong>Tutor (Introduction to computing)</strong> — ZCAS University (2019–2022)</li>
+            <li data-translate="work_1"><strong>Senior Data Analyst</strong> — Boxify Tech (2022–Present)</li>
+            <li data-translate="work_2"><strong>Software Developer</strong> — Secbluewave Inc (2017–2019)</li>
+            <li data-translate="work_3"><strong>Tutor (Introduction to computing)</strong> — ZCAS University (2019–2022)</li>
           </ul>
         </div>
 
         <div class="card">
-          <h4 style="margin-top:0">Education & Certs</h4>
+          <h4 style="margin-top:0" data-translate="education">Education & Certs</h4>
           <ul>
-            <li><strong>PhD (Candidate) AI & Machine Learning</strong> — ESSUTM, Currently</li>
-            <li><strong>MSc Financial Engineering</strong> — WorldQuant University, 2024</li>
-            <li><strong>BSc Computer Science </strong> — Copperbelt University, 2017</li>
-            <li>Certifications: <strong>AWS SAA, IBM Python for Data Science, Applied Data Science (I & II), Applied Data Science Lab</strong></li>
+            <li data-translate="edu_1"><strong>PhD (Candidate) AI & Machine Learning</strong> — ESSUTM, Currently</li>
+            <li data-translate="edu_2"><strong>MSc Financial Engineering</strong> — WorldQuant University, 2024</li>
+            <li data-translate="edu_3"><strong>BSc Computer Science </strong> — Copperbelt University, 2017</li>
+            <li data-translate="edu_4">Certifications: <strong>AWS SAA, IBM Python for Data Science, Applied Data Science (I & II), Applied Data Science Lab</strong></li>
           </ul>
         </div>
 
         <div class="card">
-          <h4 style="margin-top:0">Research Highlights</h4>
+          <h4 style="margin-top:0" data-translate="research_title">Research Highlights</h4>
           <ol>
-            <li>Enhancing Dynamic Portfolio Allocation — Deep RL (PPO) + HMM backtests. <a href="https://arxiv.org/pdf/2511.11481" target="_blank">Read</a></li>
-            <li>AI-Enhanced Sustainable Finance — ESG & climate integration. <a href="https://github.com/sabuniemmanuelc/sustainable-finance" target="_blank">GitHub</a></li>
-            <li>AI-Powered Hydroponic Farming feasibility — Simulation & economic modeling. <a href="https://github.com/sabuniemmanuelc/hydroponics-sim" target="_blank">GitHub</a></li>
+            <li data-translate="research_1">Enhancing Dynamic Portfolio Allocation — Deep RL (PPO) + HMM backtests. <a href="https://arxiv.org/pdf/2511.11481" target="_blank" data-translate="read">Read</a></li>
+            <li data-translate="research_2">AI-Enhanced Sustainable Finance — ESG & climate integration. <a href="https://github.com/sabuniemmanuelc/sustainable-finance" target="_blank" data-translate="read">Read</a></li>
+            <li data-translate="research_3">AI-Powered Hydroponic Farming feasibility — Simulation & economic modeling. <a href="https://github.com/sabuniemmanuelc/hydroponics-sim" target="_blank" data-translate="read">Read</a></li>
           </ol>
         </div>
       </div>
     </section>
 
     <section id="projects">
-      <h3 class="section-title">Featured Projects</h3>
-      <p style="margin:8px 0 18px;color:var(--muted)">Click any project to view details, challenge & results — or open its GitHub repo.</p>
+      <h3 class="section-title" data-translate="projects_title">Featured Projects</h3>
+      <p style="margin:8px 0 18px;color:var(--muted)" data-translate="projects_sub">Click any project to view details, challenge & results — or open its GitHub repo.</p>
 
       <div class="projects-grid">
         <!-- Project 1 -->
         <article class="project-card">
           <div>
-            <h4 style="margin:0">Personal Portfolio site</h4>
-            <p style="margin:6px 0;color:var(--muted)">Personal website that outlines my skills, experience, projects and education</p>
+            <h4 style="margin:0" data-translate="proj_1_title">Personal Portfolio site</h4>
+            <p style="margin:6px 0;color:var(--muted)" data-translate="proj_1_desc">Personal website that outlines my skills, experience, projects and education</p>
             <div class="techs">
               <span class="tech-badge">HTML</span>
               <span class="tech-badge">CSS</span>
@@ -166,9 +238,9 @@
             </div>
           </div>
           <div class="project-meta">
-            <div style="color:var(--muted);font-size:13px">Role: Designer & Developer</div>
+            <div style="color:var(--muted);font-size:13px" data-translate="proj_1_role">Role: Designer & Developer</div>
             <div class="project-actions">
-              <button class="btn btn-primary" data-project="rjt">Details</button>
+              <button class="btn btn-primary" data-project="rjt" data-translate="btn_details">Details</button>
               <a class="btn" href="https://github.com/sabuniemmanuelc/portfolio_v1" target="_blank">GitHub</a>
             </div>
           </div>
@@ -176,17 +248,17 @@
 
         <!-- Project 2 -->
         <article class="project-card">
-          <h4 style="margin:0">Shoe Boutique POS & Order System</h4>
-          <p style="margin:6px 0;color:var(--muted)">Inventory, SMS updates, Excel/PDF exports, order tracking and QR codes.</p>
+          <h4 style="margin:0" data-translate="proj_2_title">Shoe Boutique POS & Order System</h4>
+          <p style="margin:6px 0;color:var(--muted)" data-translate="proj_2_desc">Inventory, SMS updates, Excel/PDF exports, order tracking and QR codes.</p>
           <div class="techs">
             <span class="tech-badge">PHP</span>
             <span class="tech-badge">MySQL</span>
             <span class="tech-badge">Twilio</span>
           </div>
           <div class="project-meta">
-            <div style="color:var(--muted);font-size:13px">Role: Full-stack</div>
+            <div style="color:var(--muted);font-size:13px" data-translate="proj_2_role">Role: Full-stack</div>
             <div class="project-actions">
-              <button class="btn btn-primary" data-project="shoe">Details</button>
+              <button class="btn btn-primary" data-project="shoe" data-translate="btn_details">Details</button>
               <a class="btn" href="https://github.com/sabuniemmanuelc/shoe-boutique-system" target="_blank">GitHub</a>
             </div>
           </div>
@@ -194,17 +266,17 @@
 
         <!-- Project 3 -->
         <article class="project-card">
-          <h4 style="margin:0">National Courier System</h4>
-          <p style="margin:6px 0;color:var(--muted)">React frontend, Spring Boot backend, Flutter mobile apps for parcel routing & tracking.</p>
+          <h4 style="margin:0" data-translate="proj_3_title">National Courier System</h4>
+          <p style="margin:6px 0;color:var(--muted)" data-translate="proj_3_desc">React frontend, Spring Boot backend, Flutter mobile apps for parcel routing & tracking.</p>
           <div class="techs">
             <span class="tech-badge">React</span>
             <span class="tech-badge">Spring Boot</span>
             <span class="tech-badge">Flutter</span>
           </div>
           <div class="project-meta">
-            <div style="color:var(--muted);font-size:13px">Role: System Architect</div>
+            <div style="color:var(--muted);font-size:13px" data-translate="proj_3_role">Role: System Architect</div>
             <div class="project-actions">
-              <button class="btn btn-primary" data-project="courier">Details</button>
+              <button class="btn btn-primary" data-project="courier" data-translate="btn_details">Details</button>
               <a class="btn" href="https://github.com/sabuniemmanuelc/national-courier" target="_blank">GitHub</a>
             </div>
           </div>
@@ -212,35 +284,35 @@
 
         <!-- Project 4 -->
         <article class="project-card">
-          <h4 style="margin:0">DRL Portfolio Optimization (MSc)</h4>
-          <p style="margin:6px 0;color:var(--muted)">PPO agent optimizing Sharpe ratio, HMM for regime detection, robust backtests vs. benchmarks.</p>
+          <h4 style="margin:0" data-translate="proj_4_title">DRL Portfolio Optimization (MSc)</h4>
+          <p style="margin:6px 0;color:var(--muted)" data-translate="proj_4_desc">PPO agent optimizing Sharpe ratio, HMM for regime detection, robust backtests vs. benchmarks.</p>
           <div class="techs">
             <span class="tech-badge">Python</span>
             <span class="tech-badge">PyTorch</span>
             <span class="tech-badge">HMM</span>
           </div>
           <div class="project-meta">
-            <div style="color:var(--muted);font-size:13px">Role: Researcher / Author</div>
+            <div style="color:var(--muted);font-size:13px" data-translate="proj_4_role">Role: Researcher / Author</div>
             <div class="project-actions">
-              <button class="btn btn-primary" data-project="drl">Details</button>
-              <a class="btn" href="https://arxiv.org/pdf/2511.11481" target="_blank">Paper</a>
+              <button class="btn btn-primary" data-project="drl" data-translate="btn_details">Details</button>
+              <a class="btn" href="https://arxiv.org/pdf/2511.11481" target="_blank" data-translate="btn_paper">Paper</a>
             </div>
           </div>
         </article>
 
         <!-- Project 5 -->
         <article class="project-card">
-          <h4 style="margin:0">AI-Powered Hydroponics Model</h4>
-          <p style="margin:6px 0;color:var(--muted)">Simulation-based feasibility with NPV/ROI analysis and climate-aware AI modules.</p>
+          <h4 style="margin:0" data-translate="proj_5_title">AI-Powered Hydroponics Model</h4>
+          <p style="margin:6px 0;color:var(--muted)" data-translate="proj_5_desc">Simulation-based feasibility with NPV/ROI analysis and climate-aware AI modules.</p>
           <div class="techs">
             <span class="tech-badge">SimPy</span>
             <span class="tech-badge">NumPy</span>
             <span class="tech-badge">Agent-based</span>
           </div>
           <div class="project-meta">
-            <div style="color:var(--muted);font-size:13px">Role: Lead Researcher</div>
+            <div style="color:var(--muted);font-size:13px" data-translate="proj_5_role">Role: Lead Researcher</div>
             <div class="project-actions">
-              <button class="btn btn-primary" data-project="hydro">Details</button>
+              <button class="btn btn-primary" data-project="hydro" data-translate="btn_details">Details</button>
               <a class="btn" href="https://github.com/sabuniemmanuelc/hydroponics-sim" target="_blank">GitHub</a>
             </div>
           </div>
@@ -248,60 +320,58 @@
 
         <!-- Project 6 -->
         <article class="project-card">
-          <h4 style="margin:0">Sustainable Finance Risk Model</h4>
-          <p style="margin:6px 0;color:var(--muted)">ESG scoring, sentiment analysis and regulatory risk forecasting for climate-aware portfolios.</p>
+          <h4 style="margin:0" data-translate="proj_6_title">Sustainable Finance Risk Model</h4>
+          <p style="margin:6px 0;color:var(--muted)" data-translate="proj_6_desc">ESG scoring, sentiment analysis and regulatory risk forecasting for climate-aware portfolios.</p>
           <div class="techs">
             <span class="tech-badge">NLP</span>
             <span class="tech-badge">Scikit-learn</span>
             <span class="tech-badge">Pandas</span>
           </div>
           <div class="project-meta">
-            <div style="color:var(--muted);font-size:13px">Role: Data Scientist</div>
+            <div style="color:var(--muted);font-size:13px" data-translate="proj_6_role">Role: Data Scientist</div>
             <div class="project-actions">
-              <button class="btn btn-primary" data-project="sust">Details</button>
+              <button class="btn btn-primary" data-project="sust" data-translate="btn_details">Details</button>
               <a class="btn" href="https://github.com/sabuniemmanuelc/sustainable-finance" target="_blank">GitHub</a>
             </div>
           </div>
         </article>
-
       </div>
     </section>
 
     <section id="contact">
-      <h3 class="section-title">Get in touch</h3>
+      <h3 class="section-title" data-translate="contact_title">Get in touch</h3>
       <div class="card contact-grid">
         <div>
-          <p style="margin:0 0 12px;color:var(--muted)">Have a project, research idea or collaboration? Send a quick message and I'll get back to you.</p>
+          <p style="margin:0 0 12px;color:var(--muted)" data-translate="contact_desc">Have a project, research idea or collaboration? Send a quick message and I'll get back to you.</p>
           <form id="contact-form" onsubmit="sendMail(event)">
-            <input class="input" id="name" placeholder="Your name" required />
+            <input class="input" id="name" placeholder="Your name" data-translate-placeholder="form_name" required />
             <div style="height:8px"></div>
-            <input class="input" id="email" type="email" placeholder="Your email" required />
+            <input class="input" id="email" type="email" placeholder="Your email" data-translate-placeholder="form_email" required />
             <div style="height:8px"></div>
-            <textarea id="message" placeholder="Tell me about your project" required></textarea>
+            <textarea id="message" placeholder="Tell me about your project" data-translate-placeholder="form_message" required></textarea>
             <div style="height:12px"></div>
-            <button type="submit" class="btn btn-primary">Send message</button>
+            <button type="submit" class="btn btn-primary" data-translate="btn_send">Send message</button>
           </form>
         </div>
 
         <aside>
-          <div style="margin-bottom:12px"><strong>Find me</strong></div>
+          <div style="margin-bottom:12px"><strong data-translate="find_me">Find me</strong></div>
           <div style="color:var(--muted);margin-bottom:8px">Email: <a href="mailto:sabuni.emmanuelc@gmail.com">sabuni.emmanuelc@gmail.com</a></div>
-          <div style="color:var(--muted);margin-bottom:8px">Phone: +260 978 549730</div>
-          <div style="color:var(--muted);margin-bottom:8px">Location: Lusaka, Zambia</div>
+          <div style="color:var(--muted);margin-bottom:8px">
+            <span data-translate="phone_label">Phone:</span> <span data-translate="phone">+260 978 549730</span>
+          </div>
+          <div style="color:var(--muted);margin-bottom:8px">
+            <span data-translate="location_label">Location:</span> <span data-translate="location">Lusaka, Zambia</span>
+          </div>
           <div style="display:flex;gap:8px;margin-top:12px" class="footer-social-icons"> 
-            
-        <a href="https://www.instagram.com/sabuniemmamuelc/?hl=en" target="_blank" class="icon"><i
-            class="uil uil-instagram"></i></a>
-        <a href="https://www.linkedin.com/in/sabuniemmanuelc" target="_blank" class="icon"><i
-            class="uil uil-linkedin-alt"></i></a>
-        <a href="https://dribbble.com/sabuniemmanuelc" target="_blank" class="icon"><i class="uil uil-dribbble"></i></a>
-        <a href="https://github.com/sabuniemmanuelc" target="_blank" class="icon"><i class="uil uil-github-alt"></i></a>
-      
+            <a href="https://www.instagram.com/sabuniemmamuelc/?hl=en" target="_blank" class="icon"><i class="uil uil-instagram"></i></a>
+            <a href="https://www.linkedin.com/in/sabuniemmanuelc" target="_blank" class="icon"><i class="uil uil-linkedin-alt"></i></a>
+            <a href="https://dribbble.com/sabuniemmanuelc" target="_blank" class="icon"><i class="uil uil-dribbble"></i></a>
+            <a href="https://github.com/sabuniemmanuelc" target="_blank" class="icon"><i class="uil uil-github-alt"></i></a>
           </div>
         </aside>
       </div>
     </section>
-
   </main>
 
   <!-- Modal (project details) -->
@@ -316,19 +386,20 @@
       </div>
       <div id="modalBody" style="margin-top:12px;color:var(--muted)">Project details...</div>
       <div style="margin-top:18px;display:flex;gap:8px;justify-content:flex-end">
-        <a id="modalGit" class="btn" href="#" target="_blank">View GitHub</a>
-        <button class="btn btn-primary" onclick="closeModal()">Close</button>
+        <a id="modalGit" class="btn" href="#" target="_blank" data-translate="modal_view_github">View GitHub</a>
+        <button class="btn btn-primary" onclick="closeModal()" data-translate="modal_close">Close</button>
       </div>
     </div>
   </div>
 
   <footer>
     <div class="container">
-      <div style="margin-bottom:8px">© Sabuni Emmanuel C — Built with clarity & impact</div>
-      <div style="font-size:12px;color:var(--muted)">Last updated: Oct 16, 2025</div>
+      <div style="margin-bottom:8px" data-translate="footer_copyright">© Sabuni Emmanuel C — Built with clarity & impact</div>
+      <div style="font-size:12px;color:var(--muted)" data-translate="footer_updated">Last updated: Oct 16, 2025</div>
     </div>
   </footer>
 
+  <!-- Update the PROJECTS object in your script to include translations -->
   <script>
     // Mobile menu toggle
     const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
@@ -364,54 +435,42 @@
       })
     })
 
-    // Project details data (expanded descriptions)
+    // Project details data (expanded descriptions) - UPDATED FOR TRANSLATIONS
     const PROJECTS = {
       rjt: {
-        title:'Personal Portfolio Website',
-        subtitle:'Personal website that outlines my skills, experience, projects and education',
-        body:`<p><strong>Problem:</strong> I needed a lightweight portfolio website to showcase my skills, projects and research.</p>
-        <p><strong>Solution:</strong> Built an HTML/CSS/JS single page system, hosted on github with a personalised domain name. for my clients to read more about my projects and research works</p>
-        <p><strong>Outcome:</strong> Improved way of marketing my skills. The system supports sending email about project and hosts my resume that people can easy download.</p>` ,
+        titleKey: 'proj_1_title',
+        subtitleKey: 'proj_1_desc',
+        bodyKey: 'project_1_details',
         git:'https://github.com/sabuniemmanuelc/portfolio_v1'
       },
       shoe: {
-        title:'Shoe Boutique POS & Order System',
-        subtitle:'POS system with SMS notifications & QR tracking',
-        body:`<p><strong>Problem:</strong> A small boutique required a simple POS and order-tracking workflow with SMS notifications for customers.</p>
-        <p><strong>Solution:</strong> Built with PHP & MySQL; integrated SMS (Twilio) for order updates, QR codes for pick-ups, PDF/Excel export for reports and low-stock notifications.</p>
-        <p><strong>Outcome:</strong> Improved customer communications and faster collection times; added analytics for best-selling items.</p>`,
+        titleKey: 'proj_2_title',
+        subtitleKey: 'proj_2_desc',
+        bodyKey: 'project_2_details',
         git:'https://github.com/sabuniemmanuelc/shoeboutique-pos'
       },
       courier: {
-        title:'National Courier System',
-        subtitle:'Full-stack solution for nationwide parcel tracking and routing',
-        body:`<p><strong>Problem:</strong> Need for a reliable parcel tracking & routing platform covering web and mobile.</p>
-        <p><strong>Solution:</strong> Designed a React frontend, Spring Boot APIs, and Flutter mobile apps. Implemented real-time status updates, route optimization, and admin dashboards for reporting.</p>
-        <p><strong>Outcome:</strong> Scalable microservice architecture with comprehensive tracking and reporting features.</p>`,
+        titleKey: 'proj_3_title',
+        subtitleKey: 'proj_3_desc',
+        bodyKey: 'project_3_details',
         git:'https://github.com/sabuniemmanuelc/national-courier'
       },
       drl: {
-        title:'DRL Portfolio Optimization (MSc)',
-        subtitle:'PPO agent for risk-aware dynamic allocation',
-        body:`<p><strong>Problem:</strong> Static allocation strategies fail under regime shifts and non-stationarity.</p>
-        <p><strong>Solution:</strong> Developed a Proximal Policy Optimization (PPO) agent with risk-aware reward shaping to maximize Sharpe ratio. Used Hidden Markov Models (HMM) for regime detection and robust backtesting.</p>
-        <p><strong>Outcome:</strong> Demonstrated improved risk-adjusted returns vs. classical benchmarks in backtests. Code and notebooks are reproducible.</p>`,
+        titleKey: 'proj_4_title',
+        subtitleKey: 'proj_4_desc',
+        bodyKey: 'project_4_details',
         git:'https://github.com/sabuniemmanuelc/Masters-of-Science-in-Financial-Engineering'
       },
       hydro: {
-        title:'AI-Powered Hydroponics Model',
-        subtitle:'Simulation & economic feasibility for hydroponics in Zambia',
-        body:`<p><strong>Problem:</strong> Assessing economic viability of hydroponics under local climate and supply constraints.</p>
-        <p><strong>Solution:</strong> Built agent-based simulations with NPV & ROI calculations, and incorporated climate AI models to predict yield sensitivity.</p>
-        <p><strong>Outcome:</strong> Scenario analysis showing viable setups under certain capital and supply chain assumptions; generated policy and investment recommendations.</p>`,
+        titleKey: 'proj_5_title',
+        subtitleKey: 'proj_5_desc',
+        bodyKey: 'project_5_details',
         git:'https://github.com/sabuniemmanuelc/hydroponics-sim'
       },
       sust: {
-        title:'Sustainable Finance Risk Model',
-        subtitle:'ESG scoring, sentiment & regulatory risk for climate-aware portfolios',
-        body:`<p><strong>Problem:</strong> Integrating unstructured ESG & regulatory signals into portfolio risk frameworks.</p>
-        <p><strong>Solution:</strong> Built NLP pipelines for ESG & news sentiment, integrated with scoring models and forecasting layers to quantify regulatory risk.</p>
-        <p><strong>Outcome:</strong> Improved risk monitoring dashboards and decision support for climate-aware investing.</p>`,
+        titleKey: 'proj_6_title',
+        subtitleKey: 'proj_6_desc',
+        bodyKey: 'project_6_details',
         git:'https://github.com/sabuniemmanuelc/sustainable-finance'
       }
     };
@@ -423,18 +482,68 @@
       btn.addEventListener('click', ()=>openModal(key));
     });
 
-    // Modal functions
+    // Modal functions - UPDATED FOR TRANSLATIONS
     function openModal(key){
       const p = PROJECTS[key];
       if(!p) return;
-      document.getElementById('modalTitle').textContent = p.title;
-      document.getElementById('modalSubtitle').textContent = p.subtitle;
-      document.getElementById('modalBody').innerHTML = p.body;
+      
+      const currentLang = localStorage.getItem('preferred-language') || 'en';
+      const translations = window.translations || {};
+      const t = translations[currentLang] || translations['en'] || {};
+      
+      document.getElementById('modalTitle').textContent = t[p.titleKey] || p.titleKey;
+      document.getElementById('modalSubtitle').textContent = t[p.subtitleKey] || p.subtitleKey;
+      
+      // Get translated body content
+      let bodyContent = '';
+      if (p.bodyKey && t[p.bodyKey]) {
+        bodyContent = t[p.bodyKey];
+      } else {
+        // Fallback to original content
+        bodyContent = getDefaultProjectBody(key, t);
+      }
+      
+      document.getElementById('modalBody').innerHTML = bodyContent;
       document.getElementById('modalGit').href = p.git;
+      
       const modal = document.getElementById('modal');
       modal.classList.add('open');
       modal.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
+    }
+
+    function getDefaultProjectBody(key, t) {
+      const problem = t['problem'] || 'Problem';
+      const solution = t['solution'] || 'Solution';
+      const outcome = t['outcome'] || 'Outcome';
+      
+      const bodies = {
+        rjt: `<p><strong>${problem}:</strong> I needed a lightweight portfolio website to showcase my skills, projects and research.</p>
+        <p><strong>${solution}:</strong> Built an HTML/CSS/JS single page system, hosted on github with a personalised domain name. for my clients to read more about my projects and research works</p>
+        <p><strong>${outcome}:</strong> Improved way of marketing my skills. The system supports sending email about project and hosts my resume that people can easy download.</p>`,
+        
+        shoe: `<p><strong>${problem}:</strong> A small boutique required a simple POS and order-tracking workflow with SMS notifications for customers.</p>
+        <p><strong>${solution}:</strong> Built with PHP & MySQL; integrated SMS (Twilio) for order updates, QR codes for pick-ups, PDF/Excel export for reports and low-stock notifications.</p>
+        <p><strong>${outcome}:</strong> Improved customer communications and faster collection times; added analytics for best-selling items.</p>`,
+        
+        courier: `<p><strong>${problem}:</strong> Need for a reliable parcel tracking & routing platform covering web and mobile.</p>
+        <p><strong>${solution}:</strong> Designed a React frontend, Spring Boot APIs, and Flutter mobile apps. Implemented real-time status updates, route optimization, and admin dashboards for reporting.</p>
+        <p><strong>${outcome}:</strong> Scalable microservice architecture with comprehensive tracking and reporting features.</p>`,
+        
+        drl: `<p><strong>${problem}:</strong> Static allocation strategies fail under regime shifts and non-stationarity.</p>
+        <p><strong>${solution}:</strong> Developed a Proximal Policy Optimization (PPO) agent with risk-aware reward shaping to maximize Sharpe ratio. Used Hidden Markov Models (HMM) for regime detection and robust backtesting.</p>
+        <p><strong>${outcome}:</strong> Demonstrated improved risk-adjusted returns vs. classical benchmarks in backtests. Code and notebooks are reproducible.</p>`,
+        
+        hydro: `<p><strong>${problem}:</strong> Assessing economic viability of hydroponics under local climate and supply constraints.</p>
+        <p><strong>${solution}:</strong> Built agent-based simulations with NPV & ROI calculations, and incorporated climate AI models to predict yield sensitivity.</p>
+        <p><strong>${outcome}:</strong> Scenario analysis showing viable setups under certain capital and supply chain assumptions; generated policy and investment recommendations.</p>`,
+        
+        sust: `<p><strong>${problem}:</strong> Integrating unstructured ESG & regulatory signals into portfolio risk frameworks.</p>
+        <p><strong>${solution}:</strong> Built NLP pipelines for ESG & news sentiment, integrated with scoring models and forecasting layers to quantify regulatory risk.</p>
+        <p><strong>${outcome}:</strong> Improved risk monitoring dashboards and decision support for climate-aware investing.</p>`
+      };
+      
+      return bodies[key] || 'Project details...';
     }
 
     function closeModal(){
@@ -444,20 +553,58 @@
       document.body.style.overflow = '';
     }
 
-    // Contact form handler
-    function handleContact(e){
-      e.preventDefault();
+    // Contact form handler - UPDATED FOR TRANSLATIONS
+    function sendMail(event){
+      event.preventDefault();
       const name = document.getElementById('name').value;
       const email = document.getElementById('email').value;
       const message = document.getElementById('message').value;
-      alert(`Thanks ${name}! I'll get back to you soon at ${email}.`);
-      e.target.reset();
+      
+      const currentLang = localStorage.getItem('preferred-language') || 'en';
+      const translations = window.translations || {};
+      const t = translations[currentLang] || translations['en'] || {};
+      const successMsg = t['email_success'] || "Thanks! I'll get back to you soon.";
+      
+      alert(successMsg);
+      event.target.reset();
       return false;
     }
   </script>
 
-    <!-- ----- TYPING JS Link ----- -->
+  <!-- Add project detail translations to translations.js -->
+  <script>
+    // Add these to your translations.js file under each language
+    const projectDetails = {
+      project_1_details: `<p><strong>Problem:</strong> I needed a lightweight portfolio website to showcase my skills, projects and research.</p>
+      <p><strong>Solution:</strong> Built an HTML/CSS/JS single page system, hosted on github with a personalised domain name. for my clients to read more about my projects and research works</p>
+      <p><strong>Outcome:</strong> Improved way of marketing my skills. The system supports sending email about project and hosts my resume that people can easy download.</p>`,
+      
+      project_2_details: `<p><strong>Problem:</strong> A small boutique required a simple POS and order-tracking workflow with SMS notifications for customers.</p>
+      <p><strong>Solution:</strong> Built with PHP & MySQL; integrated SMS (Twilio) for order updates, QR codes for pick-ups, PDF/Excel export for reports and low-stock notifications.</p>
+      <p><strong>Outcome:</strong> Improved customer communications and faster collection times; added analytics for best-selling items.</p>`,
+      
+      project_3_details: `<p><strong>Problem:</strong> Need for a reliable parcel tracking & routing platform covering web and mobile.</p>
+      <p><strong>Solution:</strong> Designed a React frontend, Spring Boot APIs, and Flutter mobile apps. Implemented real-time status updates, route optimization, and admin dashboards for reporting.</p>
+      <p><strong>Outcome:</strong> Scalable microservice architecture with comprehensive tracking and reporting features.</p>`,
+      
+      project_4_details: `<p><strong>Problem:</strong> Static allocation strategies fail under regime shifts and non-stationarity.</p>
+      <p><strong>Solution:</strong> Developed a Proximal Policy Optimization (PPO) agent with risk-aware reward shaping to maximize Sharpe ratio. Used Hidden Markov Models (HMM) for regime detection and robust backtesting.</p>
+      <p><strong>Outcome:</strong> Demonstrated improved risk-adjusted returns vs. classical benchmarks in backtests. Code and notebooks are reproducible.</p>`,
+      
+      project_5_details: `<p><strong>Problem:</strong> Assessing economic viability of hydroponics under local climate and supply constraints.</p>
+      <p><strong>Solution:</strong> Built agent-based simulations with NPV & ROI calculations, and incorporated climate AI models to predict yield sensitivity.</p>
+      <p><strong>Outcome:</strong> Scenario analysis showing viable setups under certain capital and supply chain assumptions; generated policy and investment recommendations.</p>`,
+      
+      project_6_details: `<p><strong>Problem:</strong> Integrating unstructured ESG & regulatory signals into portfolio risk frameworks.</p>
+      <p><strong>Solution:</strong> Built NLP pipelines for ESG & news sentiment, integrated with scoring models and forecasting layers to quantify regulatory risk.</p>
+      <p><strong>Outcome:</strong> Improved risk monitoring dashboards and decision support for climate-aware investing.</p>`
+    };
+  </script>
+
+  <!-- ----- TYPING JS Link ----- -->
   <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
   <script src="assets/js/main.js"></script>
+  <!-- Add translations.js AFTER main.js -->
+  <script src="assets/js/translations.js"></script>
 </body>
 </html>
