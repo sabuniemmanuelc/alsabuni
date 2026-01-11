@@ -368,3 +368,60 @@
       }
     }
   
+/* RTL Support */
+html[dir="rtl"] {
+    direction: rtl;
+    text-align: right;
+}
+
+html[dir="rtl"] .nav-wrap {
+    flex-direction: row-reverse;
+}
+
+html[dir="rtl"] .hero {
+    flex-direction: row-reverse;
+}
+
+html[dir="rtl"] .hero-right {
+    margin-left: 0;
+    margin-right: 40px;
+}
+
+html[dir="rtl"] .btn-row {
+    justify-content: flex-start;
+}
+
+html[dir="rtl"] .contact-grid {
+    flex-direction: row-reverse;
+}
+
+html[dir="rtl"] .footer-social-icons {
+    justify-content: flex-start;
+}
+
+html[dir="rtl"] .projects-grid {
+    text-align: right;
+}
+
+html[dir="rtl"] .project-actions {
+    justify-content: flex-start;
+}
+
+html[dir="rtl"] .modal-header {
+    flex-direction: row-reverse;
+}
+
+html[dir="rtl"] .modal-card div:last-child {
+    justify-content: flex-start;
+}
+
+/* Adjust margins for RTL */
+html[dir="rtl"] .ml-2 {
+    margin-left: 0;
+    margin-right: 0.5rem;
+}
+
+html[dir="rtl"] .mr-2 {
+    margin-right: 0;
+    margin-left: 0.5rem;
+}
