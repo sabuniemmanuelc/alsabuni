@@ -1,44 +1,79 @@
-// assets/js/main.js - Update this file
+// assets/js/main.js
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize Typed.js with translations
-    const initTyped = () => {
-        const currentLang = localStorage.getItem('preferred-language') || 'en';
-        const typedStrings = [
-            window.translations?.[currentLang]?.['typed_1'] || "Software Engineer",
-            window.translations?.[currentLang]?.['typed_2'] || "Data Engineer",
-            window.translations?.[currentLang]?.['typed_3'] || "Financial Engineer",
-            window.translations?.[currentLang]?.['typed_4'] || "AI Researcher"
+    // Only initialize Typed.js if translation manager hasn't done it yet
+    if (!window.typedInstance) {
+        // Get initial language from localStorage or default to English
+        const savedLang = localStorage.getItem('preferred-language') || 'en';
+        const typedStrings = getTypedStrings(savedLang);
+        
+        if (typedStrings.length > 0) {
+            window.typedInstance = new Typed('.typedText', {
+                strings: typedStrings,
+                typeSpeed: 70,
+                backSpeed: 60,
+                loop: true,
+                startDelay: 500,
+                backDelay: 1500
+            });
+        }
+    }
+    
+    // Helper function to get typed strings
+    function getTypedStrings(lang) {
+        // Fallback strings in case translations aren't loaded yet
+        const fallbackStrings = [
+            "Software Engineer",
+            "Data Engineer", 
+            "Financial Engineer",
+            "AI Researcher"
         ];
         
-        if (window.typedInstance) {
-            window.typedInstance.destroy();
+        // Try to get from translations if available
+        if (window.translations && window.translations[lang]) {
+            const t = window.translations[lang];
+            return [
+                t['typed_1'] || fallbackStrings[0],
+                t['typed_2'] || fallbackStrings[1],
+                t['typed_3'] || fallbackStrings[2],
+                t['typed_4'] || fallbackStrings[3]
+            ].filter(Boolean);
         }
         
-        window.typedInstance = new Typed('.typedText', {
-            strings: typedStrings,
-            typeSpeed: 70,
-            backSpeed: 60,
-            loop: true,
-            startDelay: 500,
-            backDelay: 1500
+        return fallbackStrings;
+    }
+    
+    // Mobile menu toggle (keep your existing code)
+    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    
+    if (mobileMenuToggle && navMenu) {
+        mobileMenuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
         });
-    };
-    
-    // Initialize typed on load
-    initTyped();
-    
-    // Update contact form handler for translations
-    window.sendMail = function(event) {
-        event.preventDefault();
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const message = document.getElementById('message').value;
         
-        const currentLang = localStorage.getItem('preferred-language') || 'en';
-        const successMsg = window.translations?.[currentLang]?.['email_success'] || "Thanks! I'll get back to you soon.";
-        
-        alert(successMsg);
-        event.target.reset();
-        return false;
-    };
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.nav-wrap') && navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+            }
+        });
+    }
+    
+    // Smooth scroll & active nav (keep your existing code)
+    document.querySelectorAll('nav a').forEach(a => {
+        a.addEventListener('click', e => {
+            if (a.getAttribute('href').startsWith('#')) {
+                e.preventDefault();
+                document.querySelectorAll('nav a').forEach(x => x.classList.remove('active'));
+                a.classList.add('active');
+                document.querySelector(a.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                
+                if (navMenu && navMenu.classList.contains('active')) {
+                    navMenu.classList.remove('active');
+                }
+            }
+        });
+    });
 });
