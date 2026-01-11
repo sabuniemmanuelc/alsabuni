@@ -899,15 +899,26 @@ const translations = {
 class TranslationManager {
     constructor() {
         this.currentLang = localStorage.getItem('preferred-language') || 'en';
-        this.init();
+        this.isInitialized = false;
     }
     
     init() {
+        if (this.isInitialized) return;
+        
         // Add language switcher to the page if not exists
         if (!document.querySelector('.language-switcher')) {
             this.createLanguageSwitcher();
         }
+        
+        // Apply language immediately
         this.applyLanguage(this.currentLang);
+        
+        // Initialize Typed.js after a short delay to ensure DOM is ready
+        setTimeout(() => {
+            this.updateTypedText(this.currentLang);
+        }, 100);
+        
+        this.isInitialized = true;
     }
     
     createLanguageSwitcher() {
@@ -951,14 +962,16 @@ class TranslationManager {
                 btn.classList.add('active');
             }
         });
+        
+        // Update Typed.js
+        this.updateTypedText(lang);
     }
     
     applyLanguage(lang) {
-        // Update HTML direction for Arabic
+        // Update HTML attributes FIRST
         if (lang === 'ar') {
             document.documentElement.dir = 'rtl';
             document.documentElement.lang = 'ar';
-            // Add Arabic font class
             document.documentElement.classList.add('rtl-lang');
         } else {
             document.documentElement.dir = 'ltr';
@@ -966,62 +979,65 @@ class TranslationManager {
             document.documentElement.classList.remove('rtl-lang');
         }
         
-        // Apply translations to all elements with data-translate attribute
-        document.querySelectorAll('[data-translate]').forEach(element => {
-            const key = element.getAttribute('data-translate');
-            if (translations[lang] && translations[lang][key]) {
-                element.textContent = translations[lang][key];
-            }
-        });
-        
-        // Apply translations to placeholders
-        document.querySelectorAll('[data-translate-placeholder]').forEach(element => {
-            const key = element.getAttribute('data-translate-placeholder');
-            if (translations[lang] && translations[lang][key]) {
-                element.placeholder = translations[lang][key];
-            }
-        });
-        
-        // Apply translations to hrefs
-        document.querySelectorAll('[data-translate-href]').forEach(element => {
-            const key = element.getAttribute('data-translate-href');
-            if (translations[lang] && translations[lang][key]) {
-                element.href = translations[lang][key];
-            }
-        });
-        
-        // Update Typed.js if exists
-        this.updateTypedText(lang);
-        
-        // Update modal buttons
-        this.updateModalButtons(lang);
+        // Wait a tiny bit for DOM to update
+        setTimeout(() => {
+            // Apply translations to all elements with data-translate attribute
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+            
+            // Apply translations to placeholders
+            document.querySelectorAll('[data-translate-placeholder]').forEach(element => {
+                const key = element.getAttribute('data-translate-placeholder');
+                if (translations[lang] && translations[lang][key]) {
+                    element.placeholder = translations[lang][key];
+                }
+            });
+            
+            // Update modal buttons if modal is open
+            this.updateModalButtons(lang);
+            
+            // Update page title
+            this.updatePageTitle(lang);
+        }, 10);
     }
     
     updateTypedText(lang) {
-        if (window.typedInstance && translations[lang]) {
-            const typedStrings = [
-                translations[lang]['typed_1'],
-                translations[lang]['typed_2'],
-                translations[lang]['typed_3'],
-                translations[lang]['typed_4']
-            ].filter(Boolean);
-            
-            // Destroy existing instance
-            window.typedInstance.destroy();
-            
-            // Create new instance
-            const typedElement = document.querySelector('.typedText');
-            if (typedElement) {
-                window.typedInstance = new Typed('.typedText', {
-                    strings: typedStrings,
-                    typeSpeed: 70,
-                    backSpeed: 60,
-                    loop: true,
-                    startDelay: 500,
-                    backDelay: 1500
-                });
+        // Destroy existing typed instance if exists
+        if (window.typedInstance) {
+            try {
+                window.typedInstance.destroy();
+            } catch (e) {
+                console.log("Cleaned up previous typed instance");
             }
         }
+        
+        // Create new instance with a delay to ensure DOM is updated
+        setTimeout(() => {
+            const typedElement = document.querySelector('.typedText');
+            if (typedElement && translations[lang]) {
+                const typedStrings = [
+                    translations[lang]['typed_1'],
+                    translations[lang]['typed_2'],
+                    translations[lang]['typed_3'],
+                    translations[lang]['typed_4']
+                ].filter(Boolean);
+                
+                if (typedStrings.length > 0) {
+                    window.typedInstance = new Typed('.typedText', {
+                        strings: typedStrings,
+                        typeSpeed: 70,
+                        backSpeed: 60,
+                        loop: true,
+                        startDelay: 500,
+                        backDelay: 1500
+                    });
+                }
+            }
+        }, 200);
     }
     
     updateModalButtons(lang) {
@@ -1038,6 +1054,11 @@ class TranslationManager {
         }
     }
     
+    updatePageTitle(lang) {
+        const title = translations[lang]?.['hero_hi'] || 'Sabuni Emmanuel C — Portfolio';
+        document.title = title + ' | Software & Data Engineer';
+    }
+    
     t(key) {
         return translations[this.currentLang]?.[key] || translations['en'][key] || key;
     }
@@ -1046,5 +1067,106 @@ class TranslationManager {
 // Make translations available globally
 window.translations = translations;
 
-// Initialize translation manager
-const translationManager = new TranslationManager();
+// Initialize translation manager when DOM is fully loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Create global translation manager
+    window.translationManager = new TranslationManager();
+    window.translationManager.init();
+    
+    // Override the original sendMail function to use translations
+    if (window.sendMail) {
+        const originalSendMail = window.sendMail;
+        window.sendMail = function(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            
+            const currentLang = localStorage.getItem('preferred-language') || 'en';
+            const successMsg = translations[currentLang]?.['email_success'] || "Thanks! I'll get back to you soon.";
+            
+            alert(successMsg);
+            event.target.reset();
+            return false;
+        };
+    }
+    
+    // Override modal functions to use translations
+    if (window.openModal) {
+        const originalOpenModal = window.openModal;
+        window.openModal = function(key) {
+            const p = window.PROJECTS?.[key];
+            if(!p) return;
+            
+            const currentLang = localStorage.getItem('preferred-language') || 'en';
+            const t = translations[currentLang] || translations['en'] || {};
+            
+            document.getElementById('modalTitle').textContent = t[p.titleKey] || p.titleKey;
+            document.getElementById('modalSubtitle').textContent = t[p.subtitleKey] || p.subtitleKey;
+            
+            // Get translated body content
+            let bodyContent = '';
+            if (p.bodyKey && t[p.bodyKey]) {
+                bodyContent = t[p.bodyKey];
+            } else {
+                // Fallback to original content
+                bodyContent = getDefaultProjectBody(key, t);
+            }
+            
+            document.getElementById('modalBody').innerHTML = bodyContent;
+            document.getElementById('modalGit').href = p.git;
+            
+            // Update modal buttons with current language
+            const modalCloseBtn = document.querySelector('.modal .btn-primary');
+            const modalGitBtn = document.querySelector('#modalGit');
+            
+            if (modalCloseBtn && t['modal_close']) {
+                modalCloseBtn.textContent = t['modal_close'];
+            }
+            
+            if (modalGitBtn && t['modal_view_github']) {
+                modalGitBtn.textContent = t['modal_view_github'];
+            }
+            
+            const modal = document.getElementById('modal');
+            modal.classList.add('open');
+            modal.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+        };
+    }
+});
+
+// Helper function for project details (keep as in your original code)
+function getDefaultProjectBody(key, t) {
+    const problem = t['problem'] || 'Problem';
+    const solution = t['solution'] || 'Solution';
+    const outcome = t['outcome'] || 'Outcome';
+    
+    const bodies = {
+        rjt: `<p><strong>${problem}:</strong> I needed a lightweight portfolio website to showcase my skills, projects and research.</p>
+        <p><strong>${solution}:</strong> Built an HTML/CSS/JS single page system, hosted on github with a personalised domain name. for my clients to read more about my projects and research works</p>
+        <p><strong>${outcome}:</strong> Improved way of marketing my skills. The system supports sending email about project and hosts my resume that people can easy download.</p>`,
+        
+        shoe: `<p><strong>${problem}:</strong> A small boutique required a simple POS and order-tracking workflow with SMS notifications for customers.</p>
+        <p><strong>${solution}:</strong> Built with PHP & MySQL; integrated SMS (Twilio) for order updates, QR codes for pick-ups, PDF/Excel export for reports and low-stock notifications.</p>
+        <p><strong>${outcome}:</strong> Improved customer communications and faster collection times; added analytics for best-selling items.</p>`,
+        
+        courier: `<p><strong>${problem}:</strong> Need for a reliable parcel tracking & routing platform covering web and mobile.</p>
+        <p><strong>${solution}:</strong> Designed a React frontend, Spring Boot APIs, and Flutter mobile apps. Implemented real-time status updates, route optimization, and admin dashboards for reporting.</p>
+        <p><strong>${outcome}:</strong> Scalable microservice architecture with comprehensive tracking and reporting features.</p>`,
+        
+        drl: `<p><strong>${problem}:</strong> Static allocation strategies fail under regime shifts and non-stationarity.</p>
+        <p><strong>${solution}:</strong> Developed a Proximal Policy Optimization (PPO) agent with risk-aware reward shaping to maximize Sharpe ratio. Used Hidden Markov Models (HMM) for regime detection and robust backtesting.</p>
+        <p><strong>${outcome}:</strong> Demonstrated improved risk-adjusted returns vs. classical benchmarks in backtests. Code and notebooks are reproducible.</p>`,
+        
+        hydro: `<p><strong>${problem}:</strong> Assessing economic viability of hydroponics under local climate and supply constraints.</p>
+        <p><strong>${solution}:</strong> Built agent-based simulations with NPV & ROI calculations, and incorporated climate AI models to predict yield sensitivity.</p>
+        <p><strong>${outcome}:</strong> Scenario analysis showing viable setups under certain capital and supply chain assumptions; generated policy and investment recommendations.</p>`,
+        
+        sust: `<p><strong>${problem}:</strong> Integrating unstructured ESG & regulatory signals into portfolio risk frameworks.</p>
+        <p><strong>${solution}:</strong> Built NLP pipelines for ESG & news sentiment, integrated with scoring models and forecasting layers to quantify regulatory risk.</p>
+        <p><strong>${outcome}:</strong> Improved risk monitoring dashboards and decision support for climate-aware investing.</p>`
+    };
+    
+    return bodies[key] || 'Project details...';
+}
