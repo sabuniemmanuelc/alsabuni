@@ -1,35 +1,44 @@
- /* ----- TYPING EFFECT ----- */
- var typingEffect = new Typed(".typedText",{
-    strings : [" Build Deep and Machine Learning systems"," Build financial models"," do Research works", "am a Tutor"],
-    loop : true,
-    typeSpeed : 100, 
-    backSpeed : 80,
-    backDelay : 2000
-
- })
-
-function sendMail(event) {
-  event.preventDefault(); // This is crucial - prevents page refresh
-  
-  var params = {
-    name: document.getElementById("name").value,
-    email: document.getElementById("email").value,
-    message: document.getElementById("message").value, // Changed from "project" to "message"
-  };
-
-  const serviceID = "service_8xt0rlq";
-  const templateID = "template_ym9ghe3";
-
-  emailjs.send(serviceID, templateID, params)
-    .then(res => {
-      document.getElementById("name").value = "";
-      document.getElementById("email").value = "";
-      document.getElementById("message").value = "";
-      console.log(res);
-      alert("Your message sent successfully!!");
-    })
-    .catch(err => {
-      console.log(err);
-      alert("Failed to send message. Please try again.");
-    });
-}
+// assets/js/main.js - Update this file
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize Typed.js with translations
+    const initTyped = () => {
+        const currentLang = localStorage.getItem('preferred-language') || 'en';
+        const typedStrings = [
+            window.translations?.[currentLang]?.['typed_1'] || "Software Engineer",
+            window.translations?.[currentLang]?.['typed_2'] || "Data Engineer",
+            window.translations?.[currentLang]?.['typed_3'] || "Financial Engineer",
+            window.translations?.[currentLang]?.['typed_4'] || "AI Researcher"
+        ];
+        
+        if (window.typedInstance) {
+            window.typedInstance.destroy();
+        }
+        
+        window.typedInstance = new Typed('.typedText', {
+            strings: typedStrings,
+            typeSpeed: 70,
+            backSpeed: 60,
+            loop: true,
+            startDelay: 500,
+            backDelay: 1500
+        });
+    };
+    
+    // Initialize typed on load
+    initTyped();
+    
+    // Update contact form handler for translations
+    window.sendMail = function(event) {
+        event.preventDefault();
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const message = document.getElementById('message').value;
+        
+        const currentLang = localStorage.getItem('preferred-language') || 'en';
+        const successMsg = window.translations?.[currentLang]?.['email_success'] || "Thanks! I'll get back to you soon.";
+        
+        alert(successMsg);
+        event.target.reset();
+        return false;
+    };
+});
