@@ -420,7 +420,7 @@
   <footer>
     <div class="container">
       <div style="margin-bottom:8px" data-translate="footer_copyright">© Sabuni Emmanuel C — Built with clarity & impact</div>
-      <div style="font-size:12px;color:var(--muted)" data-translate="footer_updated">Last updated: Jan 10, 2026</div>
+      <div style="font-size:12px;color:var(--muted)" data-translate="footer_updated">Last updated<p id="date"></p>p></div>
     </div>
   </footer>
 
@@ -624,6 +624,8 @@
       <p><strong>Solution:</strong> Built NLP pipelines for ESG & news sentiment, integrated with scoring models and forecasting layers to quantify regulatory risk.</p>
       <p><strong>Outcome:</strong> Improved risk monitoring dashboards and decision support for climate-aware investing.</p>`
     };
+    const d = new Date("2022-03-25");
+document.getElementById("date").innerHTML = d;
   </script>
 
   <!-- ----- TYPING JS Link ----- -->
