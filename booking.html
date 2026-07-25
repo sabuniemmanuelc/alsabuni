@@ -517,16 +517,33 @@ function fillSummary() {
   document.getElementById('sum-brief').textContent = brief.length > 100 ? brief.slice(0,100) + '…' : brief;
 }
 
-function loadCalEmbed() {
-  return new Promise((resolve, reject) => {
-    if (window.Cal) return resolve();
-    const script = document.createElement('script');
-    script.src = 'https://app.cal.com/embed/embed.js';
-    script.async = true;
-    script.onload = resolve;
-    script.onerror = reject;
-    document.head.appendChild(script);
-  });
+function initialiseCalEmbed() {
+  if (window.Cal?.ns?.consultationBooking) return;
+  // This is Cal.com's required loader: it queues calls until embed.js is ready.
+  (function (C, A, L) {
+    const push = (api, args) => api.q.push(args);
+    const doc = C.document;
+    C.Cal = C.Cal || function () {
+      const cal = C.Cal;
+      const args = arguments;
+      if (!cal.loaded) {
+        cal.ns = {};
+        cal.q = cal.q || [];
+        doc.head.appendChild(doc.createElement('script')).src = A;
+        cal.loaded = true;
+      }
+      if (args[0] === L) {
+        const api = function () { push(api, arguments); };
+        const namespace = args[1];
+        api.q = api.q || [];
+        if (typeof namespace === 'string') cal.ns[namespace] = api;
+        push(api, args);
+        return;
+      }
+      push(cal, args);
+    };
+  })(window, 'https://app.cal.com/embed/embed.js', 'init');
+  window.Cal('init', 'consultation-booking', { origin: 'https://app.cal.com' });
 }
 
 async function renderLiveScheduler() {
@@ -534,32 +551,30 @@ async function renderLiveScheduler() {
   const target = document.getElementById('cal-inline');
   const setupNote = document.getElementById('setupNote');
   target.innerHTML = '';
-  if (!calLink || calLink.includes('YOUR_CAL_USERNAME')) {
+  if (!calLink || calLink.includes('sabuniemmanuelc')) {
     setupNote.hidden = false;
     target.style.display = 'none';
     return;
   }
   setupNote.hidden = true;
   target.style.display = 'block';
-  try {
-    await loadCalEmbed();
-    window.Cal('inline', {
-      elementOrSelector: '#cal-inline',
-      calLink,
-      config: {
-        name: `${document.getElementById('fname').value} ${document.getElementById('lname').value}`,
-        email: document.getElementById('email').value,
-        'metadata[service]': state.service,
-        'metadata[duration]': state.duration,
-        'metadata[brief]': document.getElementById('brief').value.trim(),
-        'metadata[organisation]': document.getElementById('org').value.trim(),
-        'metadata[phone]': document.getElementById('phone').value.trim(),
-        'metadata[timezone]': document.getElementById('timezone').value,
-      },
-    });
-  } catch {
-    target.innerHTML = '<p class="scheduler-note">The live scheduler could not be loaded. Please check your connection and try again.</p>';
-  }
+  initialiseCalEmbed();
+  const cal = window.Cal.ns['consultation-booking'];
+  cal('inline', {
+    elementOrSelector: '#cal-inline',
+    calLink,
+    config: {
+      name: `${document.getElementById('fname').value} ${document.getElementById('lname').value}`,
+      email: document.getElementById('email').value,
+      'metadata[service]': state.service,
+      'metadata[duration]': state.duration,
+      'metadata[brief]': document.getElementById('brief').value.trim(),
+      'metadata[organisation]': document.getElementById('org').value.trim(),
+      'metadata[phone]': document.getElementById('phone').value.trim(),
+      'metadata[timezone]': document.getElementById('timezone').value,
+    },
+  });
+  cal('ui', { hideEventTypeDetails: true, showTimezoneWhenEventDetailsHidden: true });
 }
 
 document.getElementById('step3Back').addEventListener('click', () => goTo(2));
