@@ -469,7 +469,7 @@ nav a { font: 400 .62rem/1 "DM Mono", monospace; letter-spacing: .09em; text-tra
 nav a.active, nav a:hover { background: var(--glass); color: var(--primary); }
 .cta, .btn-primary { border-radius: 0; background: var(--primary); color: var(--bg); }
 .hero { grid-template-columns: 1fr 280px; gap: 4rem; padding: 5.5rem 0 4.5rem; }
-.intro h1 { font-size: clamp(1.8rem, 7vw, 2.5rem); font-weight: 300; letter-spacing: -.035em; line-height: .93; margin-bottom: 1.2rem; }
+.intro h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 300; letter-spacing: -.035em; line-height: .93; margin-bottom: 1.2rem; }
 .intro h2 { font: 400 .67rem/1.5 "DM Mono", monospace; letter-spacing: .13em; text-transform: uppercase; color: var(--primary); margin-bottom: 1.2rem; }
 .lead { font-size: 1.22rem; font-weight: 300; color: var(--muted); max-width: 38rem; }
 .roles { margin-top: 1.6rem; gap: .45rem; }
