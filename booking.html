@@ -1,592 +1,1355 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Book a Consultation — Emmanuel Sabuni</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book a Consultation — Emmanuel Sabuni</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-    :root {
-      --bg: #f7f5f1;
-      --ink: #1c1a17;
-      --muted: #7a7265;
-      --accent: #2d6a4f;
-      --accent-light: rgba(45,106,79,0.08);
-      --line: rgba(28,26,23,0.13);
-      --card: #ffffff;
-      --serif: "Cormorant Garamond", Georgia, serif;
-      --mono: "DM Mono", monospace;
-      --radius: 2px;
-    }
-
-    @media (prefers-color-scheme: dark) {
       :root {
-        --bg: #141210; --ink: #f0ece4; --muted: #9a9285;
-        --accent: #52b788; --accent-light: rgba(82,183,136,0.1);
-        --line: rgba(240,236,228,0.11); --card: #1e1c19;
+        --bg: #f7f5f1;
+        --ink: #1c1a17;
+        --muted: #7a7265;
+        --accent: #2d6a4f;
+        --accent-light: rgba(45, 106, 79, 0.08);
+        --line: rgba(28, 26, 23, 0.13);
+        --card: #ffffff;
+        --serif: "Cormorant Garamond", Georgia, serif;
+        --mono: "DM Mono", monospace;
+        --radius: 2px;
       }
-    }
 
-    html { scroll-behavior: smooth; }
-    body { background: var(--bg); color: var(--ink); font-family: var(--serif); font-size: 17px; line-height: 1.7; min-height: 100vh; }
-
-    /* Noise */
-    body::before {
-      content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 200; opacity: 0.025;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      background-size: 200px;
-    }
-
-    /* ── Layout ── */
-    .page { max-width: 860px; margin: 0 auto; padding: 2rem; }
-
-    /* ── Header ── */
-    .site-header {
-      display: flex; justify-content: space-between; align-items: center;
-      padding-bottom: 2rem; border-bottom: 1px solid var(--line); margin-bottom: 3rem;
-    }
-    .site-back {
-      font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--muted); text-decoration: none; display: flex; align-items: center; gap: 0.5rem;
-      transition: color 0.2s;
-    }
-    .site-back:hover { color: var(--ink); }
-    .site-logo { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.13em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
-    .theme-btn { background: none; border: 1px solid var(--line); color: var(--muted); cursor: pointer; padding: 0.3rem 0.55rem; font-size: 0.85rem; border-radius: 2px; transition: border-color 0.2s; }
-    .theme-btn:hover { border-color: var(--ink); }
-
-    /* ── Page title ── */
-    .page-title { font-size: clamp(2rem, 4vw, 3rem); font-weight: 300; line-height: 1.1; margin-bottom: 0.5rem; }
-    .page-title em { font-style: italic; color: var(--muted); }
-    .page-sub { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 3rem; }
-
-    /* ── Progress bar ── */
-    .progress-wrap { display: flex; gap: 0; margin-bottom: 3rem; }
-    .progress-step {
-      flex: 1; display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
-      position: relative; cursor: pointer;
-    }
-    .progress-step::before {
-      content: ""; position: absolute; top: 14px; left: 50%; right: -50%;
-      height: 1px; background: var(--line); z-index: 0;
-    }
-    .progress-step:last-child::before { display: none; }
-    .step-dot {
-      width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--line);
-      background: var(--bg); display: flex; align-items: center; justify-content: center;
-      font-family: var(--mono); font-size: 0.6rem; color: var(--muted);
-      position: relative; z-index: 1; transition: all 0.3s;
-    }
-    .progress-step.active .step-dot { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
-    .progress-step.done .step-dot { border-color: var(--accent); background: var(--accent); color: var(--bg); }
-    .step-label { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); text-align: center; }
-    .progress-step.active .step-label { color: var(--ink); }
-
-    /* ── Panels ── */
-    .panel { display: none; animation: fadeUp 0.4s ease; }
-    .panel.active { display: block; }
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
-
-    /* ── Service grid ── */
-    .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); margin-bottom: 2rem; }
-    .service-card {
-      background: var(--card); padding: 1.6rem 1.5rem; cursor: pointer;
-      transition: background 0.2s; position: relative; border: 2px solid transparent;
-    }
-    .service-card:hover { background: var(--accent-light); }
-    .service-card.selected { background: var(--accent-light); border-color: var(--accent); }
-    .service-card.selected::after {
-      content: "✓"; position: absolute; top: 1rem; right: 1rem;
-      font-family: var(--mono); font-size: 0.7rem; color: var(--accent);
-    }
-    .service-icon { font-size: 1.5rem; margin-bottom: 0.7rem; line-height: 1; }
-    .service-name { font-size: 1rem; font-weight: 400; margin-bottom: 0.35rem; line-height: 1.3; }
-    .service-desc { font-size: 0.83rem; font-weight: 300; color: var(--muted); line-height: 1.5; }
-    .service-duration { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-top: 0.8rem; }
-
-    /* ── Calendar ── */
-    .cal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
-    .cal-month { font-size: 1.2rem; font-weight: 400; }
-    .cal-nav { background: none; border: 1px solid var(--line); color: var(--muted); cursor: pointer; padding: 0.4rem 0.8rem; font-family: var(--mono); font-size: 0.7rem; transition: all 0.2s; }
-    .cal-nav:hover { border-color: var(--ink); color: var(--ink); }
-    .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; margin-bottom: 1.5rem; }
-    .cal-day-name { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); text-align: center; padding: 0.5rem 0; }
-    .cal-day {
-      aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
-      font-family: var(--mono); font-size: 0.72rem; cursor: pointer;
-      border: 1px solid transparent; transition: all 0.15s; border-radius: var(--radius);
-    }
-    .cal-day:hover:not(.disabled):not(.empty) { border-color: var(--accent); color: var(--accent); }
-    .cal-day.selected { background: var(--accent); color: var(--bg); border-color: var(--accent); }
-    .cal-day.today { border-color: var(--line); color: var(--ink); font-weight: 400; }
-    .cal-day.disabled { color: var(--line); cursor: not-allowed; }
-    .cal-day.empty { cursor: default; }
-
-    /* Time slots */
-    .time-label { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; }
-    .time-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; margin-bottom: 2rem; }
-    .time-slot {
-      font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.05em;
-      padding: 0.55rem 0.3rem; text-align: center; border: 1px solid var(--line);
-      cursor: pointer; transition: all 0.15s; background: var(--card); color: var(--muted);
-    }
-    .time-slot:hover:not(.taken) { border-color: var(--accent); color: var(--accent); }
-    .time-slot.selected { background: var(--accent); color: var(--bg); border-color: var(--accent); }
-    .time-slot.taken { opacity: 0.3; cursor: not-allowed; text-decoration: line-through; }
-
-    /* ── Live scheduler ── */
-    .scheduler-note { border-left: 2px solid var(--accent); padding: 0.85rem 1rem; background: var(--accent-light); color: var(--muted); font-size: 0.95rem; font-weight: 300; margin-bottom: 1.5rem; }
-    .scheduler-note strong { color: var(--ink); font-weight: 400; }
-    .cal-embed { min-height: 650px; border: 1px solid var(--line); background: var(--card); }
-    .setup-note { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.03em; line-height: 1.7; color: var(--muted); border: 1px dashed var(--line); padding: 1rem; margin-top: 1rem; }
-
-    /* ── Form ── */
-    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 1.5rem; }
-    .form-field { display: flex; flex-direction: column; gap: 0.4rem; }
-    .form-field.full { grid-column: 1 / -1; }
-    label { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
-    input, textarea, select {
-      background: var(--card); border: 1px solid var(--line); color: var(--ink);
-      font-family: var(--serif); font-size: 0.95rem; padding: 0.7rem 0.9rem;
-      outline: none; transition: border-color 0.2s; width: 100%; border-radius: var(--radius);
-      appearance: none;
-    }
-    input:focus, textarea:focus, select:focus { border-color: var(--accent); }
-    textarea { resize: vertical; min-height: 110px; }
-    select option { background: var(--bg); color: var(--ink); }
-
-    /* ── Booking summary card ── */
-    .summary-card {
-      border: 1px solid var(--line); background: var(--card);
-      padding: 1.5rem; margin-bottom: 2rem;
-    }
-    .summary-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.13em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.1rem; }
-    .summary-row { display: flex; justify-content: space-between; align-items: flex-start; padding: 0.55rem 0; border-bottom: 1px solid var(--line); gap: 1rem; }
-    .summary-row:last-child { border-bottom: none; }
-    .summary-key { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); padding-top: 0.1rem; }
-    .summary-val { font-size: 0.95rem; font-weight: 300; text-align: right; }
-
-    /* ── Buttons ── */
-    .btn-row { display: flex; justify-content: space-between; align-items: center; margin-top: 2rem; gap: 1rem; }
-    .btn {
-      font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase;
-      padding: 0.7rem 1.5rem; border: 1px solid var(--ink); color: var(--ink); background: none;
-      cursor: pointer; transition: background 0.2s, color 0.2s; display: inline-flex; align-items: center; gap: 0.5rem;
-    }
-    .btn:hover { background: var(--ink); color: var(--bg); }
-    .btn-accent { border-color: var(--accent); color: var(--accent); }
-    .btn-accent:hover { background: var(--accent); color: var(--bg); }
-    .btn-ghost { border-color: var(--line); color: var(--muted); }
-    .btn-ghost:hover { border-color: var(--muted); background: none; color: var(--ink); }
-    .btn:disabled { opacity: 0.4; cursor: not-allowed; }
-    .btn:disabled:hover { background: none; color: var(--accent); }
-
-    /* ── AI summary box ── */
-    .ai-box {
-      border: 1px solid var(--accent); background: var(--accent-light);
-      padding: 1.4rem 1.5rem; margin-bottom: 2rem; position: relative;
-    }
-    .ai-label { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem; }
-    .ai-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 1.5s infinite; }
-    @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
-    .ai-text { font-size: 0.92rem; font-weight: 300; color: var(--ink); line-height: 1.65; }
-    .ai-text.loading { color: var(--muted); font-style: italic; }
-
-    /* ── Confirmation ── */
-    .confirm-wrap { text-align: center; padding: 3rem 1rem; }
-    .confirm-icon { font-size: 3rem; margin-bottom: 1.5rem; animation: pop 0.5s ease; }
-    @keyframes pop { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-    .confirm-title { font-size: 2rem; font-weight: 300; margin-bottom: 0.5rem; }
-    .confirm-title em { font-style: italic; color: var(--muted); }
-    .confirm-sub { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem; }
-    .confirm-body { font-size: 0.95rem; font-weight: 300; color: var(--muted); max-width: 460px; margin: 0 auto 2rem; line-height: 1.65; }
-    .confirm-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-
-    /* ── Validation ── */
-    .error-msg { font-family: var(--mono); font-size: 0.6rem; color: #c0392b; margin-top: 0.2rem; display: none; }
-    .field-error input, .field-error textarea, .field-error select { border-color: #c0392b; }
-    .field-error .error-msg { display: block; }
-
-    /* ── Responsive ── */
-    @media (max-width: 600px) {
-      .services-grid { grid-template-columns: 1fr; }
-      .form-grid { grid-template-columns: 1fr; }
-      .form-field.full { grid-column: 1; }
-      .time-grid { grid-template-columns: repeat(3, 1fr); }
-      .btn-row { flex-direction: column-reverse; }
-      .btn { width: 100%; justify-content: center; }
-    }
-  </style>
-</head>
-<body>
-<div class="page">
-
-  <!-- Header -->
-  <div class="site-header">
-    <a href="index.html" class="site-back">← Back to Portfolio</a>
-    <a href="index.html" class="site-logo">Emmanuel Sabuni</a>
-    <button class="theme-btn" id="themeBtn">🌙</button>
-  </div>
-
-  <h1 class="page-title">Book a <em>Consultation</em></h1>
-  <p class="page-sub">Select a service · Share your details · Choose a live time</p>
-
-  <!-- Progress -->
-  <div class="progress-wrap">
-    <div class="progress-step active" data-step="1">
-      <div class="step-dot">1</div>
-      <span class="step-label">Service</span>
-    </div>
-    <div class="progress-step" data-step="2">
-      <div class="step-dot">2</div>
-      <span class="step-label">Details</span>
-    </div>
-    <div class="progress-step" data-step="3">
-      <div class="step-dot">3</div>
-      <span class="step-label">Schedule</span>
-    </div>
-  </div>
-
-  <!-- Step 1: Service Selection -->
-  <div class="panel active" id="panel-1">
-    <div class="services-grid">
-      <div class="service-card" data-service="Research & Data Strategy" data-duration="60 min">
-        <div class="service-icon">🔬</div>
-        <div class="service-name">Research &amp; Data Strategy</div>
-        <div class="service-desc">Research frameworks, data collection methodologies, analytical pipelines, and AI/ML strategy for organisations and academic projects.</div>
-        <div class="service-duration">60 min session</div>
-      </div>
-      <div class="service-card" data-service="Business Setup" data-duration="90 min">
-        <div class="service-icon">🏢</div>
-        <div class="service-name">Business Setup</div>
-        <div class="service-desc">End-to-end guidance on company formation, operational structure, technology stack selection, and go-to-market planning for new ventures.</div>
-        <div class="service-duration">90 min session</div>
-      </div>
-      <div class="service-card" data-service="Valuation & Traction" data-duration="60 min">
-        <div class="service-icon">📈</div>
-        <div class="service-name">Valuation &amp; Traction</div>
-        <div class="service-desc">Business valuation modelling, traction metrics, investor-readiness assessments, and financial forecasting for early-stage companies.</div>
-        <div class="service-duration">60 min session</div>
-      </div>
-      <div class="service-card" data-service="Legacy & Trust Formulation" data-duration="90 min">
-        <div class="service-icon">⚖️</div>
-        <div class="service-name">Legacy &amp; Trust Formulation</div>
-        <div class="service-desc">Wealth structuring, trust formation, succession planning, and long-term legacy frameworks for individuals and family offices.</div>
-        <div class="service-duration">90 min session</div>
-      </div>
-      <div class="service-card" data-service="Real Estate Investment" data-duration="60 min">
-        <div class="service-icon">🏘️</div>
-        <div class="service-name">Real Estate Investment</div>
-        <div class="service-desc">Property investment analysis, portfolio optimisation, market due diligence, and data-driven real estate decision-making.</div>
-        <div class="service-duration">60 min session</div>
-      </div>
-      <div class="service-card" data-service="Taxation Advisory" data-duration="60 min">
-        <div class="service-icon">🧾</div>
-        <div class="service-name">Taxation Advisory</div>
-        <div class="service-desc">Tax planning strategies, compliance structuring, and optimisation of tax positions for individuals, businesses, and investment portfolios.</div>
-        <div class="service-duration">60 min session</div>
-      </div>
-    </div>
-    <div class="btn-row" style="justify-content:flex-end;">
-      <button class="btn btn-accent" id="step1Next" disabled>Continue →</button>
-    </div>
-  </div>
-
-  <!-- Step 2: Details -->
-  <div class="panel" id="panel-2">
-    <div class="scheduler-note">You selected <strong id="selected-service">your consultation</strong>. Tell Emmanuel a little about your goals, then choose a live time that is automatically checked against his calendar.</div>
-    <div class="form-grid">
-      <div class="form-field" id="field-name">
-        <label for="fname">First Name</label>
-        <input type="text" id="fname" placeholder="e.g. Amara"/>
-        <span class="error-msg">Please enter your first name</span>
-      </div>
-      <div class="form-field" id="field-lname">
-        <label for="lname">Last Name</label>
-        <input type="text" id="lname" placeholder="e.g. Mwale"/>
-        <span class="error-msg">Please enter your last name</span>
-      </div>
-      <div class="form-field" id="field-email">
-        <label for="email">Email Address</label>
-        <input type="email" id="email" placeholder="you@example.com"/>
-        <span class="error-msg">Please enter a valid email</span>
-      </div>
-      <div class="form-field" id="field-phone">
-        <label for="phone">Phone (optional)</label>
-        <input type="tel" id="phone" placeholder="+260 9XX XXX XXX"/>
-      </div>
-      <div class="form-field full" id="field-org">
-        <label for="org">Organisation / Company (optional)</label>
-        <input type="text" id="org" placeholder="e.g. Sunrise Ventures Ltd"/>
-      </div>
-      <div class="form-field full" id="field-timezone">
-        <label for="timezone">Your Timezone</label>
-        <select id="timezone">
-          <option value="Africa/Lusaka">Africa/Lusaka (CAT, UTC+2)</option>
-          <option value="Europe/Moscow">Europe/Moscow (MSK, UTC+3)</option>
-          <option value="Africa/Johannesburg">Africa/Johannesburg (SAST, UTC+2)</option>
-          <option value="Africa/Nairobi">Africa/Nairobi (EAT, UTC+3)</option>
-          <option value="Africa/Lagos">Africa/Lagos (WAT, UTC+1)</option>
-          <option value="Europe/London">Europe/London (GMT/BST)</option>
-          <option value="America/New_York">America/New_York (ET)</option>
-          <option value="America/Los_Angeles">America/Los_Angeles (PT)</option>
-          <option value="Asia/Dubai">Asia/Dubai (GST, UTC+4)</option>
-          <option value="Other">Other — I'll confirm by email</option>
-        </select>
-      </div>
-      <div class="form-field full" id="field-brief">
-        <label for="brief">Brief about your project or question</label>
-        <textarea id="brief" placeholder="Describe what you'd like to discuss — the more detail, the better prepared I'll be…"></textarea>
-        <span class="error-msg">Please provide a brief description</span>
-      </div>
-      <div class="form-field full">
-        <label for="hearabout">How did you hear about me?</label>
-        <select id="hearabout">
-          <option value="">— Select —</option>
-          <option value="LinkedIn">LinkedIn</option>
-          <option value="Personal website">Personal website</option>
-          <option value="Referral">Referral from a colleague</option>
-          <option value="University">University / Academic network</option>
-          <option value="Social media">Social media</option>
-          <option value="Other">Other</option>
-        </select>
-      </div>
-    </div>
-    <div class="btn-row">
-      <button class="btn btn-ghost" id="step2Back">← Back</button>
-      <button class="btn btn-accent" id="step2Next">Choose a Time →</button>
-    </div>
-  </div>
-
-  <!-- Step 3: Schedule -->
-  <div class="panel" id="panel-3">
-    <div class="summary-card">
-      <div class="summary-label">Consultation Summary</div>
-      <div class="summary-row"><span class="summary-key">Service</span><span class="summary-val" id="sum-service">—</span></div>
-      <div class="summary-row"><span class="summary-key">Duration</span><span class="summary-val" id="sum-duration">—</span></div>
-      <div class="summary-row"><span class="summary-key">Name</span><span class="summary-val" id="sum-name">—</span></div>
-      <div class="summary-row"><span class="summary-key">Email</span><span class="summary-val" id="sum-email">—</span></div>
-      <div class="summary-row"><span class="summary-key">Timezone</span><span class="summary-val" id="sum-tz">—</span></div>
-      <div class="summary-row"><span class="summary-key">Brief</span><span class="summary-val" id="sum-brief" style="max-width:340px;text-align:right;">—</span></div>
-    </div>
-
-    <div class="ai-box">
-      <div class="ai-label"><div class="ai-dot"></div> Preparation</div>
-      <div class="ai-text" id="aiText">Your consultation details will be shared with Emmanuel when you book. He’ll use your brief to prepare for the conversation.</div>
-    </div>
-    <div class="scheduler-note">Select a time below. Cal.com checks Emmanuel’s connected calendar in real time and sends the confirmation email.</div>
-    <div id="cal-inline" class="cal-embed" aria-label="Live consultation scheduler"></div>
-    <div class="setup-note" id="setupNote" hidden>Setup required: replace the Cal.com event links in <code>CAL_COM_CONFIG</code> near the end of this file, then reload the page.</div>
-    <div class="btn-row">
-      <button class="btn btn-ghost" id="step3Back">← Edit Details</button>
-    </div>
-  </div>
-
-  <!-- Step 5: Done -->
-  <div class="panel" id="panel-5">
-    <div class="confirm-wrap">
-      <div class="confirm-icon">✅</div>
-      <h2 class="confirm-title">Booking <em>Confirmed</em></h2>
-      <p class="confirm-sub">You're all set · Emmanuel will be in touch</p>
-      <p class="confirm-body" id="confirmBody">Your consultation request has been submitted. A confirmation email is being sent to your inbox. Emmanuel typically responds within 24–48 hours to finalise the meeting link and agenda.</p>
-      <div class="confirm-actions">
-        <a href="index.html" class="btn btn-ghost">← Back to Portfolio</a>
-        <button class="btn btn-accent" id="bookAnother">Book Another</button>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-<script>
-// ── State ──
-const state = {
-  step: 1,
-  service: null,
-  duration: null,
-  date: null,
-  time: null,
-  calYear: new Date().getFullYear(),
-  calMonth: new Date().getMonth(),
-};
-
-// ── Theme ──
-const themeBtn = document.getElementById('themeBtn');
-let dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-function applyTheme() {
-  const r = document.documentElement.style;
-  if (dark) {
-    r.setProperty('--bg','#141210'); r.setProperty('--ink','#f0ece4');
-    r.setProperty('--muted','#9a9285'); r.setProperty('--accent','#52b788');
-    r.setProperty('--accent-light','rgba(82,183,136,0.1)');
-    r.setProperty('--line','rgba(240,236,228,0.11)'); r.setProperty('--card','#1e1c19');
-    themeBtn.textContent = '☀️';
-  } else {
-    r.setProperty('--bg','#f7f5f1'); r.setProperty('--ink','#1c1a17');
-    r.setProperty('--muted','#7a7265'); r.setProperty('--accent','#2d6a4f');
-    r.setProperty('--accent-light','rgba(45,106,79,0.08)');
-    r.setProperty('--line','rgba(28,26,23,0.13)'); r.setProperty('--card','#ffffff');
-    themeBtn.textContent = '🌙';
-  }
-}
-applyTheme();
-themeBtn.addEventListener('click', () => { dark = !dark; applyTheme(); });
-
-// ── Navigation ──
-function goTo(step) {
-  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-  document.getElementById('panel-' + step).classList.add('active');
-  document.querySelectorAll('.progress-step').forEach(s => {
-    const n = parseInt(s.dataset.step);
-    s.classList.toggle('active', n === step);
-    s.classList.toggle('done', n < step);
-  });
-  state.step = step;
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-// ── Step 1: Services ──
-document.querySelectorAll('.service-card').forEach(card => {
-  card.addEventListener('click', () => {
-    document.querySelectorAll('.service-card').forEach(c => c.classList.remove('selected'));
-    card.classList.add('selected');
-    state.service = card.dataset.service;
-    state.duration = card.dataset.duration;
-    document.getElementById('step1Next').disabled = false;
-  });
-});
-document.getElementById('step1Next').addEventListener('click', () => {
-  document.getElementById('selected-service').textContent = state.service + ' (' + state.duration + ')';
-  goTo(2);
-});
-
-// Preselect the service when a visitor arrives from its portfolio card.
-const requestedService = new URLSearchParams(window.location.search).get('service');
-if (requestedService) {
-  const requestedCard = [...document.querySelectorAll('.service-card')]
-    .find(card => card.dataset.service === requestedService);
-  if (requestedCard) requestedCard.click();
-}
-
-// ── Step 2: Details ──
-function validateStep3() {
-  let ok = true;
-  const checks = [
-    { id: 'field-name', val: () => document.getElementById('fname').value.trim() },
-    { id: 'field-lname', val: () => document.getElementById('lname').value.trim() },
-    { id: 'field-email', val: () => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(document.getElementById('email').value) },
-    { id: 'field-brief', val: () => document.getElementById('brief').value.trim().length > 10 },
-  ];
-  checks.forEach(c => {
-    const field = document.getElementById(c.id);
-    if (!c.val()) { field.classList.add('field-error'); ok = false; }
-    else field.classList.remove('field-error');
-  });
-  return ok;
-}
-document.getElementById('step2Back').addEventListener('click', () => goTo(1));
-document.getElementById('step2Next').addEventListener('click', () => {
-  if (!validateStep3()) return;
-  fillSummary();
-  goTo(3);
-  renderLiveScheduler();
-});
-
-// ── Step 3: Live Cal.com scheduler ──
-// Replace these six values with the event links created in your Cal.com account.
-// Example: "emmanuel-sabuni/research-data-strategy"
-const CAL_COM_CONFIG = {
-  'Research & Data Strategy': 'sabuniemmanuelc/research-data-strategy',
-  'Business Setup': 'sabuniemmanuelc/business-setup',
-  'Valuation & Traction': 'sabuniemmanuelc/valuation-traction',
-  'Legacy & Trust Formulation': 'sabuniemmanuelc/legacy-trust',
-  'Real Estate Investment': 'sabuniemmanuelc/real-estate-investment',
-  'Taxation Advisory': 'sabuniemmanuelc/taxation-advisory',
-};
-
-function fillSummary() {
-  document.getElementById('sum-service').textContent = state.service;
-  document.getElementById('sum-duration').textContent = state.duration;
-  document.getElementById('sum-name').textContent = document.getElementById('fname').value + ' ' + document.getElementById('lname').value;
-  document.getElementById('sum-email').textContent = document.getElementById('email').value;
-  document.getElementById('sum-tz').textContent = document.getElementById('timezone').value;
-  const brief = document.getElementById('brief').value.trim();
-  document.getElementById('sum-brief').textContent = brief.length > 100 ? brief.slice(0,100) + '…' : brief;
-}
-
-function initialiseCalEmbed() {
-  if (window.Cal?.ns?.consultationBooking) return;
-  // This is Cal.com's required loader: it queues calls until embed.js is ready.
-  (function (C, A, L) {
-    const push = (api, args) => api.q.push(args);
-    const doc = C.document;
-    C.Cal = C.Cal || function () {
-      const cal = C.Cal;
-      const args = arguments;
-      if (!cal.loaded) {
-        cal.ns = {};
-        cal.q = cal.q || [];
-        doc.head.appendChild(doc.createElement('script')).src = A;
-        cal.loaded = true;
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #141210;
+          --ink: #f0ece4;
+          --muted: #9a9285;
+          --accent: #52b788;
+          --accent-light: rgba(82, 183, 136, 0.1);
+          --line: rgba(240, 236, 228, 0.11);
+          --card: #1e1c19;
+        }
       }
-      if (args[0] === L) {
-        const api = function () { push(api, arguments); };
-        const namespace = args[1];
-        api.q = api.q || [];
-        if (typeof namespace === 'string') cal.ns[namespace] = api;
-        push(api, args);
-        return;
+
+      html {
+        scroll-behavior: smooth;
       }
-      push(cal, args);
-    };
-  })(window, 'https://app.cal.com/embed/embed.js', 'init');
-  window.Cal('init', 'consultation-booking', { origin: 'https://app.cal.com' });
-}
+      body {
+        background: var(--bg);
+        color: var(--ink);
+        font-family: var(--serif);
+        font-size: 17px;
+        line-height: 1.7;
+        min-height: 100vh;
+      }
 
-async function renderLiveScheduler() {
-  const calLink = CAL_COM_CONFIG[state.service];
-  const target = document.getElementById('cal-inline');
-  const setupNote = document.getElementById('setupNote');
-  target.innerHTML = '';
-  if (!calLink || calLink.includes('sabuniemmanuelc')) {
-    setupNote.hidden = false;
-    target.style.display = 'none';
-    return;
-  }
-  setupNote.hidden = true;
-  target.style.display = 'block';
-  initialiseCalEmbed();
-  const cal = window.Cal.ns['consultation-booking'];
-  cal('inline', {
-    elementOrSelector: '#cal-inline',
-    calLink,
-    config: {
-      name: `${document.getElementById('fname').value} ${document.getElementById('lname').value}`,
-      email: document.getElementById('email').value,
-      'metadata[service]': state.service,
-      'metadata[duration]': state.duration,
-      'metadata[brief]': document.getElementById('brief').value.trim(),
-      'metadata[organisation]': document.getElementById('org').value.trim(),
-      'metadata[phone]': document.getElementById('phone').value.trim(),
-      'metadata[timezone]': document.getElementById('timezone').value,
-    },
-  });
-  cal('ui', { hideEventTypeDetails: true, showTimezoneWhenEventDetailsHidden: true });
-}
+      /* Noise */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 200;
+        opacity: 0.025;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        background-size: 200px;
+      }
 
-document.getElementById('step3Back').addEventListener('click', () => goTo(2));
+      /* ── Layout ── */
+      .page {
+        max-width: 860px;
+        margin: 0 auto;
+        padding: 2rem;
+      }
 
-document.getElementById('bookAnother').addEventListener('click', () => {
-  state.service = null; state.duration = null; state.date = null; state.time = null;
-  document.querySelectorAll('.service-card').forEach(c => c.classList.remove('selected'));
-  document.getElementById('step1Next').disabled = true;
-  ['fname','lname','email','phone','org','brief'].forEach(id => document.getElementById(id).value = '');
-  goTo(1);
-});
+      /* ── Header ── */
+      .site-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid var(--line);
+        margin-bottom: 3rem;
+      }
+      .site-back {
+        font-family: var(--mono);
+        font-size: 0.65rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--muted);
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: color 0.2s;
+      }
+      .site-back:hover {
+        color: var(--ink);
+      }
+      .site-logo {
+        font-family: var(--mono);
+        font-size: 0.7rem;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+        color: var(--ink);
+        text-decoration: none;
+      }
+      .theme-btn {
+        background: none;
+        border: 1px solid var(--line);
+        color: var(--muted);
+        cursor: pointer;
+        padding: 0.3rem 0.55rem;
+        font-size: 0.85rem;
+        border-radius: 2px;
+        transition: border-color 0.2s;
+      }
+      .theme-btn:hover {
+        border-color: var(--ink);
+      }
 
-</script>
-</body>
+      /* ── Page title ── */
+      .page-title {
+        font-size: clamp(2rem, 4vw, 3rem);
+        font-weight: 300;
+        line-height: 1.1;
+        margin-bottom: 0.5rem;
+      }
+      .page-title em {
+        font-style: italic;
+        color: var(--muted);
+      }
+      .page-sub {
+        font-family: var(--mono);
+        font-size: 0.65rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 3rem;
+      }
+
+      /* ── Progress bar ── */
+      .progress-wrap {
+        display: flex;
+        gap: 0;
+        margin-bottom: 3rem;
+      }
+      .progress-step {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        position: relative;
+        cursor: pointer;
+      }
+      .progress-step::before {
+        content: "";
+        position: absolute;
+        top: 14px;
+        left: 50%;
+        right: -50%;
+        height: 1px;
+        background: var(--line);
+        z-index: 0;
+      }
+      .progress-step:last-child::before {
+        display: none;
+      }
+      .step-dot {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        border: 1px solid var(--line);
+        background: var(--bg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--mono);
+        font-size: 0.6rem;
+        color: var(--muted);
+        position: relative;
+        z-index: 1;
+        transition: all 0.3s;
+      }
+      .progress-step.active .step-dot {
+        border-color: var(--accent);
+        color: var(--accent);
+        background: var(--accent-light);
+      }
+      .progress-step.done .step-dot {
+        border-color: var(--accent);
+        background: var(--accent);
+        color: var(--bg);
+      }
+      .step-label {
+        font-family: var(--mono);
+        font-size: 0.58rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+        text-align: center;
+      }
+      .progress-step.active .step-label {
+        color: var(--ink);
+      }
+
+      /* ── Panels ── */
+      .panel {
+        display: none;
+        animation: fadeUp 0.4s ease;
+      }
+      .panel.active {
+        display: block;
+      }
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(12px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      /* ── Service grid ── */
+      .services-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1px;
+        background: var(--line);
+        border: 1px solid var(--line);
+        margin-bottom: 2rem;
+      }
+      .service-card {
+        background: var(--card);
+        padding: 1.6rem 1.5rem;
+        cursor: pointer;
+        transition: background 0.2s;
+        position: relative;
+        border: 2px solid transparent;
+      }
+      .service-card:hover {
+        background: var(--accent-light);
+      }
+      .service-card.selected {
+        background: var(--accent-light);
+        border-color: var(--accent);
+      }
+      .service-card.selected::after {
+        content: "✓";
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        font-family: var(--mono);
+        font-size: 0.7rem;
+        color: var(--accent);
+      }
+      .service-icon {
+        font-size: 1.5rem;
+        margin-bottom: 0.7rem;
+        line-height: 1;
+      }
+      .service-name {
+        font-size: 1rem;
+        font-weight: 400;
+        margin-bottom: 0.35rem;
+        line-height: 1.3;
+      }
+      .service-desc {
+        font-size: 0.83rem;
+        font-weight: 300;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+      .service-duration {
+        font-family: var(--mono);
+        font-size: 0.58rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-top: 0.8rem;
+      }
+
+      /* ── Calendar ── */
+      .cal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+      }
+      .cal-month {
+        font-size: 1.2rem;
+        font-weight: 400;
+      }
+      .cal-nav {
+        background: none;
+        border: 1px solid var(--line);
+        color: var(--muted);
+        cursor: pointer;
+        padding: 0.4rem 0.8rem;
+        font-family: var(--mono);
+        font-size: 0.7rem;
+        transition: all 0.2s;
+      }
+      .cal-nav:hover {
+        border-color: var(--ink);
+        color: var(--ink);
+      }
+      .cal-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 2px;
+        margin-bottom: 1.5rem;
+      }
+      .cal-day-name {
+        font-family: var(--mono);
+        font-size: 0.58rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+        text-align: center;
+        padding: 0.5rem 0;
+      }
+      .cal-day {
+        aspect-ratio: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        cursor: pointer;
+        border: 1px solid transparent;
+        transition: all 0.15s;
+        border-radius: var(--radius);
+      }
+      .cal-day:hover:not(.disabled):not(.empty) {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+      .cal-day.selected {
+        background: var(--accent);
+        color: var(--bg);
+        border-color: var(--accent);
+      }
+      .cal-day.today {
+        border-color: var(--line);
+        color: var(--ink);
+        font-weight: 400;
+      }
+      .cal-day.disabled {
+        color: var(--line);
+        cursor: not-allowed;
+      }
+      .cal-day.empty {
+        cursor: default;
+      }
+
+      /* Time slots */
+      .time-label {
+        font-family: var(--mono);
+        font-size: 0.65rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 1rem;
+      }
+      .time-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0.5rem;
+        margin-bottom: 2rem;
+      }
+      .time-slot {
+        font-family: var(--mono);
+        font-size: 0.68rem;
+        letter-spacing: 0.05em;
+        padding: 0.55rem 0.3rem;
+        text-align: center;
+        border: 1px solid var(--line);
+        cursor: pointer;
+        transition: all 0.15s;
+        background: var(--card);
+        color: var(--muted);
+      }
+      .time-slot:hover:not(.taken) {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+      .time-slot.selected {
+        background: var(--accent);
+        color: var(--bg);
+        border-color: var(--accent);
+      }
+      .time-slot.taken {
+        opacity: 0.3;
+        cursor: not-allowed;
+        text-decoration: line-through;
+      }
+
+      /* ── Live scheduler ── */
+      .scheduler-note {
+        border-left: 2px solid var(--accent);
+        padding: 0.85rem 1rem;
+        background: var(--accent-light);
+        color: var(--muted);
+        font-size: 0.95rem;
+        font-weight: 300;
+        margin-bottom: 1.5rem;
+      }
+      .scheduler-note strong {
+        color: var(--ink);
+        font-weight: 400;
+      }
+      .cal-embed {
+        min-height: 650px;
+        border: 1px solid var(--line);
+        background: var(--card);
+      }
+      .setup-note {
+        font-family: var(--mono);
+        font-size: 0.65rem;
+        letter-spacing: 0.03em;
+        line-height: 1.7;
+        color: var(--muted);
+        border: 1px dashed var(--line);
+        padding: 1rem;
+        margin-top: 1rem;
+      }
+
+      /* ── Form ── */
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.2rem;
+        margin-bottom: 1.5rem;
+      }
+      .form-field {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+      }
+      .form-field.full {
+        grid-column: 1 / -1;
+      }
+      label {
+        font-family: var(--mono);
+        font-size: 0.62rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      input,
+      textarea,
+      select {
+        background: var(--card);
+        border: 1px solid var(--line);
+        color: var(--ink);
+        font-family: var(--serif);
+        font-size: 0.95rem;
+        padding: 0.7rem 0.9rem;
+        outline: none;
+        transition: border-color 0.2s;
+        width: 100%;
+        border-radius: var(--radius);
+        appearance: none;
+      }
+      input:focus,
+      textarea:focus,
+      select:focus {
+        border-color: var(--accent);
+      }
+      textarea {
+        resize: vertical;
+        min-height: 110px;
+      }
+      select option {
+        background: var(--bg);
+        color: var(--ink);
+      }
+
+      /* ── Booking summary card ── */
+      .summary-card {
+        border: 1px solid var(--line);
+        background: var(--card);
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+      }
+      .summary-label {
+        font-family: var(--mono);
+        font-size: 0.6rem;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 1.1rem;
+      }
+      .summary-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 0.55rem 0;
+        border-bottom: 1px solid var(--line);
+        gap: 1rem;
+      }
+      .summary-row:last-child {
+        border-bottom: none;
+      }
+      .summary-key {
+        font-family: var(--mono);
+        font-size: 0.62rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+        padding-top: 0.1rem;
+      }
+      .summary-val {
+        font-size: 0.95rem;
+        font-weight: 300;
+        text-align: right;
+      }
+
+      /* ── Buttons ── */
+      .btn-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 2rem;
+        gap: 1rem;
+      }
+      .btn {
+        font-family: var(--mono);
+        font-size: 0.65rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 0.7rem 1.5rem;
+        border: 1px solid var(--ink);
+        color: var(--ink);
+        background: none;
+        cursor: pointer;
+        transition:
+          background 0.2s,
+          color 0.2s;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .btn:hover {
+        background: var(--ink);
+        color: var(--bg);
+      }
+      .btn-accent {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+      .btn-accent:hover {
+        background: var(--accent);
+        color: var(--bg);
+      }
+      .btn-ghost {
+        border-color: var(--line);
+        color: var(--muted);
+      }
+      .btn-ghost:hover {
+        border-color: var(--muted);
+        background: none;
+        color: var(--ink);
+      }
+      .btn:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+      .btn:disabled:hover {
+        background: none;
+        color: var(--accent);
+      }
+
+      /* ── AI summary box ── */
+      .ai-box {
+        border: 1px solid var(--accent);
+        background: var(--accent-light);
+        padding: 1.4rem 1.5rem;
+        margin-bottom: 2rem;
+        position: relative;
+      }
+      .ai-label {
+        font-family: var(--mono);
+        font-size: 0.58rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 0.8rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .ai-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--accent);
+        animation: pulse 1.5s infinite;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.3;
+        }
+      }
+      .ai-text {
+        font-size: 0.92rem;
+        font-weight: 300;
+        color: var(--ink);
+        line-height: 1.65;
+      }
+      .ai-text.loading {
+        color: var(--muted);
+        font-style: italic;
+      }
+
+      /* ── Confirmation ── */
+      .confirm-wrap {
+        text-align: center;
+        padding: 3rem 1rem;
+      }
+      .confirm-icon {
+        font-size: 3rem;
+        margin-bottom: 1.5rem;
+        animation: pop 0.5s ease;
+      }
+      @keyframes pop {
+        from {
+          transform: scale(0.5);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+      .confirm-title {
+        font-size: 2rem;
+        font-weight: 300;
+        margin-bottom: 0.5rem;
+      }
+      .confirm-title em {
+        font-style: italic;
+        color: var(--muted);
+      }
+      .confirm-sub {
+        font-family: var(--mono);
+        font-size: 0.65rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 1.5rem;
+      }
+      .confirm-body {
+        font-size: 0.95rem;
+        font-weight: 300;
+        color: var(--muted);
+        max-width: 460px;
+        margin: 0 auto 2rem;
+        line-height: 1.65;
+      }
+      .confirm-actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      /* ── Validation ── */
+      .error-msg {
+        font-family: var(--mono);
+        font-size: 0.6rem;
+        color: #c0392b;
+        margin-top: 0.2rem;
+        display: none;
+      }
+      .field-error input,
+      .field-error textarea,
+      .field-error select {
+        border-color: #c0392b;
+      }
+      .field-error .error-msg {
+        display: block;
+      }
+
+      /* ── Responsive ── */
+      @media (max-width: 600px) {
+        .services-grid {
+          grid-template-columns: 1fr;
+        }
+        .form-grid {
+          grid-template-columns: 1fr;
+        }
+        .form-field.full {
+          grid-column: 1;
+        }
+        .time-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .btn-row {
+          flex-direction: column-reverse;
+        }
+        .btn {
+          width: 100%;
+          justify-content: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <!-- Header -->
+      <div class="site-header">
+        <a href="index.html" class="site-back">← Back to Portfolio</a>
+        <a href="index.html" class="site-logo">Emmanuel Sabuni</a>
+        <button class="theme-btn" id="themeBtn">🌙</button>
+      </div>
+
+      <h1 class="page-title">Book a <em>Consultation</em></h1>
+      <p class="page-sub">
+        Select a service · Share your details · Choose a live time
+      </p>
+
+      <!-- Progress -->
+      <div class="progress-wrap">
+        <div class="progress-step active" data-step="1">
+          <div class="step-dot">1</div>
+          <span class="step-label">Service</span>
+        </div>
+        <div class="progress-step" data-step="2">
+          <div class="step-dot">2</div>
+          <span class="step-label">Details</span>
+        </div>
+        <div class="progress-step" data-step="3">
+          <div class="step-dot">3</div>
+          <span class="step-label">Schedule</span>
+        </div>
+      </div>
+
+      <!-- Step 1: Service Selection -->
+      <div class="panel active" id="panel-1">
+        <div class="services-grid">
+          <div
+            class="service-card"
+            data-service="Research & Data Strategy"
+            data-duration="60 min"
+          >
+            <div class="service-icon">🔬</div>
+            <div class="service-name">Research &amp; Data Strategy</div>
+            <div class="service-desc">
+              Research frameworks, data collection methodologies, analytical
+              pipelines, and AI/ML strategy for organisations and academic
+              projects.
+            </div>
+            <div class="service-duration">60 min session</div>
+          </div>
+          <div
+            class="service-card"
+            data-service="Business Setup"
+            data-duration="90 min"
+          >
+            <div class="service-icon">🏢</div>
+            <div class="service-name">Business Setup</div>
+            <div class="service-desc">
+              End-to-end guidance on company formation, operational structure,
+              technology stack selection, and go-to-market planning for new
+              ventures.
+            </div>
+            <div class="service-duration">90 min session</div>
+          </div>
+          <div
+            class="service-card"
+            data-service="Valuation & Traction"
+            data-duration="60 min"
+          >
+            <div class="service-icon">📈</div>
+            <div class="service-name">Valuation &amp; Traction</div>
+            <div class="service-desc">
+              Business valuation modelling, traction metrics, investor-readiness
+              assessments, and financial forecasting for early-stage companies.
+            </div>
+            <div class="service-duration">60 min session</div>
+          </div>
+          <div
+            class="service-card"
+            data-service="Legacy & Trust Formulation"
+            data-duration="90 min"
+          >
+            <div class="service-icon">⚖️</div>
+            <div class="service-name">Legacy &amp; Trust Formulation</div>
+            <div class="service-desc">
+              Wealth structuring, trust formation, succession planning, and
+              long-term legacy frameworks for individuals and family offices.
+            </div>
+            <div class="service-duration">90 min session</div>
+          </div>
+          <div
+            class="service-card"
+            data-service="Real Estate Investment"
+            data-duration="60 min"
+          >
+            <div class="service-icon">🏘️</div>
+            <div class="service-name">Real Estate Investment</div>
+            <div class="service-desc">
+              Property investment analysis, portfolio optimisation, market due
+              diligence, and data-driven real estate decision-making.
+            </div>
+            <div class="service-duration">60 min session</div>
+          </div>
+          <div
+            class="service-card"
+            data-service="Taxation Advisory"
+            data-duration="60 min"
+          >
+            <div class="service-icon">🧾</div>
+            <div class="service-name">Taxation Advisory</div>
+            <div class="service-desc">
+              Tax planning strategies, compliance structuring, and optimisation
+              of tax positions for individuals, businesses, and investment
+              portfolios.
+            </div>
+            <div class="service-duration">60 min session</div>
+          </div>
+        </div>
+        <div class="btn-row" style="justify-content: flex-end">
+          <button class="btn btn-accent" id="step1Next" disabled>
+            Continue →
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 2: Details -->
+      <div class="panel" id="panel-2">
+        <div class="scheduler-note">
+          You selected <strong id="selected-service">your consultation</strong>.
+          Tell Emmanuel a little about your goals, then choose a live time that
+          is automatically checked against his calendar.
+        </div>
+        <div class="form-grid">
+          <div class="form-field" id="field-name">
+            <label for="fname">First Name</label>
+            <input type="text" id="fname" placeholder="e.g. Amara" />
+            <span class="error-msg">Please enter your first name</span>
+          </div>
+          <div class="form-field" id="field-lname">
+            <label for="lname">Last Name</label>
+            <input type="text" id="lname" placeholder="e.g. Mwale" />
+            <span class="error-msg">Please enter your last name</span>
+          </div>
+          <div class="form-field" id="field-email">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="you@example.com" />
+            <span class="error-msg">Please enter a valid email</span>
+          </div>
+          <div class="form-field" id="field-phone">
+            <label for="phone">Phone (optional)</label>
+            <input type="tel" id="phone" placeholder="+260 9XX XXX XXX" />
+          </div>
+          <div class="form-field full" id="field-org">
+            <label for="org">Organisation / Company (optional)</label>
+            <input
+              type="text"
+              id="org"
+              placeholder="e.g. Sunrise Ventures Ltd"
+            />
+          </div>
+          <div class="form-field full" id="field-timezone">
+            <label for="timezone">Your Timezone</label>
+            <select id="timezone">
+              <option value="Africa/Lusaka">Africa/Lusaka (CAT, UTC+2)</option>
+              <option value="Europe/Moscow">Europe/Moscow (MSK, UTC+3)</option>
+              <option value="Africa/Johannesburg">
+                Africa/Johannesburg (SAST, UTC+2)
+              </option>
+              <option value="Africa/Nairobi">
+                Africa/Nairobi (EAT, UTC+3)
+              </option>
+              <option value="Africa/Lagos">Africa/Lagos (WAT, UTC+1)</option>
+              <option value="Europe/London">Europe/London (GMT/BST)</option>
+              <option value="America/New_York">America/New_York (ET)</option>
+              <option value="America/Los_Angeles">
+                America/Los_Angeles (PT)
+              </option>
+              <option value="Asia/Dubai">Asia/Dubai (GST, UTC+4)</option>
+              <option value="Other">Other — I'll confirm by email</option>
+            </select>
+          </div>
+          <div class="form-field full" id="field-brief">
+            <label for="brief">Brief about your project or question</label>
+            <textarea
+              id="brief"
+              placeholder="Describe what you'd like to discuss — the more detail, the better prepared I'll be…"
+            ></textarea>
+            <span class="error-msg">Please provide a brief description</span>
+          </div>
+          <div class="form-field full">
+            <label for="hearabout">How did you hear about me?</label>
+            <select id="hearabout">
+              <option value="">— Select —</option>
+              <option value="LinkedIn">LinkedIn</option>
+              <option value="Personal website">Personal website</option>
+              <option value="Referral">Referral from a colleague</option>
+              <option value="University">University / Academic network</option>
+              <option value="Social media">Social media</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="btn-row">
+          <button class="btn btn-ghost" id="step2Back">← Back</button>
+          <button class="btn btn-accent" id="step2Next">Choose a Time →</button>
+        </div>
+      </div>
+
+      <!-- Step 3: Schedule -->
+      <div class="panel" id="panel-3">
+        <div class="summary-card">
+          <div class="summary-label">Consultation Summary</div>
+          <div class="summary-row">
+            <span class="summary-key">Service</span
+            ><span class="summary-val" id="sum-service">—</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-key">Duration</span
+            ><span class="summary-val" id="sum-duration">—</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-key">Name</span
+            ><span class="summary-val" id="sum-name">—</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-key">Email</span
+            ><span class="summary-val" id="sum-email">—</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-key">Timezone</span
+            ><span class="summary-val" id="sum-tz">—</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-key">Brief</span
+            ><span
+              class="summary-val"
+              id="sum-brief"
+              style="max-width: 340px; text-align: right"
+              >—</span
+            >
+          </div>
+        </div>
+
+        <div class="ai-box">
+          <div class="ai-label">
+            <div class="ai-dot"></div>
+            Preparation
+          </div>
+          <div class="ai-text" id="aiText">
+            Your consultation details will be shared with Emmanuel when you
+            book. He’ll use your brief to prepare for the conversation.
+          </div>
+        </div>
+        <div class="scheduler-note">
+          Select a time below. Cal.com checks Emmanuel’s connected calendar in
+          real time and sends the confirmation email.
+        </div>
+        <div
+          id="cal-inline"
+          class="cal-embed"
+          aria-label="Live consultation scheduler"
+        ></div>
+        <div class="setup-note" id="setupNote" hidden>
+          Setup required: replace the Cal.com event links in
+          <code>CAL_COM_CONFIG</code> near the end of this file, then reload the
+          page.
+        </div>
+        <div class="btn-row">
+          <button class="btn btn-ghost" id="step3Back">← Edit Details</button>
+        </div>
+      </div>
+
+      <!-- Step 5: Done -->
+      <div class="panel" id="panel-5">
+        <div class="confirm-wrap">
+          <div class="confirm-icon">✅</div>
+          <h2 class="confirm-title">Booking <em>Confirmed</em></h2>
+          <p class="confirm-sub">You're all set · Emmanuel will be in touch</p>
+          <p class="confirm-body" id="confirmBody">
+            Your consultation request has been submitted. A confirmation email
+            is being sent to your inbox. Emmanuel typically responds within
+            24–48 hours to finalise the meeting link and agenda.
+          </p>
+          <div class="confirm-actions">
+            <a href="index.html" class="btn btn-ghost">← Back to Portfolio</a>
+            <button class="btn btn-accent" id="bookAnother">
+              Book Another
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // ── State ──
+      const state = {
+        step: 1,
+        service: null,
+        duration: null,
+        date: null,
+        time: null,
+        calYear: new Date().getFullYear(),
+        calMonth: new Date().getMonth(),
+      };
+
+      // ── Theme ──
+      const themeBtn = document.getElementById("themeBtn");
+
+      let dark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+      function applyTheme() {
+        const r = document.documentElement.style;
+
+        if (dark) {
+          r.setProperty("--bg", "#141210");
+          r.setProperty("--ink", "#f0ece4");
+          r.setProperty("--muted", "#9a9285");
+          r.setProperty("--accent", "#52b788");
+          r.setProperty("--accent-light", "rgba(82,183,136,0.1)");
+          r.setProperty("--line", "rgba(240,236,228,0.11)");
+          r.setProperty("--card", "#1e1c19");
+
+          themeBtn.textContent = "☀️";
+        } else {
+          r.setProperty("--bg", "#f7f5f1");
+          r.setProperty("--ink", "#1c1a17");
+          r.setProperty("--muted", "#7a7265");
+          r.setProperty("--accent", "#2d6a4f");
+          r.setProperty("--accent-light", "rgba(45,106,79,0.08)");
+          r.setProperty("--line", "rgba(28,26,23,0.13)");
+          r.setProperty("--card", "#ffffff");
+
+          themeBtn.textContent = "🌙";
+        }
+      }
+
+      applyTheme();
+
+      themeBtn.addEventListener("click", () => {
+        dark = !dark;
+        applyTheme();
+      });
+
+      // ── Navigation ──
+
+      function goTo(step) {
+        document
+          .querySelectorAll(".panel")
+          .forEach((p) => p.classList.remove("active"));
+
+        document.getElementById("panel-" + step).classList.add("active");
+
+        document.querySelectorAll(".progress-step").forEach((s) => {
+          const n = parseInt(s.dataset.step);
+
+          s.classList.toggle("active", n === step);
+
+          s.classList.toggle("done", n < step);
+        });
+
+        state.step = step;
+
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      }
+
+      // ── Step 1 ──
+
+      document.querySelectorAll(".service-card").forEach((card) => {
+        card.addEventListener("click", () => {
+          document
+            .querySelectorAll(".service-card")
+            .forEach((c) => c.classList.remove("selected"));
+
+          card.classList.add("selected");
+
+          state.service = card.dataset.service;
+
+          state.duration = card.dataset.duration;
+
+          document.getElementById("step1Next").disabled = false;
+        });
+      });
+
+      document.getElementById("step1Next").addEventListener("click", () => {
+        document.getElementById("selected-service").textContent =
+          state.service + " (" + state.duration + ")";
+
+        goTo(2);
+      });
+
+      // Preselect service
+
+      const requestedService = new URLSearchParams(window.location.search).get(
+        "service",
+      );
+
+      if (requestedService) {
+        const requestedCard = [
+          ...document.querySelectorAll(".service-card"),
+        ].find((card) => card.dataset.service === requestedService);
+
+        if (requestedCard) requestedCard.click();
+      }
+
+      // ── Validation ──
+
+      function validateStep3() {
+        let ok = true;
+
+        const checks = [
+          {
+            id: "field-name",
+            val: () => document.getElementById("fname").value.trim(),
+          },
+
+          {
+            id: "field-lname",
+            val: () => document.getElementById("lname").value.trim(),
+          },
+
+          {
+            id: "field-email",
+            val: () =>
+              /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
+                document.getElementById("email").value,
+              ),
+          },
+
+          {
+            id: "field-brief",
+            val: () =>
+              document.getElementById("brief").value.trim().length > 10,
+          },
+        ];
+
+        checks.forEach((c) => {
+          const field = document.getElementById(c.id);
+
+          if (!c.val()) {
+            field.classList.add("field-error");
+
+            ok = false;
+          } else {
+            field.classList.remove("field-error");
+          }
+        });
+
+        return ok;
+      }
+
+      document
+        .getElementById("step2Back")
+        .addEventListener("click", () => goTo(1));
+
+      document.getElementById("step2Next").addEventListener("click", () => {
+        if (!validateStep3()) return;
+
+        fillSummary();
+
+        goTo(3);
+
+        renderLiveScheduler();
+      });
+
+      // ─────────────────────────────
+      // CAL.COM CONFIGURATION
+      // ─────────────────────────────
+
+      const CAL_COM_CONFIG = {
+        "Research & Data Strategy": "sabuniemmanuelc/research-data-strategy",
+
+        "Business Setup": "sabuniemmanuelc/business-setup",
+
+        "Valuation & Traction": "sabuniemmanuelc/valuation-traction",
+
+        "Legacy & Trust Formulation": "sabuniemmanuelc/legacy-trust",
+
+        "Real Estate Investment": "sabuniemmanuelc/real-estate-investment",
+
+        "Taxation Advisory": "sabuniemmanuelc/taxation-advisory",
+      };
+
+      // ── Summary ──
+
+      function fillSummary() {
+        document.getElementById("sum-service").textContent = state.service;
+
+        document.getElementById("sum-duration").textContent = state.duration;
+
+        document.getElementById("sum-name").textContent =
+          document.getElementById("fname").value +
+          " " +
+          document.getElementById("lname").value;
+
+        document.getElementById("sum-email").textContent =
+          document.getElementById("email").value;
+
+        document.getElementById("sum-tz").textContent =
+          document.getElementById("timezone").value;
+
+        const brief = document.getElementById("brief").value.trim();
+
+        document.getElementById("sum-brief").textContent =
+          brief.length > 100 ? brief.slice(0, 100) + "…" : brief;
+      }
+
+      // ─────────────────────────────
+      // LOAD CAL.COM SCRIPT
+      // ─────────────────────────────
+
+      function loadCalScript() {
+        return new Promise((resolve) => {
+          if (window.Cal) {
+            resolve();
+
+            return;
+          }
+
+          const script = document.createElement("script");
+
+          script.src = "https://app.cal.com/embed/embed.js";
+
+          script.async = true;
+
+          script.onload = () => {
+            console.log("Cal.com loaded");
+
+            resolve();
+          };
+
+          document.head.appendChild(script);
+        });
+      }
+
+      async function initialiseCalEmbed() {
+        await loadCalScript();
+
+        if (window.Cal.ns?.["consultation-booking"]) return;
+
+        window.Cal("init", "consultation-booking", {
+          origin: "https://cal.com",
+        });
+      }
+
+      // ─────────────────────────────
+      // RENDER CALENDAR
+      // ─────────────────────────────
+
+      async function renderLiveScheduler() {
+        const calLink = CAL_COM_CONFIG[state.service];
+
+        const target = document.getElementById("cal-inline");
+
+        const setupNote = document.getElementById("setupNote");
+
+        target.innerHTML = "";
+
+        if (!calLink) {
+          setupNote.hidden = false;
+
+          target.style.display = "none";
+
+          return;
+        }
+
+        setupNote.hidden = true;
+
+        target.style.display = "block";
+
+        await initialiseCalEmbed();
+
+        const cal = window.Cal.ns["consultation-booking"];
+
+        if (!cal) {
+          console.error("Cal namespace failed");
+
+          return;
+        }
+
+        cal("inline", {
+          elementOrSelector: "#cal-inline",
+
+          calLink: calLink,
+
+          config: {
+            name: `${fname.value} ${lname.value}`,
+
+            email: email.value,
+
+            "metadata[service]": state.service,
+
+            "metadata[duration]": state.duration,
+
+            "metadata[brief]": brief.value,
+
+            "metadata[organisation]": org.value,
+
+            "metadata[phone]": phone.value,
+
+            "metadata[timezone]": timezone.value,
+          },
+        });
+
+        cal("ui", {
+          hideEventTypeDetails: true,
+
+          showTimezoneWhenEventDetailsHidden: true,
+        });
+      }
+
+      document
+        .getElementById("step3Back")
+        .addEventListener("click", () => goTo(2));
+
+      document.getElementById("bookAnother").addEventListener("click", () => {
+        state.service = null;
+
+        state.duration = null;
+
+        state.date = null;
+
+        state.time = null;
+
+        document
+          .querySelectorAll(".service-card")
+          .forEach((c) => c.classList.remove("selected"));
+
+        document.getElementById("step1Next").disabled = true;
+
+        ["fname", "lname", "email", "phone", "org", "brief"].forEach(
+          (id) => (document.getElementById(id).value = ""),
+        );
+
+        goTo(1);
+      });
+    </script>
+  </body>
 </html>
