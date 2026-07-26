@@ -1005,351 +1005,331 @@
       </div>
     </div>
 
-    <script>
-      // ── State ──
-      const state = {
-        step: 1,
-        service: null,
-        duration: null,
-        date: null,
-        time: null,
-        calYear: new Date().getFullYear(),
-        calMonth: new Date().getMonth(),
-      };
+<script>
+  // ===============================
+  // STATE
+  // ===============================
 
-      // ── Theme ──
-      const themeBtn = document.getElementById("themeBtn");
+  const state = {
+    step: 1,
+    service: null,
+    duration: null,
+    date: null,
+    time: null,
+    calYear: new Date().getFullYear(),
+    calMonth: new Date().getMonth()
+  };
 
-      let dark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  // ===============================
+  // THEME
+  // ===============================
 
-      function applyTheme() {
-        const r = document.documentElement.style;
+  const themeBtn = document.getElementById('themeBtn');
+  let dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-        if (dark) {
-          r.setProperty("--bg", "#141210");
-          r.setProperty("--ink", "#f0ece4");
-          r.setProperty("--muted", "#9a9285");
-          r.setProperty("--accent", "#52b788");
-          r.setProperty("--accent-light", "rgba(82,183,136,0.1)");
-          r.setProperty("--line", "rgba(240,236,228,0.11)");
-          r.setProperty("--card", "#1e1c19");
+  function applyTheme() {
+    const r = document.documentElement.style;
 
-          themeBtn.textContent = "☀️";
-        } else {
-          r.setProperty("--bg", "#f7f5f1");
-          r.setProperty("--ink", "#1c1a17");
-          r.setProperty("--muted", "#7a7265");
-          r.setProperty("--accent", "#2d6a4f");
-          r.setProperty("--accent-light", "rgba(45,106,79,0.08)");
-          r.setProperty("--line", "rgba(28,26,23,0.13)");
-          r.setProperty("--card", "#ffffff");
+    if (dark) {
+      r.setProperty('--bg', '#141210');
+      r.setProperty('--ink', '#f0ece4');
+      r.setProperty('--muted', '#9a9285');
+      r.setProperty('--accent', '#52b788');
+      r.setProperty('--accent-light', 'rgba(82,183,136,0.1)');
+      r.setProperty('--line', 'rgba(240,236,228,0.11)');
+      r.setProperty('--card', '#1e1c19');
+      if (themeBtn) themeBtn.textContent = '☀️';
+    } else {
+      r.setProperty('--bg', '#f7f5f1');
+      r.setProperty('--ink', '#1c1a17');
+      r.setProperty('--muted', '#7a7265');
+      r.setProperty('--accent', '#2d6a4f');
+      r.setProperty('--accent-light', 'rgba(45,106,79,0.08)');
+      r.setProperty('--line', 'rgba(28,26,23,0.13)');
+      r.setProperty('--card', '#ffffff');
+      if (themeBtn) themeBtn.textContent = '🌙';
+    }
+  }
 
-          themeBtn.textContent = "🌙";
-        }
-      }
+  applyTheme();
 
+  if (themeBtn) {
+    themeBtn.addEventListener('click', () => {
+      dark = !dark;
       applyTheme();
+    });
+  }
 
-      themeBtn.addEventListener("click", () => {
-        dark = !dark;
-        applyTheme();
-      });
+  // ===============================
+  // NAVIGATION
+  // ===============================
 
-      // ── Navigation ──
+  function goTo(step) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
 
-      function goTo(step) {
-        document
-          .querySelectorAll(".panel")
-          .forEach((p) => p.classList.remove("active"));
+    const panel = document.getElementById('panel-' + step);
+    if (panel) panel.classList.add('active');
 
-        document.getElementById("panel-" + step).classList.add("active");
+    document.querySelectorAll('.progress-step').forEach(s => {
+      const n = parseInt(s.dataset.step);
+      s.classList.toggle('active', n === step);
+      s.classList.toggle('done', n < step);
+    });
 
-        document.querySelectorAll(".progress-step").forEach((s) => {
-          const n = parseInt(s.dataset.step);
+    state.step = step;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 
-          s.classList.toggle("active", n === step);
+  // ===============================
+  // STEP 1
+  // ===============================
 
-          s.classList.toggle("done", n < step);
-        });
+  document.querySelectorAll('.service-card').forEach(card => {
+    card.addEventListener('click', () => {
+      document.querySelectorAll('.service-card').forEach(c => c.classList.remove('selected'));
 
-        state.step = step;
+      card.classList.add('selected');
+      state.service = card.dataset.service;
+      state.duration = card.dataset.duration;
 
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth",
-        });
+      document.getElementById('step1Next').disabled = false;
+    });
+  });
+
+  document.getElementById('step1Next').addEventListener('click', () => {
+    document.getElementById('selected-service').textContent =
+      `${state.service} (${state.duration})`;
+
+    goTo(2);
+  });
+
+  // ===============================
+  // URL SERVICE PRESELECT
+  // ===============================
+
+  const requestedService = new URLSearchParams(window.location.search).get('service');
+
+  if (requestedService) {
+    const card = [...document.querySelectorAll('.service-card')]
+      .find(c => c.dataset.service === requestedService);
+
+    if (card) card.click();
+  }
+
+  // ===============================
+  // VALIDATION
+  // ===============================
+
+  function validateStep3() {
+    let ok = true;
+
+    const checks = [
+      { id: 'field-name', test: () => fname.value.trim() },
+      { id: 'field-lname', test: () => lname.value.trim() },
+      { id: 'field-email', test: () => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value) },
+      { id: 'field-brief', test: () => brief.value.trim().length > 10 }
+    ];
+
+    checks.forEach(c => {
+      const el = document.getElementById(c.id);
+
+      if (!c.test()) {
+        el.classList.add('field-error');
+        ok = false;
+      } else {
+        el.classList.remove('field-error');
+      }
+    });
+
+    return ok;
+  }
+
+  document.getElementById('step2Back').addEventListener('click', () => goTo(1));
+
+  document.getElementById('step2Next').addEventListener('click', async () => {
+    if (!validateStep3()) return;
+
+    fillSummary();
+    goTo(3);
+
+    await renderLiveScheduler();
+  });
+
+  // ===============================
+  // CAL.COM EVENTS
+  // ===============================
+
+  const CAL_COM_CONFIG = {
+    "Research & Data Strategy": "sabuniemmanuelc/research-data-strategy",
+    "Business Setup": "sabuniemmanuelc/business-setup",
+    "Valuation & Traction": "sabuniemmanuelc/valuation-traction",
+    "Legacy & Trust Formulation": "sabuniemmanuelc/legacy-trust",
+    "Real Estate Investment": "sabuniemmanuelc/real-estate-investment",
+    "Taxation Advisory": "sabuniemmanuelc/taxation-advisory"
+  };
+
+  // ===============================
+  // SUMMARY
+  // ===============================
+
+  function fillSummary() {
+    document.getElementById('sum-service').textContent = state.service;
+    document.getElementById('sum-duration').textContent = state.duration;
+    document.getElementById('sum-name').textContent = `${fname.value} ${lname.value}`;
+    document.getElementById('sum-email').textContent = email.value;
+    document.getElementById('sum-tz').textContent = timezone.value;
+
+    const text = brief.value.trim();
+    document.getElementById('sum-brief').textContent =
+      text.length > 100 ? text.substring(0, 100) + "..." : text;
+  }
+
+  // ===============================
+  // CAL.COM INITIALIZER
+  // ===============================
+
+  function initialiseCalEmbed() {
+    return new Promise(resolve => {
+      if (window.Cal && window.Cal.ns && window.Cal.ns['consultation-booking']) {
+        resolve();
+        return;
       }
 
-      // ── Step 1 ──
+      (function (C, A, L) {
+        const p = function (a, ar) {
+          a.q.push(ar);
+        };
+        const d = C.document;
 
-      document.querySelectorAll(".service-card").forEach((card) => {
-        card.addEventListener("click", () => {
-          document
-            .querySelectorAll(".service-card")
-            .forEach((c) => c.classList.remove("selected"));
+        C.Cal = C.Cal || function () {
+          const cal = C.Cal;
+          const args = arguments;
 
-          card.classList.add("selected");
+          if (!cal.loaded) {
+            cal.ns = {};
+            cal.q = [];
 
-          state.service = card.dataset.service;
+            const script = d.createElement('script');
+            script.src = A;
+            script.async = true;
+            d.head.appendChild(script);
 
-          state.duration = card.dataset.duration;
-
-          document.getElementById("step1Next").disabled = false;
-        });
-      });
-
-      document.getElementById("step1Next").addEventListener("click", () => {
-        document.getElementById("selected-service").textContent =
-          state.service + " (" + state.duration + ")";
-
-        goTo(2);
-      });
-
-      // Preselect service
-
-      const requestedService = new URLSearchParams(window.location.search).get(
-        "service",
-      );
-
-      if (requestedService) {
-        const requestedCard = [
-          ...document.querySelectorAll(".service-card"),
-        ].find((card) => card.dataset.service === requestedService);
-
-        if (requestedCard) requestedCard.click();
-      }
-
-      // ── Validation ──
-
-      function validateStep3() {
-        let ok = true;
-
-        const checks = [
-          {
-            id: "field-name",
-            val: () => document.getElementById("fname").value.trim(),
-          },
-
-          {
-            id: "field-lname",
-            val: () => document.getElementById("lname").value.trim(),
-          },
-
-          {
-            id: "field-email",
-            val: () =>
-              /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
-                document.getElementById("email").value,
-              ),
-          },
-
-          {
-            id: "field-brief",
-            val: () =>
-              document.getElementById("brief").value.trim().length > 10,
-          },
-        ];
-
-        checks.forEach((c) => {
-          const field = document.getElementById(c.id);
-
-          if (!c.val()) {
-            field.classList.add("field-error");
-
-            ok = false;
-          } else {
-            field.classList.remove("field-error");
+            cal.loaded = true;
           }
-        });
 
-        return ok;
-      }
+          if (args[0] === L) {
+            const api = function () {
+              p(api, arguments);
+            };
+            api.q = [];
 
-      document
-        .getElementById("step2Back")
-        .addEventListener("click", () => goTo(1));
+            const namespace = args[1];
+            cal.ns[namespace] = cal.ns[namespace] || api;
 
-      document.getElementById("step2Next").addEventListener("click", () => {
-        if (!validateStep3()) return;
-
-        fillSummary();
-
-        goTo(3);
-
-        renderLiveScheduler();
-      });
-
-      // ─────────────────────────────
-      // CAL.COM CONFIGURATION
-      // ─────────────────────────────
-
-      const CAL_COM_CONFIG = {
-        "Research & Data Strategy": "sabuniemmanuelc/research-data-strategy",
-
-        "Business Setup": "sabuniemmanuelc/business-setup",
-
-        "Valuation & Traction": "sabuniemmanuelc/valuation-traction",
-
-        "Legacy & Trust Formulation": "sabuniemmanuelc/legacy-trust",
-
-        "Real Estate Investment": "sabuniemmanuelc/real-estate-investment",
-
-        "Taxation Advisory": "sabuniemmanuelc/taxation-advisory",
-      };
-
-      // ── Summary ──
-
-      function fillSummary() {
-        document.getElementById("sum-service").textContent = state.service;
-
-        document.getElementById("sum-duration").textContent = state.duration;
-
-        document.getElementById("sum-name").textContent =
-          document.getElementById("fname").value +
-          " " +
-          document.getElementById("lname").value;
-
-        document.getElementById("sum-email").textContent =
-          document.getElementById("email").value;
-
-        document.getElementById("sum-tz").textContent =
-          document.getElementById("timezone").value;
-
-        const brief = document.getElementById("brief").value.trim();
-
-        document.getElementById("sum-brief").textContent =
-          brief.length > 100 ? brief.slice(0, 100) + "…" : brief;
-      }
-
-      // ─────────────────────────────
-      // LOAD CAL.COM SCRIPT
-      // ─────────────────────────────
-
-      function loadCalScript() {
-        return new Promise((resolve) => {
-          if (window.Cal) {
-            resolve();
+            p(cal.ns[namespace], args);
+            p(cal, ["initNamespace", namespace]);
 
             return;
           }
 
-          const script = document.createElement("script");
+          p(cal, args);
+        };
+      })(window, "https://app.cal.com/embed/embed.js", "init");
 
-          script.src = "https://app.cal.com/embed/embed.js";
-
-          script.async = true;
-
-          script.onload = () => {
-            console.log("Cal.com loaded");
-
-            resolve();
-          };
-
-          document.head.appendChild(script);
-        });
-      }
-
-      async function initialiseCalEmbed() {
-        await loadCalScript();
-
-        if (window.Cal.ns?.["consultation-booking"]) return;
-
-        window.Cal("init", "consultation-booking", {
-          origin: "https://cal.com",
-        });
-      }
-
-      // ─────────────────────────────
-      // RENDER CALENDAR
-      // ─────────────────────────────
-
-      async function renderLiveScheduler() {
-        const calLink = CAL_COM_CONFIG[state.service];
-
-        const target = document.getElementById("cal-inline");
-
-        const setupNote = document.getElementById("setupNote");
-
-        target.innerHTML = "";
-
-        if (!calLink) {
-          setupNote.hidden = false;
-
-          target.style.display = "none";
-
-          return;
-        }
-
-        setupNote.hidden = true;
-
-        target.style.display = "block";
-
-        await initialiseCalEmbed();
-
-        const cal = window.Cal.ns["consultation-booking"];
-
-        if (!cal) {
-          console.error("Cal namespace failed");
-
-          return;
-        }
-
-        cal("inline", {
-          elementOrSelector: "#cal-inline",
-
-          calLink: calLink,
-
-          config: {
-            name: `${fname.value} ${lname.value}`,
-
-            email: email.value,
-
-            "metadata[service]": state.service,
-
-            "metadata[duration]": state.duration,
-
-            "metadata[brief]": brief.value,
-
-            "metadata[organisation]": org.value,
-
-            "metadata[phone]": phone.value,
-
-            "metadata[timezone]": timezone.value,
-          },
-        });
-
-        cal("ui", {
-          hideEventTypeDetails: true,
-
-          showTimezoneWhenEventDetailsHidden: true,
-        });
-      }
-
-      document
-        .getElementById("step3Back")
-        .addEventListener("click", () => goTo(2));
-
-      document.getElementById("bookAnother").addEventListener("click", () => {
-        state.service = null;
-
-        state.duration = null;
-
-        state.date = null;
-
-        state.time = null;
-
-        document
-          .querySelectorAll(".service-card")
-          .forEach((c) => c.classList.remove("selected"));
-
-        document.getElementById("step1Next").disabled = true;
-
-        ["fname", "lname", "email", "phone", "org", "brief"].forEach(
-          (id) => (document.getElementById(id).value = ""),
-        );
-
-        goTo(1);
+      window.Cal("init", "consultation-booking", {
+        origin: "https://cal.com"
       });
-    </script>
+
+      let count = 0;
+
+      const check = setInterval(() => {
+        count++;
+
+        if (window.Cal && window.Cal.ns && window.Cal.ns['consultation-booking']) {
+          clearInterval(check);
+          resolve();
+        }
+
+        if (count > 50) {
+          clearInterval(check);
+          console.error("Cal.com failed loading");
+        }
+      }, 100);
+    });
+  }
+
+  // ===============================
+  // RENDER CALENDAR
+  // ===============================
+
+  async function renderLiveScheduler() {
+    const calLink = CAL_COM_CONFIG[state.service];
+    const target = document.getElementById('cal-inline');
+    const setupNote = document.getElementById('setupNote');
+
+    target.innerHTML = "";
+
+    if (!calLink) {
+      setupNote.hidden = false;
+      target.style.display = 'none';
+      return;
+    }
+
+    setupNote.hidden = true;
+    target.style.display = 'block';
+
+    await initialiseCalEmbed();
+
+    const cal = window.Cal.ns['consultation-booking'];
+
+    if (!cal) {
+      console.error("Cal namespace unavailable");
+      return;
+    }
+
+    cal("inline", {
+      elementOrSelector: "#cal-inline",
+      calLink: calLink,
+      config: {
+        name: `${fname.value} ${lname.value}`,
+        email: email.value,
+        "metadata[service]": state.service,
+        "metadata[duration]": state.duration,
+        "metadata[brief]": brief.value.trim(),
+        "metadata[organisation]": org.value.trim(),
+        "metadata[phone]": phone.value.trim(),
+        "metadata[timezone]": timezone.value
+      }
+    });
+
+    cal("ui", {
+      hideEventTypeDetails: true,
+      showTimezoneWhenEventDetailsHidden: true
+    });
+  }
+
+  // ===============================
+  // BACK / RESET
+  // ===============================
+
+  document.getElementById('step3Back').addEventListener('click', () => goTo(2));
+
+  document.getElementById('bookAnother').addEventListener('click', () => {
+    state.service = null;
+    state.duration = null;
+
+    document.querySelectorAll('.service-card').forEach(c => c.classList.remove('selected'));
+
+    step1Next.disabled = true;
+
+    ['fname', 'lname', 'email', 'phone', 'org', 'brief'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = "";
+    });
+
+    goTo(1);
+  });
+</script>
+
   </body>
 </html>
