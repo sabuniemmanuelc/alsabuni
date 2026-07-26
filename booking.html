@@ -1195,45 +1195,44 @@
         return;
       }
 
+      // NOTE: this is Cal.com's official embed snippet, left intentionally
+      // unminified but otherwise UNCHANGED in structure/behavior. Cal.com's
+      // loader script (embed.js) calls back into this exact `Cal` function
+      // once it finishes loading, so refactoring its internals breaks that
+      // callback and throws "Cal is not defined".
       (function (C, A, L) {
-        const p = function (a, ar) {
-          a.q.push(ar);
-        };
-        const d = C.document;
-
-        C.Cal = C.Cal || function () {
-          const cal = C.Cal;
-          const args = arguments;
-
-          if (!cal.loaded) {
-            cal.ns = {};
-            cal.q = [];
-
-            const script = d.createElement('script');
-            script.src = A;
-            script.async = true;
-            d.head.appendChild(script);
-
-            cal.loaded = true;
-          }
-
-          if (args[0] === L) {
-            const api = function () {
-              p(api, arguments);
-            };
-            api.q = [];
-
-            const namespace = args[1];
-            cal.ns[namespace] = cal.ns[namespace] || api;
-
-            p(cal.ns[namespace], args);
-            p(cal, ["initNamespace", namespace]);
-
-            return;
-          }
-
-          p(cal, args);
-        };
+        let p = function (a, ar) { a.q.push(ar); };
+        let d = C.document;
+        C.Cal =
+          C.Cal ||
+          function () {
+            let cal = C.Cal;
+            let ar = arguments;
+            if (!cal.loaded) {
+              cal.ns = {};
+              cal.q = [];
+              let script = d.createElement("script");
+              script.src = A;
+              d.head.appendChild(script);
+              cal.loaded = true;
+            }
+            if (ar[0] === L) {
+              const api = function () {
+                p(api, arguments);
+              };
+              const namespace = ar[1];
+              api.q = api.q || [];
+              if (typeof namespace === "string") {
+                cal.ns[namespace] = cal.ns[namespace] || api;
+                p(cal.ns[namespace], ar);
+                p(cal, ["initNamespace", namespace]);
+              } else {
+                p(cal, ar);
+              }
+              return;
+            }
+            p(cal, ar);
+          };
       })(window, "https://app.cal.com/embed/embed.js", "init");
 
       window.Cal("init", "consultation-booking", {
@@ -1253,6 +1252,7 @@
         if (count > 50) {
           clearInterval(check);
           console.error("Cal.com failed loading");
+          resolve(); // don't hang forever — renderLiveScheduler handles the missing namespace
         }
       }, 100);
     });
@@ -1280,10 +1280,12 @@
 
     await initialiseCalEmbed();
 
-    const cal = window.Cal.ns['consultation-booking'];
+    const cal = window.Cal && window.Cal.ns && window.Cal.ns['consultation-booking'];
 
     if (!cal) {
-      console.error("Cal namespace unavailable");
+      console.error("Cal namespace unavailable — embed.js may have failed to load");
+      setupNote.hidden = false;
+      target.style.display = 'none';
       return;
     }
 
@@ -1330,6 +1332,7 @@
     goTo(1);
   });
 </script>
+
 
   </body>
 </html>
