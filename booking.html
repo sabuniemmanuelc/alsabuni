@@ -974,6 +974,17 @@
           class="cal-embed"
           aria-label="Live consultation scheduler"
         ></div>
+
+        <!-- Shown once Cal.com confirms the booking -->
+        <div
+          id="postBookingActions"
+          class="btn-row"
+          style="justify-content: center; margin-top: 1.5rem"
+          hidden
+        >
+          <a href="index.html" class="btn btn-accent">← Back to Portfolio</a>
+        </div>
+
         <div class="setup-note" id="setupNote" hidden>
           Setup required: replace the Cal.com event links in
           <code>CAL_COM_CONFIG</code> near the end of this file, then reload the
@@ -1266,8 +1277,10 @@
     const calLink = CAL_COM_CONFIG[state.service];
     const target = document.getElementById('cal-inline');
     const setupNote = document.getElementById('setupNote');
+    const postBooking = document.getElementById('postBookingActions');
 
     target.innerHTML = "";
+    if (postBooking) postBooking.hidden = true;
 
     if (!calLink) {
       setupNote.hidden = false;
@@ -1307,6 +1320,16 @@
     cal("ui", {
       hideEventTypeDetails: true,
       showTimezoneWhenEventDetailsHidden: true
+    });
+
+    // Show a "Back to Portfolio" action once Cal.com confirms the booking.
+    // Cal fires "bookingSuccessful" on its own namespace after the embed
+    // finishes scheduling — we don't touch their iframe, just react to it.
+    cal("on", {
+      action: "bookingSuccessful",
+      callback: () => {
+        if (postBooking) postBooking.hidden = false;
+      }
     });
   }
 
