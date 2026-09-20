@@ -25,6 +25,7 @@
   --font-mono:'IBM Plex Mono',monospace;
   color-scheme: dark;
 }
+
 :root[data-theme="light"]{
   --bg:#F6F8FB;
   --bg-2:#FFFFFF;
