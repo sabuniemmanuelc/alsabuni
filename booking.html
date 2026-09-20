@@ -172,14 +172,14 @@
         <div class="prep-note" data-i18n="prep_note">Your consultation details will be shared with Emmanuel when you book. He'll use your brief to prepare for the conversation.</div>
       </div>
       <div>
-        <div class="slots-note" data-i18n="slots_note">Select a time below. Once connected to a live calendar, this step checks real-time availability and sends a confirmation email automatically.</div>
-        <div class="day-tabs" id="dayTabs"></div>
-        <div class="slot-grid" id="slotGrid"></div>
+        <div class="slots-note" data-i18n="slots_note">Select a time below — this checks Emmanuel's calendar in real time and sends the confirmation email automatically.</div>
+        <div id="cal-inline" class="cal-embed" aria-label="Live consultation scheduler"></div>
+        <div class="cal-setup-note" id="calSetupNote" data-i18n="cal_setup_note" hidden>The live calendar isn't available in this preview environment — it will load correctly once this page is deployed to its own domain.</div>
       </div>
     </div>
     <div class="step-actions">
       <button class="btn btn-outline" id="toStep2b" type="button" data-i18n="btn_edit_details">← Edit details</button>
-      <button class="btn btn-primary" id="confirmBooking" disabled type="button" data-i18n="btn_confirm_booking">Confirm booking →</button>
+      <span></span>
     </div>
   </div>
 
@@ -207,7 +207,7 @@
 <footer>
   <div class="wrap footer-inner">
     <span class="footer-copy">© 2026 Emmanuel Sabuni</span>
-    <span class="footer-copy" data-i18n="footer_note">Scheduling shown here is illustrative — connect a live calendar (e.g. Cal.com) when this page is deployed.</span>
+    <span class="footer-copy" data-i18n="footer_note">Scheduling is powered by Cal.com and checks real-time availability once this page is live on its own domain.</span>
   </div>
 </footer>
 
