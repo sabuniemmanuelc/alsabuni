@@ -221,3 +221,22 @@ footer{border-top:1px solid var(--border);padding:28px 0;}
   font-family:'Noto Sans Arabic', var(--font-display);
 }
 .rtl-lang .field-error{text-align:right;}
+
+/* ---------- CAL.COM EMBED ---------- */
+.cal-embed{
+  min-height:650px;
+  border:1px solid var(--border);
+  border-radius:var(--radius-m);
+  background:var(--bg-2);
+  overflow:hidden;
+}
+.cal-setup-note{
+  font-family:var(--font-mono);
+  font-size:12px;
+  line-height:1.7;
+  color:var(--text-3);
+  border:1px dashed var(--border-strong);
+  border-radius:var(--radius-m);
+  padding:16px;
+  margin-top:14px;
+}
