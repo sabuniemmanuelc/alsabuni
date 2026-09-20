@@ -4,13 +4,21 @@
   var stored = null;
   try{ stored = window.localStorage.getItem('theme'); }catch(e){}
   if(stored === 'light' || stored === 'dark'){ root.setAttribute('data-theme', stored); }
-  toggle.addEventListener('click', function(){
-    var current = root.getAttribute('data-theme');
+
+  function currentThemeName(){
+    var explicit = root.getAttribute('data-theme');
+    if(explicit === 'light' || explicit === 'dark') return explicit;
     var prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
-    var effectiveCurrent = current || (prefersLight ? 'light' : 'dark');
-    var next = effectiveCurrent === 'dark' ? 'light' : 'dark';
+    return prefersLight ? 'light' : 'dark';
+  }
+
+  toggle.addEventListener('click', function(){
+    var next = currentThemeName() === 'dark' ? 'light' : 'dark';
     root.setAttribute('data-theme', next);
     try{ window.localStorage.setItem('theme', next); }catch(e){}
+    // Cal.com's inline embed supports live theme updates via the same "ui" call.
+    var cal = window.Cal && window.Cal.ns && window.Cal.ns['consultation-booking'];
+    if(cal){ cal('ui', { theme: next }); }
   });
 
   // Translation helper: falls back to raw key if i18n manager or key is unavailable.
@@ -19,7 +27,7 @@
     return key;
   }
 
-  var state = { serviceId:null, icon:null, durationKey:null, firstName:'', lastName:'', email:'', phone:'', org:'', timezone:'', brief:'', hearAbout:'', day:null, time:null, confirmed:false };
+  var state = { serviceId:null, icon:null, durationKey:null, firstName:'', lastName:'', email:'', phone:'', org:'', timezone:'', brief:'', hearAbout:'', confirmed:false, confirmedWhen:'' };
 
   var params = new URLSearchParams(window.location.search);
   var preselect = params.get('service');
@@ -73,6 +81,8 @@
     if(state.confirmed){
       var cfService = document.getElementById('cf-service');
       if(cfService){ cfService.textContent = serviceLabel; }
+      var cfWhen = document.getElementById('cf-when');
+      if(cfWhen){ cfWhen.textContent = state.confirmedWhen || t('confirm_when_fallback'); }
     }
   }
   window.onLanguageChange = refreshDynamicText;
@@ -118,73 +128,160 @@
     document.getElementById('sumTimezone').textContent = state.timezone;
     document.getElementById('sumBrief').textContent = state.brief.length > 60 ? state.brief.slice(0,60)+'…' : state.brief;
 
-    buildSchedule();
     setStep(3);
+    renderLiveScheduler();
   });
 
-  var days = ['Mon 22', 'Tue 23', 'Wed 24', 'Thu 25', 'Fri 26'];
-  var slotsByDay = {
-    'Mon 22': ['9:00 AM','11:30 AM','2:00 PM'],
-    'Tue 23': ['10:00 AM','1:00 PM','3:30 PM'],
-    'Wed 24': ['9:30 AM','12:00 PM'],
-    'Thu 25': ['10:30 AM','1:30 PM','4:00 PM'],
-    'Fri 26': ['9:00 AM','11:00 AM']
+  // ===============================
+  // CAL.COM INTEGRATION
+  // Real event-type slugs for sabuniemmanuelc's Cal.com account.
+  // ===============================
+  var CAL_COM_CONFIG = {
+    "research":    "sabuniemmanuelc/research-data-strategy",
+    "business":    "sabuniemmanuelc/business-setup",
+    "valuation":   "sabuniemmanuelc/valuation-traction",
+    "legacy":      "sabuniemmanuelc/legacy-trust",
+    "realestate":  "sabuniemmanuelc/real-estate-investment",
+    "tax":         "sabuniemmanuelc/taxation-advisory"
   };
 
-  function buildSchedule(){
-    var dayTabs = document.getElementById('dayTabs');
-    dayTabs.innerHTML = '';
-    days.forEach(function(d, i){
-      var btn = document.createElement('button');
-      btn.className = 'day-tab' + (i === 0 ? ' active' : '');
-      btn.type = 'button';
-      btn.textContent = d;
-      btn.addEventListener('click', function(){
-        dayTabs.querySelectorAll('.day-tab').forEach(function(t){ t.classList.remove('active'); });
-        btn.classList.add('active');
-        state.day = d; state.time = null;
-        document.getElementById('confirmBooking').disabled = true;
-        renderSlots(d);
-      });
-      dayTabs.appendChild(btn);
+  function initialiseCalEmbed(){
+    return new Promise(function(resolve){
+      if(window.Cal && window.Cal.ns && window.Cal.ns['consultation-booking']){
+        resolve(true);
+        return;
+      }
+
+      // Cal.com's official embed snippet, left structurally unchanged since their
+      // loader (embed.js) calls back into this exact `Cal` function once it loads.
+      (function (C, A, L) {
+        var p = function (a, ar) { a.q.push(ar); };
+        var d = C.document;
+        C.Cal = C.Cal || function () {
+          var cal = C.Cal;
+          var ar = arguments;
+          if (!cal.loaded) {
+            cal.ns = {};
+            cal.q = [];
+            var script = d.createElement("script");
+            script.src = A;
+            script.onerror = function(){ /* handled by the polling timeout below */ };
+            d.head.appendChild(script);
+            cal.loaded = true;
+          }
+          if (ar[0] === L) {
+            var api = function () { p(api, arguments); };
+            var namespace = ar[1];
+            api.q = api.q || [];
+            if (typeof namespace === "string") {
+              cal.ns[namespace] = cal.ns[namespace] || api;
+              p(cal.ns[namespace], ar);
+              p(cal, ["initNamespace", namespace]);
+            } else {
+              p(cal, ar);
+            }
+            return;
+          }
+          p(cal, ar);
+        };
+      })(window, "https://app.cal.com/embed/embed.js", "init");
+
+      window.Cal("init", "consultation-booking", { origin: "https://cal.com" });
+
+      var count = 0;
+      var check = setInterval(function(){
+        count++;
+        if(window.Cal && window.Cal.ns && window.Cal.ns['consultation-booking']){
+          clearInterval(check);
+          resolve(true);
+        }
+        if(count > 50){
+          clearInterval(check);
+          resolve(false); // script blocked or failed to load — renderLiveScheduler shows the fallback note
+        }
+      }, 100);
     });
-    state.day = days[0];
-    renderSlots(days[0]);
   }
 
-  function renderSlots(day){
-    var grid = document.getElementById('slotGrid');
-    grid.innerHTML = '';
-    slotsByDay[day].forEach(function(tm){
-      var b = document.createElement('button');
-      b.className = 'slot-btn';
-      b.type = 'button';
-      b.textContent = tm;
-      b.addEventListener('click', function(){
-        grid.querySelectorAll('.slot-btn').forEach(function(s){ s.classList.remove('selected'); });
-        b.classList.add('selected');
-        state.time = tm;
-        document.getElementById('confirmBooking').disabled = false;
+  function renderLiveScheduler(){
+    var calLink = CAL_COM_CONFIG[state.serviceId];
+    var target = document.getElementById('cal-inline');
+    var setupNote = document.getElementById('calSetupNote');
+
+    target.innerHTML = '';
+
+    if(!calLink){
+      setupNote.hidden = false;
+      target.style.display = 'none';
+      return;
+    }
+
+    setupNote.hidden = true;
+    target.style.display = 'block';
+
+    initialiseCalEmbed().then(function(loaded){
+      var cal = window.Cal && window.Cal.ns && window.Cal.ns['consultation-booking'];
+
+      if(!loaded || !cal){
+        setupNote.hidden = false;
+        target.style.display = 'none';
+        return;
+      }
+
+      cal("inline", {
+        elementOrSelector: "#cal-inline",
+        calLink: calLink,
+        config: {
+          name: state.firstName + ' ' + state.lastName,
+          email: state.email,
+          theme: currentThemeName(),
+          "metadata[service]": t('svc_' + state.serviceId + '_title'),
+          "metadata[duration]": t(state.durationKey),
+          "metadata[brief]": state.brief,
+          "metadata[organisation]": state.org,
+          "metadata[phone]": state.phone,
+          "metadata[timezone]": state.timezone,
+          "metadata[hearAbout]": state.hearAbout
+        }
       });
-      grid.appendChild(b);
+
+      cal("ui", {
+        theme: currentThemeName(),
+        hideEventTypeDetails: true,
+        showTimezoneWhenEventDetailsHidden: true
+      });
+
+      cal("on", {
+        action: "bookingSuccessful",
+        callback: function(e){
+          try{
+            var payload = e && e.detail && e.detail.data;
+            if(payload && payload.startTime){
+              var d = new Date(payload.startTime);
+              state.confirmedWhen = d.toLocaleString(undefined, { weekday:'short', month:'short', day:'numeric', hour:'numeric', minute:'2-digit' });
+            }
+          }catch(err){ /* fall back to the generic confirmation message */ }
+
+          state.confirmed = true;
+          document.getElementById('cf-service').textContent = state.icon + ' ' + t('svc_' + state.serviceId + '_title');
+          document.getElementById('cf-when').textContent = state.confirmedWhen || t('confirm_when_fallback');
+          document.getElementById('cf-name').textContent = state.firstName+' '+state.lastName;
+          document.getElementById('cf-email').textContent = state.email;
+          setStep(4);
+        }
+      });
     });
   }
-
-  document.getElementById('confirmBooking').addEventListener('click', function(){
-    state.confirmed = true;
-    document.getElementById('cf-service').textContent = state.icon + ' ' + t('svc_' + state.serviceId + '_title');
-    document.getElementById('cf-when').textContent = state.day+', '+state.time+' ('+state.timezone.split(' ')[0]+')';
-    document.getElementById('cf-name').textContent = state.firstName+' '+state.lastName;
-    document.getElementById('cf-email').textContent = state.email;
-    setStep(4);
-  });
 
   document.getElementById('bookAnother').addEventListener('click', function(){
     document.getElementById('detailsForm').reset();
     cards.forEach(function(c){ c.classList.remove('selected'); });
     document.getElementById('toStep2').disabled = true;
     document.querySelectorAll('.field').forEach(function(f){ f.classList.remove('invalid'); });
-    state = { serviceId:null, icon:null, durationKey:null, firstName:'', lastName:'', email:'', phone:'', org:'', timezone:'', brief:'', hearAbout:'', day:null, time:null, confirmed:false };
+    var cal = window.Cal && window.Cal.ns && window.Cal.ns['consultation-booking'];
+    var target = document.getElementById('cal-inline');
+    if(target){ target.innerHTML = ''; }
+    state = { serviceId:null, icon:null, durationKey:null, firstName:'', lastName:'', email:'', phone:'', org:'', timezone:'', brief:'', hearAbout:'', confirmed:false, confirmedWhen:'' };
     setStep(1);
   });
 })();
