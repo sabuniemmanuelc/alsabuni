@@ -134,15 +134,13 @@
 
   // ===============================
   // CAL.COM INTEGRATION
-  // Real event-type slugs for sabuniemmanuelc's Cal.com account.
+  // Event-type slugs for sabuniemmanuelc's Cal.com account.
   // ===============================
   var CAL_COM_CONFIG = {
-    "research":    "sabuniemmanuelc/research-data-strategy",
-    "business":    "sabuniemmanuelc/business-setup",
-    "valuation":   "sabuniemmanuelc/valuation-traction",
-    "legacy":      "sabuniemmanuelc/legacy-trust",
-    "realestate":  "sabuniemmanuelc/real-estate-investment",
-    "tax":         "sabuniemmanuelc/taxation-advisory"
+    "research":    "sabuniemmanuelc/research",
+    "business":    "sabuniemmanuelc/business",
+    "finance":     "sabuniemmanuelc/finance",
+    "sustainable": "sabuniemmanuelc/sustainable"
   };
 
   function initialiseCalEmbed(){
